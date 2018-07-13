@@ -1,0 +1,629 @@
+*
+	box-sizing: border-box
+	border: 0
+	padding: 0
+	margin: 0
+	outline: 0
+	-webkit-font-smoothing: antialiased
+
+html
+	font-size: 10px
+
+a
+	color: inherit
+	text-decoration: none
+
+img
+	width: 100%
+	max-width: 100%
+	
+$font-primary = 'Open Sans', Tahoma, Geneva, sans-serif
+$font-secondary = 'Montserrat', arial, sans-serif
+
+$color-text = #222
+$color-bg = #fff
+
+$max-width-content = 1200px
+
+$width-teaser = 350px
+
+body
+	background: $color-bg
+	background: #f2f2f2
+	color: $color-text
+	font-family: $font-primary
+	font-size: 1.8rem
+
+.post-content-and-feedback,
+.page
+	padding: 0 1em
+	margin: 0 auto
+	max-width: $max-width-content
+
+.post-body-and-feedback
+	background-color: #fff
+	padding: 40px
+	padding-bottom: 15px
+	font-size: 18px
+	border-radius: 5px
+	color: #444
+	margin-bottom: 1em
+
+.post-avatar
+	display: inline-block
+	background-image: url("/uploads/image1.jpg")
+	border-radius: 100%
+	background-size: 80px
+	width: 80px
+	height: 80px
+	vertical-align: middle
+	margin-right: 24px
+
+.post-header
+	color: #313131
+	font-weight: bold
+
+.post-meta
+	display: inline-block
+	vertical-align: middle
+
+.inline-desktop
+	display: inline-block
+
+.reading-time
+	margin-bottom: 1em
+	margin-top: 1em
+	height: 30px
+
+.letter-body
+	background-color: #fff
+	padding: 40px
+	border-radius: 5px
+
+h1
+	font-size: 2.5em
+	line-height: 1.2em
+	margin: 1em 0 0.5em
+h2
+	font-size: 2em
+	line-height: 1.4em
+	margin: 1.5em 0 0.5em
+h3
+	font-size: 1.6em
+	line-height: 1.4em
+	margin: 1em 0 0.5em
+h4
+	font-size: 1.3em
+	line-height: 1.4em
+	margin: 1.5em 0 0.5em
+
+h5
+	font-size: 1.1em
+	font-weight: bold
+	line-height: 1.4em
+	margin: 1.5em 0 0.5em
+
+div
+	line-height: 1.75em
+	font-weight: 400
+	font-style: normal
+
+	a:not(.button):not(.no-border)
+		border-bottom: 2px solid $color-text
+
+p
+	margin-bottom: 1.7em
+	line-height: 1.75em
+	font-weight: 400
+	font-style: normal
+
+	a:not(.button):not(.no-border)
+		border-bottom: 2px solid $color-text
+
+figcaption
+	text-align: center
+	font-size: 14px
+	line-height: 1.6em
+
+.no-border
+	a
+		border-bottom: 0 !important
+
+.block
+	display: block
+		
+ul,
+ol
+	margin-left: 1.5em
+	margin-bottom: 1.25em
+	li
+			line-height: 1.75em
+			font-weight: 400
+			font-style: normal
+
+input
+	display: block
+	padding: 0.75em 1em
+	border: 2px solid grey
+	border-radius: 3px
+	margin: 0.5em 0
+	font-size: 16px
+	color: $color-text
+	font-family: $font-primary
+
+label
+	font-size: 16px
+	color: $color-text
+	font-family: $font-primary
+
+.intro
+	max-width: 800px
+	margin-right: auto
+	margin-left: auto
+	padding: 0 1em
+	h1
+		font-size: 1.6em
+		line-height: 1.2em
+		margin: 1em 0 0.5em
+
+.hello-friend
+	margin-bottom: 0.4em
+
+.subscribe-button
+	padding: 1em
+	background-color: #2980B9
+
+.side-img
+	max-width: 300px
+
+.likes
+	display: inline-block
+	vertical-align: middle
+
+.align-middle
+	display: inline-block
+	vertical-align: middle
+
+.read-article
+	margin-right: 1.5em
+	margin-bottom: 1em
+
+#mc_embed_signup
+	clear: left
+	input
+		width: 100%
+
+blockquote
+	margin: 15px 0
+	padding: 1.2em 1.7em 1.7em
+	line-height: 1.5em
+	color: rgba(0,0,0,.4)
+	background: #f8f8f8
+	font-family: $font-primary
+	border-radius: 3px
+
+	p
+		margin-bottom: 1.2em
+
+	p:last-child
+		margin-bottom: 0
+
+	ol, ul
+		padding-left: 1.2em
+
+.text-center
+	text-align: center
+
+.text-white
+	color: white
+
+.float-right
+	float: right
+	width: auto
+	margin-left: 1em
+	margin-bottom: 0.5em
+
+.float-left
+	float: left
+	width: auto
+	margin-right: 1em
+	margin-bottom: 0.5em
+
+address
+	display: inline
+
+.title
+		font: normal normal 1.9em $font-secondary
+		line-height: 1.38em
+
+.title-small
+		font: normal normal 2rem $font-secondary
+		line-height: 1.4em
+
+.meta
+		font-family: $font-primary
+		
+@media (max-width: 850px)
+		.post-title
+				font-size: 1.5em
+				line-height: 1.38em
+
+		.post-content-and-feedback
+				padding: 0 0.5em 1em
+				margin: 0 0
+				border-radius: 0
+		.post-body-and-feedback
+				padding: 30px
+				padding-bottom: 15px
+
+		.post-header
+				padding: 0 1.5em
+				
+@media (max-width: 500px)
+		.float-left
+				float: none
+				text-align: center
+				margin-left: auto
+				margin-right: auto
+				max-width: 100%
+				width: auto
+				display: block
+				margin-bottom: 0.5em
+		.float-right
+				float: none
+				text-align: center
+				margin-left: auto
+				margin-right: auto
+				max-width: 100%
+				width: auto
+				display: block
+				margin-bottom: 0.5em
+
+		.intro
+				h1
+						font-size: 1.2em
+						line-height: 1.2em
+						margin: 1em 0 0.5em
+
+		.inline-desktop
+				display: block
+
+		.post-body-and-feedback
+				padding: 15px
+
+		.letter-body
+				padding: 15px
+
+		.post-body
+				padding: 0.5em
+		blockquote
+				padding: 1em
+				
+@media print
+	.button
+		display: none
+	img
+		display: none
+
+	h2, h3, h4
+		page-break-before: avoid
+		page-break-after: avoid
+
+	pre, blockquote
+		page-break-inside: avoid
+
+	body
+		font-size: 12px
+
+	p
+		margin-bottom: 1.6em
+		line-height: 1.6em
+
+	a
+		border-bottom: none !important
+
+	.post-header
+		text-align: center
+	blockquote
+		margin: 0 0 0.5em 1em !important
+		padding: 0.8em 1em 1em !important
+		line-height: 1.5em !important
+		color: #666
+		background: #eee
+		font-family: $font-primary
+		border-left: 1px solid grey
+
+		p
+			margin-bottom: 0.8em
+
+		p:last-child
+			margin-bottom: 0
+
+		ol, ul
+			padding-left: 0.8em
+
+	.no-print
+		display: none
+
+
+.post-title
+	@extend .title
+	margin-bottom: 15px
+
+.post-meta
+	@extend .meta
+	margin: auto
+
+.post-header
+	text-align: left
+
+.post-content-and-feedback
+	width: 66%
+	margin-right: -0.25em
+	display: inline-block
+	vertical-align: top
+	word-wrap: break-word
+	p, li
+			color: #444
+
+.post-content.page
+	width: auto
+	margin: 0 auto
+	display: block
+	max-width: 850px
+
+.post-readmore
+	text-align: center
+
+.sidebar
+	display: inline-block
+	width: 33%
+	vertical-align: top
+	box-sizing: border-box
+	padding: 0 1.5em 1.5em
+	margin-bottom: 1.2em
+	background-color: #f8f8f8
+	border-radius: 5px
+
+	ul
+		margin-left: 0
+		margin-bottom: 0
+		.router-link-active
+			li
+				color: #444
+				a
+						color: inherit
+		li.active
+			color: #444
+			a
+					color: inherit
+		li
+			// margin-bottom: 0.85em
+			padding: 6px 10px 10px 12px
+			border-bottom: 1px solid #e7e6e6
+			border-bottom: 1px solid #ddd
+			list-style: none
+			font-size: 16px
+			line-height: 21px
+			position: relative
+			a
+				display: block
+				color: #2ba0a3
+			a:before
+				content: "\203A"
+				font-weight: bold
+				font-size: 1.5em
+				// border-color: transparent #008C31
+				// border-style: solid
+				// border-width: 0.35em 0 0.35em 0.45em
+				display: block
+				height: 0
+				width: 0
+				left: -6px
+				// top: 50%
+				// transform: translateY(-50%)
+				position: absolute
+.comments
+	max-width: 850px
+	padding: 0 0em
+	box-sizing: border-box
+	margin: 0 auto
+@media (max-width: 850px)
+	.post-content-and-feedback
+		width: auto
+		display: block
+	.post-body-and-feedback
+		margin: 0 -0.5em
+	.sidebar
+		width: auto
+		display: block
+		padding-left: 0
+		padding: 1em
+		border-radius: 0
+		margin-bottom: 0em
+
+		h3
+			margin: 0.5em 0 0.5em
+.site-image
+	background-image: url("/uploads/image3.jpg")
+	background-color: #1d1d1d
+	height: 430px
+	background-repeat: no-repeat
+	background-size: 100% auto
+	background-position: center center
+	position: relative
+
+.site-meta
+	position: absolute
+	top: 50%
+	left: 50%
+	width: 440px
+	max-width: 80%
+	transform: translate(-50%, -50%)
+	display: inline-block
+	padding: 1.4em 1.4em
+	background-color: #1d1d1d
+	color: white
+	border-radius: 3px
+	text-align: center
+
+	.site-logo
+			display: inline-block
+			img
+					max-width: 50px
+					margin-bottom: 0.5em
+					margin-top: -0.5em
+
+	.site-title
+		text-transform: uppercase
+		letter-spacing: 4px
+		font-weight: 700
+		font-size: 2.5rem
+		font-family: "Raleway", sans-serif
+		margin: 0
+		text-align: center
+		width: 100%
+		word-wrap: break-word
+		
+	.site-description
+		color: #fff
+		font-family: "Raleway", sans-serif
+		font-size: 1.8rem
+		line-height: 1.7em
+		font-weight: 300
+		opacity: .6
+		text-align: center
+		
+@media (max-width: 670px)
+	.site-image
+		height: 230px
+
+	.site-meta
+		padding: 1em
+		
+		.site-logo
+			display: inline-block
+			img
+				max-width: 30px
+				margin-bottom: 0.5em
+				margin-top: -0.5em
+
+		.site-title
+			font-size: 1.4rem
+			
+		.site-description
+			font-size: 1.35rem
+
+.navigation
+	background: #34495E
+	color: $color-bg
+	left: 0
+	padding: 0px
+	width: 100%
+	z-index: 10
+	margin-bottom: 4rem
+
+	ul
+		display: flex
+		justify-content: center
+		list-style: none
+		margin-bottom: 0 !important
+		margin-left: 0 !important
+
+	li
+		@extend .meta
+		padding: 9px 12px
+
+	.router-link-active
+		li
+			color: $color-bg
+			border-bottom: 2px solid $color-bg
+			
+
+
+.teasers
+	display: flex
+	flex-flow: row wrap
+	margin-bottom: 1em
+	background-color: #fff
+	padding: 40px
+
+.teaser
+	flex: 1 1 $width-teaser
+	padding: 20px 20px 30px 20px
+
+.teaser-image
+	margin-bottom: 10px
+	text-align: center
+	img
+		max-width: 100%
+		max-height: 300px
+		width: auto
+
+.teaser-title
+	@extend .title-small
+	margin-bottom: 5px
+	margin-top: 0px
+
+.teaser-preview
+	margin-top: 0.5em
+	font-size: 0.85em
+	line-height: 1.5em
+	font-style: italic !important
+	color: #666
+	p
+		font-style: italic !important
+		
+.button
+	background: #222
+	color: #fff
+	display: inline-block
+	font: $font-secondary
+	letter-spacing: 3px
+	padding: 20px 20px
+	text-transform: uppercase
+	-webkit-transition: -webkit-transform 0.25s
+	transition: -webkit-transform 0.25s
+	transition: transform 0.25s
+	transition: transform 0.25s,-webkit-transform 0.25s
+
+.read-article.button
+	padding: 1em
+	background-color: #347FB1
+	border-radius: 3px
+
+.button.blue
+	background-color: #347FB1
+	border-radius: 3px
+
+.teaser-meta
+	@extend .meta
+	text-transform: uppercase
+	font-size: 0.8em
+
+@media (max-width: 850px)
+	.teasers
+		padding: 1em 0px
+		
+
+.site-footer
+	text-align: center
+	padding-bottom: 2rem
+	padding-top: 0.75em
+	color: #666
+	word-wrap: break-word
+
+.legal-text
+	padding: 2em
+
+	.h3
+		margin-bottom: 1em
+	.privacy-warning
+		text-align: left
+		font-size: 16px
+	p
+		margin-bottom: 1em
+
+@media (max-width: 850px)
+	.legal-text
+		padding: 15px

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: http://restoringfaith.netlify.com/sitemap.xml
