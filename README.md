@@ -26,8 +26,8 @@ Each file look like this:
   html: '<h1 id="aboutme">About Me</h1>\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora fugiat maiores pariatur omnis blanditiis impedit id a molestiae recusandae quas adipisci voluptates, culpa, quaerat saepe, deleniti labore ex esse.</p>',
   excerpt: '',
   url: '/about',
-  updated: 2018-07-12T06:37:38.589Z,
-  created: 2018-07-12T04:25:36.038Z,
+  updated: "2018-07-12T06:37:38.589Z",
+  created: "2018-07-12T04:25:36.038Z",
 }
 ```
 
