@@ -10,8 +10,6 @@ yarn install
 yarn start
 ```
 
-Don't worry if it throws an error up front, that's simply because the build commands are async and compile out of their correct order at first. It will correct itself.
-
 ### You can deploy to netlify quickly
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/codingfriend1/vue-static)
@@ -145,7 +143,11 @@ See the demo theme for example.
 
 #### Static Folder
 
-Each theme may have a `static` folder and anything in this folder will be copied to the root of your `dist` folder when everything is compiled, relative paths within the static folder are maintained.
+The root of the repo contains a static folder. All it's contents will be copied to the distribution folder when compiling as is.
+
+Each theme may have a `static` folder and anything in this folder will also be copied to the root of your `dist` folder when everything is compiled.
+
+Relative paths within these statics folders are maintained.
 
 ## License
 

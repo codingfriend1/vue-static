@@ -31,6 +31,7 @@ const folders = {
 
   theme_folder: path.join(__dirname, "themes", config.theme),
   theme_static_folder: path.join(__dirname, "themes", config.theme, "static"),
+  static_folder: path.join(__dirname, "static"),
   html_template: path.join(
     __dirname,
     "themes",
@@ -149,6 +150,13 @@ const base = {
       {
         from: path.join(folders.theme_static_folder, "/**/*"),
         context: folders.theme_static_folder,
+        to: folders.output_folder
+      }
+    ]),
+    new CopyWebpackPlugin([
+      {
+        from: path.join(folders.static_folder, "/**/*"),
+        context: folders.static_folder,
         to: folders.output_folder
       }
     ]),

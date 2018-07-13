@@ -48,6 +48,10 @@ const serverBundlePath = path.join(
   "vue-ssr-server-bundle.json"
 );
 
+if (!fs.existsSync(serverBundlePath)) {
+  return false
+}
+
 const template = fs
   .readFileSync(folders.published_html_path, "utf-8")
   .replace('<div id="app"></div>', "<!--vue-ssr-outlet-->");
