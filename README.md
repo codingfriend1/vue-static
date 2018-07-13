@@ -10,6 +10,7 @@ yarn install
 yarn start
 ```
 
+### How it works
 Don't worry if it throws an error up front, that's simply because the build commands are async and compile out of their correct order at first. It will correct itself.
 
 The concepts are simple.
