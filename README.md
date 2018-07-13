@@ -147,7 +147,7 @@ The root of the repo contains a static folder. All it's contents will be copied 
 
 Each theme may have a `static` folder and anything in this folder will also be copied to the root of your `dist` folder when everything is compiled.
 
-Relative paths within these statics folders are maintained.
+Relative paths within these static folders are maintained.
 
 ## License
 
