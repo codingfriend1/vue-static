@@ -62,13 +62,13 @@ You can access the CMS at `yoursite.com/admin` and log in.
 When you get the invite and click on the link the email it will redirect you to your site with an identity token. Something like:
 
 ```
-...com#token=1212094019284
+...com#invite_token=1212094019284
 ```
 
 You have to add admin in front of it for it to work
 
 ```
-...com/admin#token=1212094019284
+...com/admin#invite_token=1212094019284
 ```
 
 If you are looking for a good markdown editor for mac, I recommend [Typora](https://typora.io/). Just point it to your markdown folder and you'll be able to edit your files. You can also stylize the css to match your site.
