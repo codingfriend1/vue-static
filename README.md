@@ -10,8 +10,13 @@ yarn install
 yarn start
 ```
 
-### How it works
 Don't worry if it throws an error up front, that's simply because the build commands are async and compile out of their correct order at first. It will correct itself.
+
+### You can deploy to netlify quickly
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/codingfriend1/vue-static)
+
+### How it works
 
 The concepts are simple.
 
