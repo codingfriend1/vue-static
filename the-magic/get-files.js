@@ -7,7 +7,7 @@ const converter = new showdown.Converter();
 
 module.exports = markdown_folder => {
   return new Promise(resolve => {
-    const files = [];
+    let files = [];
     if (fs.existsSync(markdown_folder)) {
       klaw(markdown_folder)
         .on("data", item => {
@@ -51,6 +51,9 @@ module.exports = markdown_folder => {
           console.log(e);
         })
         .on("end", () => {
+          files = files.sort(function(a,b){
+            return new Date(b.created) - new Date(a.created);
+          });
           resolve(files);
         });
     } else {

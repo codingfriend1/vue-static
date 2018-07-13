@@ -18,7 +18,7 @@ yarn start
 
 The concepts are simple.
 
-We collect all the data from your markdown files, render them to html, and provide them to your vue components in the store as a `files` array using [vue-stash](https://github.com/cklmercer/vue-stash). The one currently being processed is the `file` object. You then have access to render this data in your templates.
+We collect all the data from your markdown files, render them to html, and provide them to your vue components in the store as a `files` array, sorted by date created, using [vue-stash](https://github.com/cklmercer/vue-stash). The one currently being processed is the `file` object. You then have access to render this data in your templates.
 
 Each file look like this:
 
