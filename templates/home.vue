@@ -1,7 +1,7 @@
 <template lang="pug">
   main
     header(v-html='file.html')
-    main.teasers.text-center
+    main.teasers
       article.teaser(v-for="post in posts")
         header.teaser-image
           router-link(:to="post.url").block.no-border

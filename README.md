@@ -10,6 +10,8 @@ yarn install
 yarn start
 ```
 
+Open `localhost:3000`
+
 ### You can deploy to netlify quickly
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/codingfriend1/vue-static)
