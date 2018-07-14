@@ -155,7 +155,7 @@ getMarkdownFiles(folders.markdown_folder).then(files => {
           <title>${file.title}</title>
           <author>${file.author || config.author}</author>
           <pubdate>${file.created}</pubdate>
-          <description>${file.html || config.description}</description>
+          <description>${file.excerpt || config.description}</description>
           <link>${file.absolute_url}</link>
           <guid ispermalink="true">${file.absolute_url}</guid></item>`;
     })
