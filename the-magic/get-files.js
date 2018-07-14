@@ -33,8 +33,8 @@ module.exports = markdown_folder => {
             let fileInfo = matter(data);
             fileInfo = Object.assign({}, fileInfo.data, fileInfo);
 
-            fileInfo.updated = fileInfo.updated || item.stats.mtime;
-            fileInfo.created = fileInfo.created || item.stats.birthtime;
+            fileInfo.updated = fileInfo.updated ? new Date(fileInfo.updated).toISOString() : item.stats.mtime;
+            fileInfo.created = fileInfo.created ? new Date(fileInfo.created).toISOString() : item.stats.birthtime;
             fileInfo.url =
               fileInfo.url ||
               item.path
