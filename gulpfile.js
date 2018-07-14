@@ -12,8 +12,7 @@ const folders = {
     __dirname,
     "themes",
     config.theme,
-    "boot",
-    "router.js"
+    config.relativePathInThemeToRoutes
   )
 };
 

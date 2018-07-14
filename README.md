@@ -116,6 +116,12 @@ In the `site.config.js` in the root of the repo you can add information to use a
 }
 ```
 
+You must also update the theme in `the-magic/server-entry.js` on line 7
+
+```js
+var { store, app, router } = require(`../themes/theme-folder-name-here/index.js`);
+```
+
 ## Building your own themes
 
 If you wish to customize your own theme, create a new folder within the `themes` folder. This new theme folder must contain 2 files:
@@ -166,6 +172,14 @@ I've created a utility function in `get-files.js` that will take all the content
 ```html
 <!-- more -->
 ```
+
+#### Aliases
+
+I've setup a few handy aliases in webpack so that instead of having to write the relative path when requiring the `site.config.js` or a file in the `templates` folder you can type the alias.
+
+1. `config` - `site.config.js`
+2. `templates` - The root template folder
+3. `theme` - themes/the-selected-theme-folder
 
 ## License
 

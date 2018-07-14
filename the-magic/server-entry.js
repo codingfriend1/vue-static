@@ -4,7 +4,7 @@ const path = require("path");
 
 export default context => {
   return new Promise((resolve, reject) => {
-    var { store, app, router } = require(`../themes/${config.theme}/index.js`);
+    var { store, app, router } = require(`../themes/minimal-theme/index.js`);
 
     const meta = app.$meta();
     Object.assign(store, context);

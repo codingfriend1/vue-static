@@ -9,10 +9,9 @@ section
           a(href="#{url}", rel='home') {{site_title}}
         h2.site-description {{description}}
   nav.navigation.no-print
-    ul
-      ul.nav.navbar-nav.navbar-right
-        router-link(exact :to="page.url", :key="page.url", v-for="page in pages") 
-          li {{page.title}}
+    ul.nav.navbar-nav.navbar-right
+      li(:key="page.url", v-for="page in pages")
+        router-link(exact :to="page.url").block.no-border {{page.title}}
 </template>
 
 <script>

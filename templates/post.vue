@@ -111,23 +111,27 @@ module.exports = {
     }
   },
   beforeRouteUpdate(to, from, next) {
-    window.trackReading(
-      this.$refs["postBody"],
-      this.makeEvent,
-      this.file.title,
-      this.gaSet
-    );
-    next();
-    return true;
-  },
-  mounted() {
-    this.$nextTick(() => {
+    if(window.trackReading) {
       window.trackReading(
         this.$refs["postBody"],
         this.makeEvent,
         this.file.title,
         this.gaSet
       );
+    }
+    next();
+    return true;
+  },
+  mounted() {
+    this.$nextTick(() => {
+      if(window.trackReading) {
+        window.trackReading(
+          this.$refs["postBody"],
+          this.makeEvent,
+          this.file.title,
+          this.gaSet
+        );
+      }
     });
   }
 };
