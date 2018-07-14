@@ -246,7 +246,7 @@ configs[0] = merge({}, base, {
         filename: folders.published_html_path,
         minify: {
           removeAttributeQuotes: false,
-          removeComments: true,
+          removeComments: false,
           collapseWhitespace: true
         },
         template: folders.html_template,

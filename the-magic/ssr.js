@@ -95,7 +95,7 @@ getMarkdownFiles(folders.markdown_folder).then(files => {
       } = context.meta.inject();
 
       html = html.replace(
-        "<title></title>",
+        "<!-- meta tags will be auto injected here -->",
         meta.text() +
           title.text() +
           link.text() +

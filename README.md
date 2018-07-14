@@ -133,6 +133,14 @@ If you wish to customize your own theme, create a new folder within the `themes`
 <!-- Files will be auto injected -->
 ```
 
+Also maintain
+
+```html
+<!-- meta tags will be auto injected here -->
+```
+
+so the meta tags can render there.
+
 #### index.js
 
 The `index.js` file must export:
