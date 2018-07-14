@@ -71,7 +71,7 @@ module.exports = {
 
             { vmid: "url", name: "url", content: config.site_url + this.file.url },
             { vmid: "identifier-URL", name: "identifier-URL", content: config.site_url + this.file.url },
-            { vmid: "og:url", name: "og:url", content: config.site_url + this.file.url },
+            { vmid: "og:url", property: "og:url", content: config.site_url + this.file.url },
             {
               vmid: "og:description", property: "og:description",
               content: this.file.excerpt || config.description
