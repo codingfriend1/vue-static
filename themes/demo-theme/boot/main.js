@@ -2,12 +2,6 @@ const Vue = require('vue')
 require('./track-reading.js')
 require('./main.styl')
 
-Vue.filter('prettifyDate', function (value) {
-  var months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
-  var date = new Date(value);
-  return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
-})
-
 if(!Vue.prototype.$isServer) {
   
 
