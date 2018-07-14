@@ -18,10 +18,6 @@ module.exports = {
 					name: "viewport",
 					content: "width=device-width, initial-scale=1"
 				},
-				{
-					name: "google-site-verification",
-					content: config.googleSiteVerification
-				},
 				{ name: "url", content: config.site_url },
 				{ name: "identifier-URL", content: config.site_url },
 				{ name: "og:url", content: config.site_url },

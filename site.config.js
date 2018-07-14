@@ -23,7 +23,6 @@ module.exports = {
 
   facebook_id: 111,
   googleAnalyticsId: "",
-  googleSiteVerification: "",
   mailChimpUrl: "",
 
   /**
