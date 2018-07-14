@@ -67,28 +67,28 @@ module.exports = {
       ? {
           title: this.file.title,
           meta: [
-            { property: "og:type", content: "article" },
+            { vmid: "og:type", property: "og:type", content: "article" },
 
-            { name: "url", content: this.file.url },
-            { name: "identifier-URL", content: this.file.url },
-            { name: "og:url", content: this.file.url },
+            { vmid: "url", name: "url", content: config.site_url + this.file.url },
+            { vmid: "identifier-URL", name: "identifier-URL", content: config.site_url + this.file.url },
+            { vmid: "og:url", name: "og:url", content: config.site_url + this.file.url },
             {
-              property: "og:description",
+              vmid: "og:description", property: "og:description",
               content: this.file.excerpt || config.description
             },
             {
-              name: "twitter:description",
+              vmid: "twitter:description", name: "twitter:description",
               content: this.file.excerpt || config.description
             },
             {
-              name: "description",
+              vmid: "description", name: "description",
               content: this.file.excerpt || config.description
             },
 
-            { name: "twitter:title", content: this.file.title },
-            { property: "og:title", content: this.file.title },
-            { name: "pagename", content: this.file.title },
-            { name: "author", content: this.file.author || config.author }
+            { vmid: "twitter:title", name: "twitter:title", content: this.file.title },
+            { vmid: "og:title", property: "og:title", content: this.file.title },
+            { vmid: "pagename", name: "pagename", content: this.file.title },
+            { vmid: "author", name: "author", content: this.file.author || config.author }
           ]
         }
       : {};
