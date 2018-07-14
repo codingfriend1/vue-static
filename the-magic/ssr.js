@@ -22,10 +22,19 @@ const folders = {
   )
 };
 
-const sitemap_template = `<?xml version="1.0" encoding="utf-8" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- Urls will be auto injected -->
-</urlset>`;
+const sitemap_template = `<?xml version="1.0" encoding="utf-8" ?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"><!-- Urls will be auto injected --></urlset>`;
+
+const feed_template = `<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>${config.site_title}</title>
+    <author>${config.author}</author>
+    <link>${config.site_url}</link>
+    <description>${config.description}</description>
+    <atom:link href="${config.site_url}/feed.xml" rel="self" type="application/rss+xml"></atom:link>
+    <!-- Urls will be auto injected -->
+  </channel>
+</rss>`;
 
 function createFile(url, html) {
   url += !path.extname(url) ? ".html" : "";
@@ -132,4 +141,30 @@ getMarkdownFiles(folders.markdown_folder).then(files => {
   );
 
   createFile("sitemap.xml", sitemap_html);
+
+
+
+  let feed_string = files
+    .filter(file => file.url.indexOf("404") === -1)
+    .map(file => {
+      file.absolute_url = url.resolve(config.site_url, file.url).replace("/(.html$)/", "");
+      return file;
+    })
+    .map(file => {
+      return `<item>
+          <title>${file.title}</title>
+          <author>${file.author || config.author}</author>
+          <pubdate>${file.created}</pubdate>
+          <description>${file.html || config.description}</description>
+          <link>${file.absolute_url}</link>
+          <guid ispermalink="true">${file.absolute_url}</guid></item>`;
+    })
+    .join("");
+
+  let feed_xml = feed_template.replace(
+    "<!-- Urls will be auto injected -->",
+    feed_string
+  );
+
+  createFile("feed.xml", feed_xml);
 });
