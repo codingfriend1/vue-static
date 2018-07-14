@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: http://restoringfaith.netlify.com/sitemap.xml
+Sitemap: http://yoursite.netlify.com/sitemap.xml
