@@ -5,6 +5,20 @@ const matter = require("gray-matter");
 const showdown = require("showdown");
 const converter = new showdown.Converter();
 
+function excerpt(content) {
+  if(content) {
+    if(content.indexOf("<!-- more-->") == -1 && content.indexOf("<!-- more -->") == -1) {
+      return "";
+    } else if(content.indexOf("<!-- more-->") > 0) {
+      return content.split("<!-- more-->")[0];
+    } else if(content.indexOf("<!-- more -->") > 0) {
+      return content.split("<!-- more -->")[0];
+    }
+  } else {
+    return content;
+  }
+}
+
 module.exports = markdown_folder => {
   return new Promise(resolve => {
     let files = [];
@@ -32,7 +46,7 @@ module.exports = markdown_folder => {
             }
 
             fileInfo.html = converter.makeHtml(fileInfo.content);
-            fileInfo.excerpt = converter.makeHtml(fileInfo.excerpt);
+            fileInfo.excerpt = converter.makeHtml(fileInfo.excerpt || excerpt(fileInfo.content)).replace(/(<([^>]+)>)/ig,"");
             // fileInfo.slug =
             //   fileInfo.slug ||
             //   fileInfo.data.title

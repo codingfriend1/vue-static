@@ -14,7 +14,7 @@
 
           main
             router-link(:to="post.url").no-border.block
-              .teaser-preview(v-html="post.excerpt")
+              p.teaser-preview(v-html="post.excerpt")
           footer
             router-link(:to="post.url").no-border.block
               .read-article.button Read more

@@ -151,6 +151,14 @@ Each theme may have a `static` folder and anything in this folder will also be c
 
 Relative paths within these static folders are maintained.
 
+### Article excerpts
+
+I've created a utility function in `get-files.js` that will take all the content before the first `more` comment and make everything before it the article excerpt:
+
+```html
+<!-- more -->
+```
+
 ## License
 
 Copyright (c) Jon Paul Miles 2018
