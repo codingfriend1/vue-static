@@ -6,6 +6,7 @@
 </template>
 
 <script>
+const config = require('config')
 module.exports = {
   store: ["file"],
   metaInfo() {
