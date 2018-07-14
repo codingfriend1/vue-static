@@ -16,7 +16,7 @@ Open `localhost:3000`
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/codingfriend1/vue-static)
 
-### How it works
+## How it works
 
 The concepts are simple.
 
