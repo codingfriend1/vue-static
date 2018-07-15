@@ -31,8 +31,11 @@
   },
   "dependencies": {
     "cross-env": "^5.1.1",
+    "del": "^3.0.0",
     "gray-matter": "^4.0.1",
     "http-server": "^0.11.1",
+    "imagemin-mozjpeg": "^7.0.0",
+    "imagemin-webpack-plugin": "^2.1.5",
     "klaw": "^2.1.1",
     "lodash.camelcase": "^4.3.0",
     "showdown": "^1.8.6",

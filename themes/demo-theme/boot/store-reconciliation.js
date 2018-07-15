@@ -29,18 +29,18 @@ router.beforeEach((to, from, next) => {
 router.afterEach(() => {
   if(!Vue.prototype.$isServer) {
     Vue.nextTick(() => {
-      const links = document.links;
-      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
-         if (links[i].hostname != window.location.hostname) {
-             links[i].target = '_blank';
-         } 
-      }
-    });
-  }
-    
-  if (!Vue.prototype.$isServer && window.refTagger) {
-    Vue.prototype.$nextTick(() => {
-      window.refTagger.tag();
+      setTimeout(() => {
+        const links = document.links;
+        for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+           if (links[i].hostname != window.location.hostname) {
+               links[i].target = '_blank';
+           } 
+        }
+
+        if(window.refTagger && typeof window.refTagger.tag === 'function') {
+          window.refTagger.tag();
+        }
+      }, 100);
     });
   }
 });

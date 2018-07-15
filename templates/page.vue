@@ -13,25 +13,26 @@ module.exports = {
     return this.file
       ? {
           title: this.file.title,
+          link: [
+            { rel: 'canonical', href: config.site_url + this.file.url }
+          ],
           meta: [
-            { property: "og:type", content: "page" },
-
             { vmid: "og:type", property: "og:type", content: "page" },
 
             { vmid: "url", name: "url", content: config.site_url + this.file.url },
             { vmid: "identifier-URL", name: "identifier-URL", content: config.site_url + this.file.url },
-            { vmid: "og:url", name: "og:url", content: config.site_url + this.file.url },
+            { vmid: "og:url", property: "og:url", content: config.site_url + this.file.url },
             {
               vmid: "og:description", property: "og:description",
-              content: this.file.excerpt || config.description
+              content: this.file.description || config.description
             },
             {
               vmid: "twitter:description", name: "twitter:description",
-              content: this.file.excerpt || config.description
+              content: this.file.description || config.description
             },
             {
               vmid: "description", name: "description",
-              content: this.file.excerpt || config.description
+              content: this.file.description || config.description
             },
 
             { vmid: "twitter:title", name: "twitter:title", content: this.file.title },

@@ -5,6 +5,7 @@ const inject = require("gulp-inject");
 const runSequence = require("run-sequence");
 const _ = require("lodash");
 const config = require("./site.config.js");
+const del = require('del');
 
 const folders = {
   templates_folder: path.resolve(__dirname, "templates"),
@@ -13,13 +14,18 @@ const folders = {
     "themes",
     config.theme,
     config.relativePathInThemeToRoutes
-  )
+  ),
+  output_folder: path.join(__dirname, "dist")
 };
 
 const globalize_components_folder = folders.globalize_components_file.replace(
   path.basename(folders.globalize_components_file),
   ""
 );
+
+gulp.task('delete-dist-folder', function(cb) {
+  return del([folders.output_folder], cb);
+});
 
 function generateInject(
   injectTo,
@@ -130,5 +136,5 @@ gulp.task("globalize-vue-components", function() {
 });
 
 gulp.task("default", function(done) {
-  runSequence("globalize-vue-components", done);
+  runSequence("delete-dist-folder", "globalize-vue-components", done);
 });

@@ -20,7 +20,6 @@ module.exports = {
 	metaInfo() {
 		return {
 			title: config.site_title,
-			titleTemplate: "%s | " + config.site_title,
 			link: [
 				{ rel: 'alternate', type: 'application/rss+xml', title: `${config.site_url} > Feed`, href: `${config.site_url + '/feed.xml'}` }
 			],

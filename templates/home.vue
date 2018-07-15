@@ -22,7 +22,7 @@
 
 <script>
 const Vue = require('vue')
-
+const config = require('config')
 module.exports = {
 	store: ['file', 'files'],
   computed: {
@@ -30,6 +30,17 @@ module.exports = {
       return this.files
         .filter(file => file.url.indexOf('articles/') > -1)
     },
+  },
+  metaInfo() {
+    return this.file
+      ? {
+          title: this.file.title,
+          link: [
+            { rel: 'canonical', href: config.site_url },
+          ]
+
+        } 
+      : {}
   }
 }
 </script>
