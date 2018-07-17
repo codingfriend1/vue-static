@@ -48,10 +48,13 @@ In the `site.config.js` you define which routes use which templates. You also de
 ```markdown
 ---
 url: 'my/path/file'
+draft: false
 ---
 ```
 
 When you're finished run build and it will make a static site of plain html files for good SEO but also with vue router and client side code. This means initial load has good SEO and navigation is super quick.
+
+_NOTE: Markdown files with `draft: true` won't be rendered._
 
 ### Markdown Editor
 
