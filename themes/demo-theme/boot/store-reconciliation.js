@@ -5,7 +5,7 @@ Vue.use(VueStash);
 const router = require("./router");
 const config = require("config");
 const defaultStore = config.store;
-const { prepareFacebookComments } = require("./facebook-social");
+require("./facebook-social");
 
 let store = defaultStore;
 
@@ -16,12 +16,13 @@ try {
 } catch (err) {}
 
 router.beforeEach((to, from, next) => {
-  const found = store.files.find(post => post.url === to.path);
+  let path = to.path.replace('.html', '').replace('.htm', '')
+  const found = store.files.find(post => post.url === path);
   if (!found) {
     router.replace("/404");
   } else {
     store.file = found;
-    prepareFacebookComments(store);
+    store.social_url = config.site_url + store.file.url
   }
   next();
 });

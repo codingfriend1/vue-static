@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(v-if="ready")
+  div
     section.like-and-share
       h4.text-center Do you like this article? Let us know
       .text-center
@@ -12,16 +12,18 @@
 <script>
   export default {
     name: "comment",
-    store: ['social_url'],
-    data() {
-      return {
-        ready: false
+    store: ['file', 'social_url'],
+    updated() {
+      if (window.fbAsyncInit) {
+        window.fbAsyncInit();
       }
     },
     mounted() {
       setTimeout(() => {
-        this.ready = true
-      }, 500);
+        if (window.fbAsyncInit) {
+          window.fbAsyncInit();
+        }
+      }, 250);
     }
   }
 </script>

@@ -6,7 +6,7 @@ module.exports = {
   /**
    * To choose a theme, type in the foldername of the theme you wish to use in the themes folder.
    */
-  theme: "minimal-theme",
+  theme: "demo-theme",
 
   relativePathInThemeToRoutes: 'index.js',
 

@@ -1,17 +1,6 @@
 const Vue = require("vue");
 const config = require("config");
 
-exports.prepareFacebookComments = function(store) {
-    if (!Vue.prototype.$isServer && store.file.url) {
-        store.social_url = config.site_url + store.file.url;
-        setTimeout(() => {
-            if (window.fbAsyncInit) {
-                window.fbAsyncInit();
-            }
-        }, 1000);
-    }
-};
-
 if (!Vue.prototype.$isServer && !window.fbAsyncInit) {
     setTimeout(() => {
         (function(d, s, id) {
@@ -106,5 +95,5 @@ if (!Vue.prototype.$isServer && !window.fbAsyncInit) {
                 }
             }
         };
-    }, 1000);
+    });
 }

@@ -60,7 +60,8 @@ const app = new Vue(
 );
 
 router.beforeEach((to, from, next) => {
-  const found = store.files.find(post => post.url === to.path);
+  let path = to.path.replace('.html', '').replace('.htm', '')
+  const found = store.files.find(post => post.url === path);
   if (!found) {
     router.replace("/404");
   } else {
