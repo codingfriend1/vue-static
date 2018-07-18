@@ -38,16 +38,16 @@ module.exports = {
       component: "home"
     },
     {
+      path: "/404",
+      component: "missing"
+    },
+    {
       path: "/:page?",
       component: "page"
     },
     {
       path: "/articles/:article?",
       component: "post"
-    },
-    {
-      path: "/404",
-      component: "missing"
     },
     { path: "*", redirect: "/404" }
   ],

@@ -27,7 +27,7 @@ div
       form#mc-embedded-subscribe-form.validate(:action="mailChimpUrl", method='post', name='mc-embedded-subscribe-form', target='_blank', novalidate='')
           #mc_embed_signup_scroll
             header
-              h3 Subscribe to new posts
+              p.h3 Subscribe to new posts
             .mc-field-group
                 label(for='mce-EMAIL') Email Address 
                 input#mce-EMAIL.required.email(type='email', value='', name='EMAIL')
@@ -42,7 +42,7 @@ div
 
     section.post-list.no-print(role="navigation")
       header
-        h4 Articles
+        p.h4 Articles
       ul(role="menu")
         li.list-article-title(v-for="post in posts", :key="post.url", :class="post.url === $route.path ? 'active' : ''")
           router-link(exact :to="post.url" class="no-border" role="menuitem") {{post.title}}
