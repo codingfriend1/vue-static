@@ -1,5 +1,4 @@
 <template lang="pug">
-  
   main.post-content.page
     div.post-body.post-body-and-feedback(v-html="file.html")
 </template>
