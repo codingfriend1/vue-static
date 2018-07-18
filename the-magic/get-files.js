@@ -47,6 +47,7 @@ module.exports = markdown_folder => {
 
             fileInfo.html = converter.makeHtml(fileInfo.content);
             fileInfo.excerpt = converter.makeHtml(fileInfo.excerpt || excerpt(fileInfo.content)).replace(/(<([^>]+)>)/ig,"");
+            fileInfo.description = fileInfo.description || fileInfo.excerpt.slice(0, 297) + '...'
             
             delete fileInfo.orig;
             delete fileInfo.data;
