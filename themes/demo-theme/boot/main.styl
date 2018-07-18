@@ -16,9 +16,13 @@ a
 img
 	width: 100%
 	max-width: 100%
+
+// @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i');
 	
-$font-primary = 'Open Sans', Tahoma, Geneva, sans-serif
-$font-secondary = 'Montserrat', arial, sans-serif
+// $font-primary = 'Open Sans', Tahoma, Geneva, sans-serif
+// $font-primary = 'Didact Gothic', Helvetica, Geneva, sans-serif
+$font-primary = 'Open Sans', "Palatino Linotype", 'Didact Gothic', Helvetica, sans-serif
+$font-secondary = "Open Sans", 'Didact Gothic', "Palatino Linotype", sans-serif
 
 $color-text = #222
 $color-bg = #fff
@@ -51,7 +55,7 @@ body
 
 .post-avatar
 	display: inline-block
-	background-image: url("/uploads/image3.jpg")
+	background-image: url("/uploads/image.jpg")
 	border-radius: 100%
 	background-size: 80px
 	width: 80px
@@ -60,7 +64,7 @@ body
 	margin-right: 24px
 
 .post-header
-	color: #313131
+	color: #444
 	font-weight: bold
 
 .post-meta
@@ -71,8 +75,8 @@ body
 	display: inline-block
 
 .reading-time
-	margin-bottom: 1em
-	margin-top: 1em
+	margin-bottom: 0.5em
+	margin-top: 0.5em
 	height: 30px
 
 .letter-body
@@ -80,23 +84,31 @@ body
 	padding: 40px
 	border-radius: 5px
 
+.h1,
 h1
 	font-size: 2.5em
 	line-height: 1.2em
-	margin: 1em 0 0.5em
+	margin: 0.5em 0 0.5em
+	
+.h2,
 h2
 	font-size: 2em
 	line-height: 1.4em
 	margin: 1.5em 0 0.5em
+	
+.h3,
 h3
 	font-size: 1.6em
 	line-height: 1.4em
 	margin: 1em 0 0.5em
+	
+.h4,
 h4
 	font-size: 1.3em
 	line-height: 1.4em
 	margin: 1.5em 0 0.5em
 
+.h5,
 h5
 	font-size: 1.1em
 	font-weight: bold
@@ -233,15 +245,18 @@ address
 	display: inline
 
 .title
-		font: normal normal 1.9em $font-secondary
-		line-height: 1.38em
+	font-size: 1.9em
+	font-family: $font-secondary
+	line-height: 1.4em
 
 .title-small
-		font: normal normal 2rem $font-secondary
-		line-height: 1.4em
+	font-weight: normal
+	font-size: 2rem
+	font-family: $font-secondary
+	line-height: 1.4em
 
 .meta
-		font-family: $font-primary
+	font-family: $font-primary
 		
 @media (max-width: 850px)
 		.post-title
@@ -289,7 +304,7 @@ address
 				display: block
 
 		.post-body-and-feedback
-				padding: 15px
+				padding: 10px
 
 		.letter-body
 				padding: 15px
@@ -302,8 +317,22 @@ address
 @media print
 	.button
 		display: none
-	img
+	// img
+	// 	display: none
+	
+	.post-title
+		font-size: 2.5em !important
+		margin-bottom: 0.25em !important
+	.post-avatar
 		display: none
+	
+	.post-meta
+		margin-top: 0 !important
+		padding-top: 0 !important
+		margin-left: 2em
+		
+	.post-body-and-feedback
+		padding-top: 0 !important
 
 	h2, h3, h4
 		page-break-before: avoid
@@ -324,6 +353,7 @@ address
 
 	.post-header
 		text-align: center
+		
 	blockquote
 		margin: 0 0 0.5em 1em !important
 		padding: 0.8em 1em 1em !important
@@ -345,10 +375,10 @@ address
 	.no-print
 		display: none
 
-
 .post-title
 	@extend .title
 	margin-bottom: 15px
+	margin-top: 0.5em
 
 .post-meta
 	@extend .meta
@@ -432,6 +462,7 @@ address
 	.post-content-and-feedback
 		width: auto
 		display: block
+		margin-right: 0
 	.post-body-and-feedback
 		margin: 0 -0.5em
 	.sidebar
@@ -459,6 +490,10 @@ address
 	left: 50%
 	width: 440px
 	max-width: 80%
+	-webkit-transform: translate(-50%, -50%)
+	-ms-transform: translate(-50%, -50%)
+	-moz-transform: translate(-50%, -50%)
+	-o-transform: translate(-50%, -50%)
 	transform: translate(-50%, -50%)
 	display: inline-block
 	padding: 1.4em 1.4em
@@ -513,6 +548,26 @@ address
 			
 		.site-description
 			font-size: 1.35rem
+	
+	.post-header
+		padding: 0 1em
+		.post-title
+			margin-top: 0
+			font-size: 1.3em
+			margin-bottom: 10px
+			
+		.post-avatar
+			width: 60px
+			height: 60px
+			background-size: 60px
+			margin-right: 16px
+			
+		.reading-time
+			margin-bottom: 0.5em;
+			margin-top: 0.5em;
+	
+	.navigation
+		margin-bottom: 2rem !important
 
 .navigation
 	background: #34495E
@@ -521,7 +576,7 @@ address
 	padding: 0px
 	width: 100%
 	z-index: 10
-	margin-bottom: 4rem
+	margin-bottom: 2rem
 
 	ul
 		display: flex
@@ -529,17 +584,18 @@ address
 		list-style: none
 		margin-bottom: 0 !important
 		margin-left: 0 !important
-
+		
 	li
 		@extend .meta
-		padding: 9px 12px
+		padding: 0
 
-	.router-link-active
-		li
+	li
+		a
+			padding: 9px 12px
+			cursor pointer
+		.router-link-active
 			color: $color-bg
-			border-bottom: 2px solid $color-bg
-			
-
+			border-bottom: 2px solid $color-bg !important
 
 .teasers
 	display: flex
@@ -562,6 +618,7 @@ address
 
 .teaser-title
 	@extend .title-small
+	font-weight: bold
 	margin-bottom: 5px
 	margin-top: 0px
 
@@ -577,10 +634,11 @@ address
 	background: #222
 	color: #fff
 	display: inline-block
-	font: $font-secondary
+	font: normal bold 1.2rem/1 $font-secondary
 	letter-spacing: 3px
 	padding: 20px 20px
 	text-transform: uppercase
+	cursor pointer
 	-webkit-transition: -webkit-transform 0.25s
 	transition: -webkit-transform 0.25s
 	transition: transform 0.25s

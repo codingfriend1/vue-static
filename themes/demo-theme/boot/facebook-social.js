@@ -2,7 +2,7 @@ const Vue = require("vue");
 const config = require("config");
 
 if (!Vue.prototype.$isServer && !window.fbAsyncInit) {
-    setTimeout(() => {
+    window.enableComments = function() {
         (function(d, s, id) {
             var js,
                 fjs = d.getElementsByTagName(s)[0];
@@ -29,7 +29,6 @@ if (!Vue.prototype.$isServer && !window.fbAsyncInit) {
                 });
 
                 if(typeof ga !== 'undefined') {
-                    console.log(`ga`, ga)
                     // //Logged In Users
                     FB.getLoginStatus(function(response) {
                         if (response.status !== "unknown") {
@@ -95,5 +94,5 @@ if (!Vue.prototype.$isServer && !window.fbAsyncInit) {
                 }
             }
         };
-    });
+    }
 }

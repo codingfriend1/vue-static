@@ -262,7 +262,8 @@ configs[0] = merge({}, base, {
         minify: {
           removeAttributeQuotes: false,
           removeComments: false,
-          collapseWhitespace: true
+          collapseWhitespace: true,
+          removeScriptTypeAttributes: true
         },
         template: folders.html_template,
         inject: true

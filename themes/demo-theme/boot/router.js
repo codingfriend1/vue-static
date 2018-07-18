@@ -32,13 +32,24 @@ const routes = config.routes
   })
   .filter(a => a);
 
-Vue.use(Meta);
+Vue.use(Meta, {
+  tagIDKeyName: 'data-vmid'
+});
 Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: "history",
   hashbang: false,
-  routes
+  routes,
+  scrollBehavior (to, from, savedPosition) {
+    return new Promise((resolve, reject) => {
+      if(window.innerWidth < 671) {
+        resolve({ x: 0, y: 285 - 55 })
+      } else {
+        resolve({ x: 0, y: 485 - 55 })
+      }
+    })    
+  }
 });
 
 module.exports = router;

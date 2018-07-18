@@ -25,13 +25,10 @@ if (Vue.prototype.$isServer) {
 } else {
   require("./async-data");
   window.store = store;
-  app.$mount("#app");
   setTimeout(() => {
-    if(window.refTagger && typeof window.refTagger.tag === 'function') {
-      window.refTagger.tag();
-    }
-  }, 100);
-
+    app.$mount("#app");
+  }, 1000);
+  
 }
 
 module.exports = { app, router, store };

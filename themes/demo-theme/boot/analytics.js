@@ -7,7 +7,6 @@ if (!Vue.prototype.$isServer) {
     const VueAnalytics = require("vue-analytics").default;
 
     const disableStr = "ga-disable-" + config.googleAnalyticsId;
-    console.log("setting");
     Vue.use(VueAnalytics, {
       id: config.googleAnalyticsId,
       router,

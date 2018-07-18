@@ -1,5 +1,5 @@
 <template lang="pug">
-  footer.site-footer 
+  footer.site-footer
     | &copy; 
     | #[time(:datetime="year") {{year}}] 
     | #[address #[router-link(to="/about" rel="author") {{author}}]] 

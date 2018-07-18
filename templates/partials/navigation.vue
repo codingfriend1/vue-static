@@ -1,17 +1,17 @@
 <template lang="pug">
-section
-  header.site-header(role='banner').no-print
+div
+  header.site-header.no-print
     .site-image
       .site-meta
-        .site-logo
-          //- img(:src="logo", alt="")
-        h1.site-title
-          a(href="#{url}", rel='home') {{site_title}}
-        h2.site-description {{description}}
+        //- .site-logo
+        //-   img(:src="logo", title="Site logo" alt="Site logo")
+        h2.site-title
+          router-link(to="/", rel='home') {{site_title}}
+        p.h3.site-description(role="doc-subtitle") {{description}}
   nav.navigation.no-print
-    ul.nav.navbar-nav.navbar-right
+    ul.nav.navbar-nav.navbar-right(role="menubar")
       li(:key="page.url", v-for="page in pages")
-        router-link(exact :to="page.url").block.no-border {{page.title}}
+        router-link(exact :to="page.url" role="menuitem").block {{page.title}}
 </template>
 
 <script>

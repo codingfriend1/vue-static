@@ -1,14 +1,14 @@
 <template lang="pug">
 	#app
 		navigation
-		main
+		div
 			router-view
 		foot
 </template>
 
 <script>
-const Vue = require('vue')
 const config = require("config");
+const Vue = require('vue')
 
 Vue.filter('prettifyDate', function (value) {
   var months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
@@ -28,33 +28,33 @@ module.exports = {
 					name: "viewport",
 					content: "width=device-width, initial-scale=1"
 				},
-				{ vmid: 'url', name: "url", content: config.site_url },
-				{ vmid: 'identifier-URL', name: "identifier-URL", content: config.site_url },
-				{ vmid: 'og:url', name: "og:url", content: config.site_url },
-				{ vmid: 'owner', name: "owner", content: config.author },
-				{ vmid: "author", name: "author", content: config.author },
-				{ vmid: 'copyright', name: "copyright", content: config.author },
-				{ vmid: 'medium', name: "medium", content: "blog" },
-				{ vmid: 'robots', name: "robots", content: "index,follow" },
-				{ vmid: 'description', name: "description", content: config.description },
-				{ vmid: 'keywords', name: "keywords", content: config.keywords },
-				{ vmid: 'language', name: "language", content: config.language },
-				{ vmid: 'fb:app_id', property:"fb:app_id", content: config.facebook_id },
-				{ vmid: 'og:locale', property:"og:locale", content: config.locale },
-				{ vmid: 'og:site_name', property:"og:site_name", content: config.site_title },
-				{ vmid: 'og:title', property: "og:title", content: config.site_title },
-				{ vmid: 'og:description', property: "og:description", content: config.description },
-				{ vmid: 'og:image', property: "og:image", content: config.site_url + config.logo },
-				{ vmid: 'twitter:image', name: "twitter:image", content: config.site_url + config.logo },
-				{ vmid: 'twitter:card', name: "twitter:card", content: config.twitterCard },
-				{ vmid: 'twitter:creator', name: "twitter:creator", content: config.twitterCreator },
-				{ vmid: 'twitter:title', name: "twitter:title", content: config.site_title },
+				{ "data-vmid": 'url', name: "url", content: config.site_url },
+				{ "data-vmid": 'identifier-URL', name: "identifier-URL", content: config.site_url },
+				{ "data-vmid": 'og:url', name: "og:url", content: config.site_url },
+				{ "data-vmid": 'owner', name: "owner", content: config.author },
+				{ "data-vmid": "author", name: "author", content: config.author },
+				{ "data-vmid": 'copyright', name: "copyright", content: config.author },
+				{ "data-vmid": 'medium', name: "medium", content: "blog" },
+				{ "data-vmid": 'robots', name: "robots", content: "index,follow" },
+				{ "data-vmid": 'description', name: "description", content: config.description },
+				{ "data-vmid": 'keywords', name: "keywords", content: config.keywords },
+				{ "data-vmid": 'language', name: "language", content: config.language },
+				{ "data-vmid": 'fb:app_id', property:"fb:app_id", content: config.facebook_id },
+				{ "data-vmid": 'og:locale', property:"og:locale", content: config.locale },
+				{ "data-vmid": 'og:site_name', property:"og:site_name", content: config.site_title },
+				{ "data-vmid": 'og:title', property: "og:title", content: config.site_title },
+				{ "data-vmid": 'og:description', property: "og:description", content: config.description },
+				{ "data-vmid": 'og:image', property: "og:image", content: config.site_url + config.logo },
+				{ "data-vmid": 'twitter:image', name: "twitter:image", content: config.site_url + config.logo },
+				{ "data-vmid": 'twitter:card', name: "twitter:card", content: config.twitterCard },
+				{ "data-vmid": 'twitter:creator', name: "twitter:creator", content: config.twitterCreator },
+				{ "data-vmid": 'twitter:title', name: "twitter:title", content: config.site_title },
 				{
-					vmid: 'twitter:description',
+					"data-vmid": 'twitter:description',
 					name: "twitter:description",
 					content: config.description
 				},
-				{ vmid: 'pagename', name: "pagename", content: config.site_title }
+				{ "data-vmid": 'pagename', name: "pagename", content: config.site_title }
 			]
 		};
 		// if no subcomponents specify a metaInfo.title, this title will be used

@@ -4,8 +4,8 @@ const VueStash = require("vue-stash").default;
 Vue.use(VueStash);
 const router = require("./router");
 const config = require("config");
+require('./facebook-social')
 const defaultStore = config.store;
-require("./facebook-social");
 
 let store = defaultStore;
 
@@ -31,15 +31,14 @@ router.afterEach(() => {
   if(!Vue.prototype.$isServer) {
     Vue.nextTick(() => {
       setTimeout(() => {
+        /**
+         * Make all links target="_blank"
+         */
         const links = document.links;
         for (var i = 0, linksLength = links.length; i < linksLength; i++) {
           if (links[i].hostname != window.location.hostname) {
             links[i].target = '_blank';
           } 
-        }
-
-        if(window.refTagger && typeof window.refTagger.tag === 'function') {
-          window.refTagger.tag();
         }
       }, 250);
     });
