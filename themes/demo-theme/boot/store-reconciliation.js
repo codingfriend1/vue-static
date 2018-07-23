@@ -25,6 +25,7 @@ router.beforeEach((to, from, next) => {
     if(typeof riveted !== 'undefined' && riveted.reset) {
       riveted.reset()
       riveted.on()
+      window.furthest_scroll = 0
     }
   }
   
