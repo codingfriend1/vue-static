@@ -53,6 +53,17 @@ module.exports = markdown_folder => {
             fileInfo.description = fileInfo.description || fileInfo.excerpt.slice(0, 297) + '...'
             delete fileInfo.orig;
             delete fileInfo.data;
+
+            /**
+             * If you don't want to even write files that are in draft mode uncomment this snippet and comment the one below
+             */
+            // if (!fileInfo.draft || process.env.NODE_ENV !== 'production') {
+              // files.push(fileInfo);
+            // }
+
+            /**
+             * Leave line unmodifed if you wish to allow certain users with a password to see draft files.
+             */
             files.push(fileInfo);
           }
         })
