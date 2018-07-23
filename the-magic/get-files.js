@@ -27,6 +27,7 @@ module.exports = markdown_folder => {
         .on("data", item => {
           // Filter function to retrieve .md files //
           if (path.extname(item.path) === ".md") {
+
             // If markdown file, read contents //
             const data = fs.readFileSync(item.path, "utf8");
             // Convert to frontmatter object and markdown content //
@@ -45,16 +46,14 @@ module.exports = markdown_folder => {
               fileInfo.url = "/";
             }
 
+            fileInfo.readingTime = 'Calculating read time...'
+
             fileInfo.html = converter.makeHtml(fileInfo.content);
             fileInfo.excerpt = converter.makeHtml(fileInfo.excerpt || excerpt(fileInfo.content)).replace(/(<([^>]+)>)/ig,"");
             fileInfo.description = fileInfo.description || fileInfo.excerpt.slice(0, 297) + '...'
-            
             delete fileInfo.orig;
             delete fileInfo.data;
-
-            if (!fileInfo.draft) {
-              files.push(fileInfo);
-            }
+            files.push(fileInfo);
           }
         })
         .on("error", e => {
@@ -64,6 +63,7 @@ module.exports = markdown_folder => {
           files = files.sort(function(a,b){
             return new Date(b.created) - new Date(a.created);
           });
+
           resolve(files);
         });
     } else {

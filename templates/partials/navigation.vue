@@ -1,17 +1,21 @@
 <template lang="pug">
 div
-  header.site-header.no-print
+  header.site-header.no-print(v-show="$route.path !== '/analytics'")
     .site-image
       .site-meta
         //- .site-logo
-        //-   img(:src="logo", title="Site logo" alt="Site logo")
+        //-   img(:src="logo", title="" alt="")
         h2.site-title
           router-link(to="/", rel='home') {{site_title}}
         p.h3.site-description(role="doc-subtitle") {{description}}
   nav.navigation.no-print
     ul.nav.navbar-nav.navbar-right(role="menubar")
-      li(:key="page.url", v-for="page in pages")
-        router-link(exact :to="page.url" role="menuitem").block {{page.title}}
+      li
+        router-link(exact to="/" role="menuitem").block Home
+      li
+        router-link(exact to="/about" role="menuitem").block About
+      li
+        router-link(exact to="/privacy-policy" role="menuitem").block Privacy Policy
 </template>
 
 <script>

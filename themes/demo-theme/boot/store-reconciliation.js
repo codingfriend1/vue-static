@@ -18,8 +18,22 @@ try {
 router.beforeEach((to, from, next) => {
   let path = to.path.replace('.html', '').replace('.htm', '')
   const found = store.files.find(post => post.url === path);
+
+  if(typeof window !== 'undefined') {
+    // window.define_reader()
+    window.already_read = false
+    if(typeof riveted !== 'undefined' && riveted.reset) {
+      riveted.reset()
+      riveted.on()
+    }
+  }
+  
   if (!found) {
-    router.replace("/404");
+    if(path.indexOf('blog/') > -1) {
+      router.replace(path.replace('blog/', 'articles/'))
+    } else {
+      router.replace("/404")
+    }
   } else {
     store.file = found;
     store.social_url = config.site_url + store.file.url
@@ -31,9 +45,6 @@ router.afterEach(() => {
   if(!Vue.prototype.$isServer) {
     Vue.nextTick(() => {
       setTimeout(() => {
-        /**
-         * Make all links target="_blank"
-         */
         const links = document.links;
         for (var i = 0, linksLength = links.length; i < linksLength; i++) {
           if (links[i].hostname != window.location.hostname) {

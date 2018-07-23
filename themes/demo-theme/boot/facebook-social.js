@@ -23,7 +23,6 @@ if (!Vue.prototype.$isServer && !window.fbAsyncInit) {
             if (typeof FB != "undefined" && FB != null) {
                 FB.init({
                     appId: config.facebook_id, //App ID from the app dashboard
-                    channelUrl: `${config.site_url}/channel.html`, //Channel file for x-domain communication
                     status: true, //Check Facebook Login status
                     xfbml: true //Look for social plugins on the page
                 });

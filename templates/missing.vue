@@ -10,7 +10,7 @@ module.exports = {
     return {
       meta: [
         { "data-vmid": "robots", name: "robots", content: "noindex" },
-        { "data-vmid": "robots", name: "googlebot", content: "noindex" }
+        { "data-vmid": "googlebot", name: "googlebot", content: "noindex" }
       ]
     }
   }

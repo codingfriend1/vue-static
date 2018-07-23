@@ -25,6 +25,8 @@ if (Vue.prototype.$isServer) {
 } else {
   require("./async-data");
   window.store = store;
+
+  // We delay app hydrate for 1 second so google has time to make a page preview without seeing blank text during the hydrate phase
   setTimeout(() => {
     app.$mount("#app");
   }, 1000);

@@ -22,7 +22,10 @@ const folders = {
   )
 };
 
-const sitemap_template = `<?xml version="1.0" encoding="utf-8" ?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"><!-- Urls will be auto injected --></urlset>`;
+const sitemap_template = `<?xml version="1.0" encoding="utf-8" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- Urls will be auto injected -->
+</urlset>`;
 
 const feed_template = `<?xml version="1.0" encoding="utf-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -78,9 +81,11 @@ let renderer = createBundleRenderer(
 
 getMarkdownFiles(folders.markdown_folder).then(files => {
   files.forEach(file => {
-    if (!file || file.draft) {
-      return;
-    }
+    // if (!file || (file.draft && process.env.NODE_ENV === 'production')) {
+    //   return;
+    // }
+
+    if(!file) { return }
 
     const context = {
       file,
@@ -119,6 +124,7 @@ getMarkdownFiles(folders.markdown_folder).then(files => {
 
   let sitemap_string = files
     .filter(file => file.url.indexOf("404") === -1)
+    .filter(file => file.url !== "/analytics")
     .map(file => {
       file.url.replace("/(.html$)/", "");
       file.absolute_url = url.resolve(config.site_url, file.url);
@@ -141,7 +147,6 @@ getMarkdownFiles(folders.markdown_folder).then(files => {
   );
 
   createFile("sitemap.xml", sitemap_html);
-
 
 
   let feed_string = files

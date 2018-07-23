@@ -9,6 +9,7 @@ const camelCase = require("lodash.camelcase");
  */
 const components = {
   // globalize vue components
+  analytics: Vue.component('analytics', require("templates/analytics.vue")),
   home: Vue.component('home', require("templates/home.vue")),
   missing: Vue.component('missing', require("templates/missing.vue")),
   page: Vue.component('page', require("templates/page.vue")),

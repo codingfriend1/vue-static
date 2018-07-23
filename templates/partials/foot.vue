@@ -4,6 +4,8 @@
     | #[time(:datetime="year") {{year}}] 
     | #[address #[router-link(to="/about" rel="author") {{author}}]] 
     | {{site_title}}
+    div.text-center(style="margin-top: 0.5em;")
+      router-link(exact to="/analytics" role="menuitem").no-border Analytics
 </template>
 
 <script>

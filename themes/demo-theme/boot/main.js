@@ -1,15 +1,12 @@
 const Vue = require('vue')
-require('./track-reading.js')
 require('./main.styl')
-
-
 
 if(!Vue.prototype.$isServer) {
 
   document.addEventListener("DOMContentLoaded", function(event) {
 
     /**
-     * Make all links target="_blank"
+     * Make all links new tabs
      */
     const links = document.links;
     for (var i = 0, linksLength = links.length; i < linksLength; i++) {

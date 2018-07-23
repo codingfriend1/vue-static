@@ -118,7 +118,7 @@ div
 
 	a:not(.button):not(.no-border)
 		border-bottom: 2px solid $color-text
-
+		
 .post-meta
 	display: inline-block
 	vertical-align: middle
@@ -598,6 +598,15 @@ address
 			color: $color-bg
 			border-bottom: 2px solid $color-bg !important
 
+.draft.teaser
+		color: grey !important
+		
+		.teaser-title:after
+			content: ' (draft)'
+			
+		.read-article.button
+			background-color: grey
+
 .teasers
 	display: flex
 	flex-flow: row wrap
@@ -657,6 +666,10 @@ address
 .teaser-meta
 	@extend .meta
 	text-transform: uppercase
+	font-size: 0.8em
+	
+.reading-time-meta
+	@extend .meta
 	font-size: 0.8em
 
 @media (max-width: 850px)

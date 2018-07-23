@@ -16,7 +16,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const ImageminPlugin = require('imagemin-webpack-plugin').default
+// const ImageminPlugin = require('imagemin-webpack-plugin').default
 const imageminMozjpeg = require('imagemin-mozjpeg')
 const configs = [];
 const config = require("./site.config");
@@ -50,6 +50,7 @@ const folders = {
   templates_folder: path.join(__dirname, "templates"),
   theMagic: path.resolve(__dirname, 'the-magic')
 };
+
 
 const base = {
   stats: "errors-only",
@@ -162,19 +163,19 @@ const base = {
         to: folders.output_folder
       }
     ]),
-    new ImageminPlugin({
-      disable: process.env.NODE_ENV !== 'production',
-      test: /\.(jpe?g|png|gif|svg)$/i,
-      pngquant: {
-        quality: '80-100'
-      },
-      plugins: [
-        imageminMozjpeg({
-          quality: 85,
-          progressive: true
-        })
-      ]
-    }),
+    // new ImageminPlugin({
+    //   disable: process.env.NODE_ENV !== 'production',
+    //   test: /\.(jpe?g|png|gif|svg)$/i,
+    //   pngquant: {
+    //     quality: '80-90'
+    //   },
+    //   plugins: [
+    //     imageminMozjpeg({
+    //       quality: 80,
+    //       progressive: true
+    //     })
+    //   ]
+    // }),
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
@@ -267,7 +268,7 @@ configs[0] = merge({}, base, {
         },
         template: folders.html_template,
         inject: true
-      })
+      }),
       // new BundleAnalyzerPlugin({
       //   reportFilename: 'file-size-report.html'
       // })
