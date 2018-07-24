@@ -33,11 +33,6 @@ module.exports = {
   mailChimpUrl: "",
 
   /**
-   * In https://datastudio.google.com/ you can make charts using your google analytics and other data and get an embed link to put in your analytics page. Post the link here.
-   */
-  dataStudioEmbedLink: "",
-
-  /**
    * For each route list the url and the template that should be used to render that route
    *
    * Use the `file name` of the component found in your templates folder for the route component without the path or extension
@@ -50,10 +45,6 @@ module.exports = {
     {
       path: "/404",
       component: "missing"
-    },
-    {
-      path: "/analytics",
-      component: "analytics"
     },
     {
       path: "/:page?",
