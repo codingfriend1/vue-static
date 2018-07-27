@@ -5,6 +5,10 @@ const matter = require("gray-matter");
 const showdown = require("showdown");
 const converter = new showdown.Converter();
 
+
+/**
+ * Capture all text up until the first <!-- more--> comment and make that text both the meta description and the post excerpt, unless the post has an explicit description in the markdown meta.
+ */
 function excerpt(content) {
   if(content) {
     if(content.indexOf("<!-- more-->") == -1 && content.indexOf("<!-- more -->") == -1) {
