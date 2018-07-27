@@ -1,5 +1,3 @@
-const path = require("path");
-
 const site_url = "https://yoursite.netlify.com";
 
 module.exports = {
