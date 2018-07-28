@@ -46,7 +46,6 @@ module.exports = {
   data() {
     return {
       author: config.author,
-      mailChimpUrl: config.mailChimpUrl,
       hasPermission: process.env.NODE_ENV !== 'production'
     }
   },
