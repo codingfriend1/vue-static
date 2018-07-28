@@ -1,16 +1,15 @@
 const site_url = "https://yoursite.netlify.com";
 
 module.exports = {
-
   /**
    * Gulp will automatically find all your vue templates and globalize them and add links to them to the file path you mention here
    */
-  relativePathInThemeToRoutes: 'index.js',
+  relativePathInThemeToRoutes: "index.js",
 
   /**
    * If you type in this password when prompted you may see pages that are in draft mode on the live site.
    */
-  draft_preview_password: 'your_global_password_for_viewing_drafts',
+  draft_preview_password: "your_global_password_for_viewing_drafts",
 
   site_title: `Your site title`,
   site_url,

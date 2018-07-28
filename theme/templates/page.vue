@@ -3,12 +3,33 @@
     header.post-header
       h1.post-title {{file.title}}
     div.post-body.post-body-and-feedback(v-html="file.html")
+    ul
+      li(v-for="user in users" :key="user.login.uuid") {{user.name.first}}
 </template>
 
 <script>
 const config = require('config')
+const Vue = require('vue')
 module.exports = {
-  store: ["file"],
+  store: ["file", "users"],
+
+  /**
+   * Async Data Example
+   */
+  // asyncData({ store, route }) {
+  //   return new Promise((resolve, reject) => {
+  //     fetch('https://randomuser.me/api/', {
+  //       method: 'get'
+  //     })
+  //       .then(result => result.json())
+  //       .then(result => {
+  //         Vue.set(store, 'users', result.results)
+  //         resolve(result.results)
+  //       })
+  //       .catch(reject);
+  //   })
+  // },
+  
   metaInfo() {
     return this.file
       ? {

@@ -50,7 +50,6 @@ module.exports = markdown_folder => {
     if (fs.existsSync(markdown_folder)) {
       klaw(markdown_folder)
         .on("data", item => {
-          console.log("hello");
           // Filter function to retrieve .md files //
           if (path.extname(item.path) === ".md") {
             // If markdown file, read contents //

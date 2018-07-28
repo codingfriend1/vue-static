@@ -2,6 +2,11 @@ const Vue = require("vue");
 const config = require("../site.config.js");
 const path = require("path");
 
+/**
+ * For using fetch for async data server-side
+ */
+global.fetch = require("node-fetch")
+
 export default context => {
   return new Promise((resolve, reject) => {
     var { store, app, router } = require(`../theme/index.js`);
@@ -20,8 +25,8 @@ export default context => {
       // call `asyncData()` on all matched route components
       Promise.all(
         matchedComponents.map(Component => {
-          if (Component.asyncData) {
-            return Component.asyncData({
+          if (Component.options.asyncData) {
+            return Component.options.asyncData({
               store,
               route: router.currentRoute
             });
