@@ -33,7 +33,6 @@ const folders = {
 
   theme_folder: path.join(__dirname, "theme"),
   theme_static_folder: path.join(__dirname, "theme", "static"),
-  static_folder: path.join(__dirname, "static"),
   html_template: path.join(
     __dirname,
     "theme",
@@ -45,8 +44,7 @@ const folders = {
     "_index.html"
   ),
   output_folder: path.join(__dirname, "dist"),
-  templates_folder: path.join(__dirname, "templates"),
-  theMagic: path.resolve(__dirname, 'the-magic')
+  the_magic: path.resolve(__dirname, 'the-magic')
 };
 
 
@@ -58,7 +56,7 @@ const base = {
       //   test: /\.pug/,
       //   loaders: ["string-loader", "pug-html-loader"],
       //   exclude: node,
-      //   include: [folders.theme_folder, folders.templates_folder]
+      //   include: [folders.theme_folder]
       // },
       {
         test: /\.js$/,
@@ -69,7 +67,7 @@ const base = {
         test: /\.vue$/,
         loader: "vue-loader",
         exclude: node,
-        include: [folders.theme_folder, folders.templates_folder],
+        include: [folders.theme_folder],
         options: {
           loaders: {
             css: ExtractTextPlugin.extract({
@@ -97,7 +95,7 @@ const base = {
         loader: ExtractTextPlugin.extract({
           use: "css-loader!sass-loader"
         }),
-        include: [folders.theme_folder, folders.templates_folder]
+        include: [folders.theme_folder]
       },
       {
         test: /\.styl$/,
@@ -105,7 +103,7 @@ const base = {
           use: "css-loader!stylus-loader"
         }),
         exclude: node,
-        include: [folders.theme_folder, folders.templates_folder]
+        include: [folders.theme_folder]
       },
       {
         test: /\.svg$/,
@@ -151,13 +149,6 @@ const base = {
       {
         from: path.join(folders.theme_static_folder, "/**/*"),
         context: folders.theme_static_folder,
-        to: folders.output_folder
-      }
-    ]),
-    new CopyWebpackPlugin([
-      {
-        from: path.join(folders.static_folder, "/**/*"),
-        context: folders.static_folder,
         to: folders.output_folder
       }
     ]),
@@ -212,7 +203,6 @@ const base = {
   resolve: {
     alias: {
       config: path.join(__dirname, "site.config.js"),
-      templates: path.resolve(__dirname, "templates"),
       theme: folders.theme_folder
     }
   }
@@ -239,7 +229,6 @@ configs[0] = merge({}, base, {
     alias: {
       vue: "vue/dist/vue.js",
       config: path.join(__dirname, "site.config.js"),
-      templates: path.resolve(__dirname, "templates"),
       theme: folders.theme_folder
     }
   },
@@ -299,7 +288,7 @@ configs[0] = merge({}, base, {
 configs[1] = merge({}, base, {
   target: "node",
   entry: {
-    app: path.resolve(folders.theMagic, "server-entry.js")
+    app: path.resolve(folders.the_magic, "server-entry.js")
   },
   externals: nodeExternals({
     whitelist: /(\.css$|\.less$|\.sass$|\.scss$|\.styl$|\.stylus$|\.(png|jpe?g|gif|svg)(\?.*)?$|\.(woff2?|eot|ttf|otf)(\?.*)?$)/

@@ -8,7 +8,7 @@ const config = require("./site.config.js");
 const del = require('del');
 
 const folders = {
-  templates_folder: path.resolve(__dirname, "templates"),
+  theme: path.resolve(__dirname, "theme"),
   globalize_components_file: path.resolve(
     __dirname,
     "theme",
@@ -125,8 +125,8 @@ gulp.task("globalize-vue-components", function() {
     folders.globalize_components_file,
     globalize_components_folder,
     [
-      folders.templates_folder + "/**/*.vue",
-      "!" + folders.templates_folder + "/**/index.js"
+      folders.theme + "/**/*.vue",
+      "!" + folders.theme + "/**/root.vue"
     ],
     "globalize vue components",
     "require",

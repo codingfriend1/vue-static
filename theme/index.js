@@ -20,14 +20,13 @@ Vue.config.productionTip = false;
  */
 const components = {
   // globalize vue components
-  home: Vue.component('home', require("templates/home.vue")),
-  missing: Vue.component('missing', require("templates/missing.vue")),
-  page: Vue.component('page', require("templates/page.vue")),
-  post: Vue.component('post', require("templates/post.vue")),
-  root: Vue.component('root', require("templates/root.vue")),
-  comment: Vue.component('comment', require("templates/partials/comment.vue")),
-  foot: Vue.component('foot', require("templates/partials/foot.vue")),
-  navigation: Vue.component('navigation', require("templates/partials/navigation.vue")),
+  comment: Vue.component('comment', require("theme/partials/comment.vue")),
+  foot: Vue.component('foot', require("theme/partials/foot.vue")),
+  navigation: Vue.component('navigation', require("theme/partials/navigation.vue")),
+  home: Vue.component('home', require("theme/templates/home.vue")),
+  missing: Vue.component('missing', require("theme/templates/missing.vue")),
+  page: Vue.component('page', require("theme/templates/page.vue")),
+  post: Vue.component('post', require("theme/templates/post.vue")),
   // end globalize vue components
 };
 
@@ -49,7 +48,7 @@ const router = new VueRouter({
   routes
 });
 
-const Root = require("templates/root.vue");
+const Root = require("./root.vue");
 
 let store = typeof window !== "undefined" && window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : config.store
 

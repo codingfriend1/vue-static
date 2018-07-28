@@ -47,6 +47,7 @@ module.exports = markdown_folder => {
     if (fs.existsSync(markdown_folder)) {
       klaw(markdown_folder)
         .on("data", item => {
+          console.log('hello')
           // Filter function to retrieve .md files //
           if (path.extname(item.path) === ".md") {
 
@@ -74,6 +75,8 @@ module.exports = markdown_folder => {
 
             fileInfo.wordCount = get_word_count(fileInfo.html)
             fileInfo.readingTime = get_reading_time(fileInfo.wordCount)
+
+            console.log(`fileInfo`, fileInfo)
             
             fileInfo.excerpt = converter.makeHtml(fileInfo.excerpt || excerpt(fileInfo.content)).replace(/(<([^>]+)>)/ig,"");
             fileInfo.description = fileInfo.description || fileInfo.excerpt.slice(0, 297) + '...'
