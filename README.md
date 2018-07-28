@@ -34,11 +34,10 @@ Each file look like this:
   updated: "2018-07-14T17:49:36.883Z",
   created: "2018-07-11T21:24:28.844Z",
   url: '/articles/second',
-  readingTime: 'Calculating read time...',
-  html: '<h1>This is sample post #2.</h1>\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci laborum, doloremque. Repellat sapiente incidunt voluptas, placeat. Nam consectetur maxime eaque magnam nostrum, iste voluptates facilis! Quidem sequi itaque eveniet nesciunt.</p>',
   description: '...',
   wordCount: 35,
-  readingTime: 0
+  readingTime: 0,
+  html: '<h1>This is sample post #2.</h1>\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci laborum, doloremque. Repellat sapiente incidunt voluptas, placeat. Nam consectetur maxime eaque magnam nostrum, iste voluptates facilis! Quidem sequi itaque eveniet nesciunt.</p>'
 }
 ```
 
@@ -81,8 +80,9 @@ You also declare which route a markdown file wants either by:
 
 ```markdown
 ---
-url: 'my/path/file'
+url: '/my/path/file'
 draft: false
+created: "2018-07-11T21:24:28.844Z"
 ---
 ```
 
