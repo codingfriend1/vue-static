@@ -1,3 +1,6 @@
 {
-  "skipInterpolation": "**/*.*"
+  "skipInterpolation": [
+    "theme/**/*.*",
+    "markdown/**/*.*"
+  ]
 }
