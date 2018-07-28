@@ -226,13 +226,6 @@ I've setup a couple handy aliases in webpack so that instead of having to write 
 1.  `config` - `site.config.js`
 2.  `theme` - The theme folder
 
-### Fork It And Make Your Own
-You can fork this repo to create your own boilerplate, and use it with vue-cli:
-
-```bash
-vue init codingfriend1/vue-static my-project
-```
-
 ## License
 
 Copyright (c) Jon Paul Miles 2018
