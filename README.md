@@ -15,7 +15,7 @@ Open `localhost:3000`
 
 ### You can deploy to netlify quickly
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/codingfriend1/vue-static)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/codingfriend1/vue-static/template)
 
 ## How it works
 
@@ -219,6 +219,13 @@ I've setup a couple handy aliases in webpack so that instead of having to write 
 
 1.  `config` - `site.config.js`
 2.  `theme` - The theme folder
+
+### Fork It And Make Your Own
+You can fork this repo to create your own boilerplate, and use it with vue-cli:
+
+```bash
+vue init codingfriend1/vue-static my-project
+```
 
 ## License
 
