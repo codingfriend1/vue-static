@@ -3,8 +3,6 @@
     header.post-header
       h1.post-title {{file.title}}
     div.post-body.post-body-and-feedback(v-html="file.html")
-    ul
-      li(v-for="user in users" :key="user.login.uuid") {{user.name.first}}
 </template>
 
 <script>
@@ -15,6 +13,7 @@ module.exports = {
 
   /**
    * Async Data Example
+   * Server Side Rendering will wait for the promise to resolve before rendering the static html file. Thus the results of api calls can be rendered into the static html.
    */
   // asyncData({ store, route }) {
   //   return new Promise((resolve, reject) => {
@@ -29,7 +28,7 @@ module.exports = {
   //       .catch(reject);
   //   })
   // },
-  
+
   metaInfo() {
     return this.file
       ? {
