@@ -102,13 +102,6 @@ module.exports = {
       }
       return meta
   },
-  beforeRouteUpdate(to, from, next) {
-    next();
-    this.$nextTick(() => {
-      window.postBodyEl = this.$refs["postBody"]
-    });
-    return true;
-  },
   mounted() {
     if(!this.$isServer) {
       if(process.env.NODE_ENV === 'production' && this.file.draft) {
@@ -120,10 +113,6 @@ module.exports = {
         }
       }
     }
-
-    this.$nextTick(() => {
-      window.postBodyEl = this.$refs["postBody"]
-    });
   }
 };
 </script>
