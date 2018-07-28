@@ -3,6 +3,7 @@
 A Vue version of React Static by Nozzle.io
 
 ### How to start
+
 Run
 
 ```
@@ -25,13 +26,13 @@ We collect all the data from your markdown files, render them to html, and provi
 Each file look like this:
 
 ```js
-{ 
+{
   title: 'Sample Post #2',
   thumbnail: '/uploads/image2.jpg',
   isEmpty: false,
   excerpt: '',
-  updated: 2018-07-14T17:49:36.883Z,
-  created: 2018-07-11T21:24:28.844Z,
+  updated: "2018-07-14T17:49:36.883Z",
+  created: "2018-07-11T21:24:28.844Z",
   url: '/articles/second',
   readingTime: 'Calculating read time...',
   html: '<h1>This is sample post #2.</h1>\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci laborum, doloremque. Repellat sapiente incidunt voluptas, placeat. Nam consectetur maxime eaque magnam nostrum, iste voluptates facilis! Quidem sequi itaque eveniet nesciunt.</p>',
@@ -41,43 +42,42 @@ Each file look like this:
 }
 ```
 
-1. `html` contains the markdown rendered to html
-2. `url` is the folder path inside the templates folder or the url meta information provided in the file.
-3. `updated` is the date of the last time the file was modified
-4. `created` is the birthdate of the file or date it was created
-5. `wordCount` A close estimate of the number of visible words in the markdown file.
-6. `readingTime` At a rate of 275 wpm, how long it would take to read the article, rounded.
-7. Any other information you add to the file's meta will also be in the object, including the title.
+1.  `html` contains the markdown rendered to html
+2.  `url` is the folder path inside the templates folder or the url meta information provided in the file.
+3.  `updated` is the date of the last time the file was modified
+4.  `created` is the birthdate of the file or date it was created
+5.  `wordCount` A close estimate of the number of visible words in the markdown file.
+6.  `readingTime` At a rate of 275 wpm, how long it would take to read the article, rounded.
+7.  Any other information you add to the file's meta will also be in the object, including the title.
 
-In the `site.config.js` you define which routes use which templates (use the string component filename instead of the actual imported component). 
+In the `site.config.js` you define which routes use which templates (use the string component filename instead of the actual imported component).
 
 ```js
-  routes: [
-    {
-      path: "/",
-      component: "home"
-    },
-    {
-      path: "/:page?",
-      component: "page"
-    },
-    {
-      path: "/articles/:article?",
-      component: "post"
-    },
-    {
-      path: "/404",
-      component: "missing"
-    },
-    { path: "*", redirect: "/404" }
-  ]
+routes: [
+  {
+    path: "/",
+    component: "home"
+  },
+  {
+    path: "/:page?",
+    component: "page"
+  },
+  {
+    path: "/articles/:article?",
+    component: "post"
+  },
+  {
+    path: "/404",
+    component: "missing"
+  },
+  { path: "*", redirect: "/404" }
+];
 ```
 
 You also declare which route a markdown file wants either by:
 
-1. it's relative folder structure within the `markdown` folder 
-2. or specifying a `url` param in the markdown meta.
-
+1.  it's relative folder structure within the `markdown` folder
+2.  or specifying a `url` param in the markdown meta.
 
 ```markdown
 ---
@@ -95,7 +95,7 @@ _NOTE: Markdown files with `draft: true` will be password protected. You can ins
  * If you don't want to even write files that are in draft mode uncomment this snippet and comment the one below
  */
 // if (!fileInfo.draft || process.env.NODE_ENV !== 'production') {
-  // files.push(fileInfo);
+// files.push(fileInfo);
 // }
 
 /**
@@ -131,8 +131,7 @@ If you are looking for a good markdown editor for mac, I recommend [Typora](http
 In the `site.config.js` in the root of the repo you can add information to use across the site anywhere where you import `config`:
 
 ```js
-const config = require('config');
-
+const config = require("config");
 ```
 
 ```js
@@ -186,7 +185,7 @@ For scripts:
 <!-- Files will be auto injected -->
 ```
 
-For meta tags: 
+For meta tags:
 
 ```html
 <!-- meta tags will be auto injected here -->
@@ -218,8 +217,8 @@ I've created a utility function in `get-files.js` that will take all the content
 
 I've setup a few handy aliases in webpack so that instead of having to write the relative path when requiring the `site.config.js` or a file in the `templates` folder you can type the alias.
 
-1. `config` - `site.config.js`
-2. `theme` - The theme folder
+1.  `config` - `site.config.js`
+2.  `theme` - The theme folder
 
 ## License
 
