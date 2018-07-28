@@ -225,9 +225,3 @@ I've setup a couple handy aliases in webpack so that instead of having to write 
 
 1.  `config` - `site.config.js`
 2.  `theme` - The theme folder
-
-## License
-
-Copyright (c) Jon Paul Miles 2018
-
-Licensed under the [MIT license](LICENSE).
