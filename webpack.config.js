@@ -29,21 +29,19 @@ const node = /node_modules/;
 const folders = {
   root: path.resolve(__dirname),
   node_modules: path.resolve(__dirname, "node_modules"),
-  boot: path.resolve(__dirname, "themes", config.theme),
+  boot: path.resolve(__dirname, "theme"),
 
-  theme_folder: path.join(__dirname, "themes", config.theme),
-  theme_static_folder: path.join(__dirname, "themes", config.theme, "static"),
+  theme_folder: path.join(__dirname, "theme"),
+  theme_static_folder: path.join(__dirname, "theme", "static"),
   static_folder: path.join(__dirname, "static"),
   html_template: path.join(
     __dirname,
-    "themes",
-    config.theme,
+    "theme",
     "index.template.html"
   ),
   published_html_path: path.join(
     __dirname,
-    "themes",
-    config.theme,
+    "theme",
     "_index.html"
   ),
   output_folder: path.join(__dirname, "dist"),

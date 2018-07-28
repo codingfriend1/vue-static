@@ -16,8 +16,7 @@ const folders = {
   output_folder: path.join(rootFolder, "dist"),
   published_html_path: path.join(
     rootFolder,
-    "themes",
-    config.theme,
+    "theme",
     "_index.html"
   )
 };

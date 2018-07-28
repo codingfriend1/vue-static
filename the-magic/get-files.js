@@ -23,6 +23,24 @@ function excerpt(content) {
   }
 }
 
+function get_word_count(html) {
+  let words = html.replace(/<[^>]*>/g," ");
+  words = words.replace(/\s+/g, ' ');
+  words = words.trim();
+
+  return words.split(" ").length
+}
+
+function get_reading_time(word_count) {
+  const orientation_seconds = 4
+  const words_per_minute = 275;
+  const readable_content = 1;
+
+  const reading_time_in_minutes = Math.round(word_count / words_per_minute) * readable_content
+
+  return reading_time_in_minutes
+}
+
 module.exports = markdown_folder => {
   return new Promise(resolve => {
     let files = [];
@@ -53,6 +71,10 @@ module.exports = markdown_folder => {
             fileInfo.readingTime = 'Calculating read time...'
 
             fileInfo.html = converter.makeHtml(fileInfo.content);
+
+            fileInfo.wordCount = get_word_count(fileInfo.html)
+            fileInfo.readingTime = get_reading_time(fileInfo.wordCount)
+            
             fileInfo.excerpt = converter.makeHtml(fileInfo.excerpt || excerpt(fileInfo.content)).replace(/(<([^>]+)>)/ig,"");
             fileInfo.description = fileInfo.description || fileInfo.excerpt.slice(0, 297) + '...'
             delete fileInfo.orig;

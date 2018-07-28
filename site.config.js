@@ -2,11 +2,6 @@ const site_url = "https://yoursite.netlify.com";
 
 module.exports = {
   /**
-   * To choose a theme, type in the foldername of the theme you wish to use in the themes folder.
-   */
-  theme: "demo-theme",
-
-  /**
    * Gulp will automatically find all your vue templates and globalize them and add links to them to the file path you mention here
    */
   relativePathInThemeToRoutes: 'boot/router.js',

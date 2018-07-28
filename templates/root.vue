@@ -21,20 +21,25 @@ Vue.filter('prettifyDate', function (value) {
 })
 
 module.exports = {
-	store: ['googleAnalyticsId'],
 	methods: {
 		enableTracking () {
-			if(typeof window !== 'undefined' && this.googleAnalyticsId) {
+			if(typeof window !== 'undefined' && config.googleAnalyticsId) {
 				localStorage.setItem('no-cookie-consent', true)
 	      this.$ga.enable()
 	      this.$refs['cookieConsent'].style.display = 'none'
 	      window.allowCookies = true
+
+	      this.$ga.page({
+          page: this.$route.path,
+          title: window.store.file ? window.store.file.title : "home",
+          location: window.location.href
+        })
 	      // from now on analytics is enabled
 			}
 			
     },
     disableTracking () {
-    	if(typeof window !== 'undefined' && this.googleAnalyticsId) {
+    	if(typeof window !== 'undefined' && config.googleAnalyticsId) {
 	    	localStorage.setItem('no-cookie-consent', false)
 				this.$ga.disable()
 				this.$refs['cookieConsent'].style.display = 'none'
@@ -88,7 +93,7 @@ module.exports = {
 		// all titles will be injected into this template
 	},
 	mounted() {
-		if(typeof localStorage !== 'undefined' && this.googleAnalyticsId) {
+		if(!this.$isServer && typeof localStorage !== 'undefined' && config.googleAnalyticsId) {
 			let consent = localStorage.getItem('no-cookie-consent')
 			if(!consent) {
 				this.$refs['cookieConsent'].style.display = 'block'

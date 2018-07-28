@@ -11,7 +11,7 @@
             router-link(:to="post.url").no-border.block
               h2.teaser-title {{post.title}}
               time.teaser-meta(:datetime="post.created") {{post.created | prettifyDate}} 
-              span.reading-time-meta  - {{post.readingTime}}
+              span.reading-time-meta  - {{post.readingTime}} min read
           div
             p.teaser-preview(v-html="post.excerpt")
           footer
@@ -23,27 +23,6 @@
 const Vue = require('vue')
 const config = require('config')
 
-function get_text(el) {
-  var ret = "";
-  var length = el.childNodes.length;
-  for(var i = 0; i < length; i++) {
-    var node = el.childNodes[i];
-    if(node.nodeType != 8) {
-      ret += node.nodeType != 1 ? node.nodeValue : get_text(node);
-    }
-  }
-  return ret;
-}
-
-function get_reading_time(el) {
-    const words_only = get_text(el);
-    const word_count = words_only.split(' ').length;
-    const words_per_minute = 275;
-    const readable_content = 0.75;
-    const reading_time_in_minutes = Math.round(word_count / words_per_minute) * readable_content;
-    return Math.round(reading_time_in_minutes)
-}
-
 module.exports = {
   store: ['file', 'files'],
   computed: {
@@ -51,16 +30,6 @@ module.exports = {
       return this.files
         // Unless we are in development mode, don't list articles that are in draft mode.
         .filter(file => file.url.indexOf('articles/') > -1 && (!file.draft || process.env.NODE_ENV !== 'production'))
-
-        // Estimate the read time of every article
-        .map(file => {
-          if(typeof window !== 'undefined') {
-            var div = document.createElement("div")
-            div.innerHTML = file.html
-            file.readingTime = get_reading_time(div) + ' min read'
-          }
-          return file
-        })
     },
   },
   metaInfo() {

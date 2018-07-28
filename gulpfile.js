@@ -11,8 +11,7 @@ const folders = {
   templates_folder: path.resolve(__dirname, "templates"),
   globalize_components_file: path.resolve(
     __dirname,
-    "themes",
-    config.theme,
+    "theme",
     config.relativePathInThemeToRoutes
   ),
   output_folder: path.join(__dirname, "dist")

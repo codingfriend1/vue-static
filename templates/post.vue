@@ -4,17 +4,16 @@ div
     main.post-content-and-feedback
       article.post-content
         header.post-header
+          div.post-info
+            .post-avatar
+            .h5.post-meta(role="contentinfo")
+              address
+                router-link(to="/about", rel='author').no-border  {{file.author || author}} 
+              div.time
+                time(:datetime="file.created")  {{file.created | prettifyDate}} 
+                span.dot 
+                span#reading-time  {{file.readingTime}} min read
           h1.post-title {{file.title}}
-          .post-avatar
-          .h5.post-meta(role="contentinfo")
-            | by 
-            address
-              router-link(to="/about", rel='author').no-border  {{file.author || author}} 
-            span.inline-desktop
-              |  on
-              time(:datetime="file.created")  {{file.created | prettifyDate}}
-          .reading-time
-            span#reading-time {{readingTime}}
         div.post-body-and-feedback
           div.post-body(v-html='file.html' ref="postBody" role="main")
           footer.post-feedback.no-print
@@ -24,23 +23,6 @@ div
 
 
     aside.sidebar.no-print
-      section.subscribe#mc_embed_signup.no-print
-        form#mc-embedded-subscribe-form.validate(:action="mailChimpUrl", method='post', name='mc-embedded-subscribe-form', target='_blank', novalidate='')
-            #mc_embed_signup_scroll
-              header
-                p.h3 Subscribe to new posts
-              .mc-field-group
-                  label(for='mce-EMAIL') Email Address 
-                  input#mce-EMAIL.required.email(type='email', value='', name='EMAIL')
-              #mce-responses.clear
-                  #mce-error-response.response(style='display:none')
-                  #mce-success-response.response(style='display:none')
-              // real people should not fill this in and expect good things - do not remove this or risk form bot signups
-              div(style='position: absolute; left: -5000px;', aria-hidden='true')
-                  input(type='text', name='', tabindex='-1', value='')
-              .clear
-                  input#mc-embedded-subscribe.button.subscribe-button(type='submit', value='Subscribe', name='subscribe')
-
       section.post-list.no-print(role="navigation")
         header
           p.h4 Articles
@@ -59,40 +41,13 @@ div
 <script>
 const config = require("config");
 
-function get_text(el) {
-  var ret = "";
-  var length = el.childNodes.length;
-  for(var i = 0; i < length; i++) {
-    var node = el.childNodes[i];
-    if(node.nodeType != 8) {
-      ret += node.nodeType != 1 ? node.nodeValue : get_text(node);
-    }
-  }
-  return ret;
-}
-
-function get_reading_time() {
-  if(window.postBodyEl) {
-    const words_only = get_text(window.postBodyEl);
-    const word_count = words_only.split(' ').length;
-    const orientation_seconds = 4
-    const words_per_minute = 275;
-    const readable_content = 0.75;
-    window.initialScanTimeInSeconds = (word_count / words_per_minute) + orientation_seconds
-    const reading_time_in_minutes = Math.round(word_count / words_per_minute) * readable_content;
-    this.readingTime = Math.round(reading_time_in_minutes) + ' min read';
-    window.predicted_reading_time = parseInt(reading_time_in_minutes * 60);
-  }
-}
-
 module.exports = {
   store: ["file", "files"],
   data() {
     return {
       author: config.author,
       mailChimpUrl: config.mailChimpUrl,
-      hasPermission: process.env.NODE_ENV !== 'production',
-      readingTime: 'Calculating reading time...'
+      hasPermission: process.env.NODE_ENV !== 'production'
     }
   },
   computed: {
@@ -151,7 +106,6 @@ module.exports = {
     next();
     this.$nextTick(() => {
       window.postBodyEl = this.$refs["postBody"]
-      get_reading_time.apply(this)
     });
     return true;
   },
@@ -169,7 +123,6 @@ module.exports = {
 
     this.$nextTick(() => {
       window.postBodyEl = this.$refs["postBody"]
-      get_reading_time.apply(this)
     });
   }
 };

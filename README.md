@@ -119,12 +119,6 @@ In the `site.config.js` in the root of the repo you can add information to use a
 }
 ```
 
-You must also update the theme in `the-magic/server-entry.js` on line 7
-
-```js
-var { store, app, router } = require(`../themes/theme-folder-name-here/index.js`);
-```
-
 ## Building your own themes
 
 If you wish to customize your own theme, create a new folder within the `themes` folder. This new theme folder must contain 2 files:
