@@ -6,9 +6,7 @@ A Vue version of React Static by Nozzle.io
 
 Run
 
-```bash
-vue init codingfriend1/vue-static my-project
-cd my-project
+```
 yarn install
 yarn start
 ```
@@ -24,6 +22,10 @@ yarn build
 ```
 
 Contents are in `dist` folder.
+
+### You can deploy to netlify quickly
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/codingfriend1/vue-static)
 
 ## How it works
 
@@ -227,9 +229,3 @@ I've setup a couple handy aliases in webpack so that instead of having to write 
 
 1.  `config` - `site.config.js`
 2.  `theme` - The theme folder
-
-## License
-
-Copyright (c) Jon Paul Miles 2018
-
-Licensed under the [MIT license](LICENSE).

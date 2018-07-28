@@ -1,6 +1,0 @@
-{
-  "skipInterpolation": [
-    "theme/**/*.*",
-    "markdown/**/*.*"
-  ]
-}
