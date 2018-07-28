@@ -68,6 +68,7 @@ router.beforeEach((to, from, next) => {
     router.replace("/404");
   } else {
     store.file = found;
+    store.social_url = config.site_url + store.file.url
   }
   next();
 });
