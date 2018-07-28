@@ -4,9 +4,7 @@
   "version": "0.0.0",
   "homepage": "",
   "main": "server",
-  "keywords": [
-    "feathers"
-  ],
+  "keywords": ["Vue.js", "static-site-generator"],
   "author": {
     "name": "Jon Paul Miles",
     "email": "codingfriend1@gmail.com"
@@ -22,7 +20,8 @@
   },
   "scripts": {
     "serve": "http-server -p3000 dist",
-    "generate": "nodemon --watch markdown --watch theme --watch templates -e md,js,vue,html,css,styl,scss,sass,xml the-magic/ssr.js",
+    "generate":
+      "nodemon --watch markdown --watch theme --watch templates -e md,js,vue,html,css,styl,scss,sass,xml the-magic/ssr.js",
     "watch": "gulp && webpack -w",
     "webpack": "webpack",
     "gulp": "gulp",
