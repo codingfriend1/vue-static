@@ -6,16 +6,24 @@ A Vue version of React Static by Nozzle.io
 
 Run
 
-```
+```bash
+vue init codingfriend1/vue-static my-project
+cd my-project
 yarn install
 yarn start
 ```
 
 Open `localhost:3000`
 
-### You can deploy to netlify quickly
+### To do a production build
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/codingfriend1/vue-static/template)
+Run
+
+```bash
+yarn build
+```
+
+Contents are in `dist` folder.
 
 ## How it works
 
