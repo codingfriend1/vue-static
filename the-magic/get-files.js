@@ -75,8 +75,6 @@ module.exports = markdown_folder => {
 
             fileInfo.wordCount = get_word_count(fileInfo.html)
             fileInfo.readingTime = get_reading_time(fileInfo.wordCount)
-
-            console.log(`fileInfo`, fileInfo)
             
             fileInfo.excerpt = converter.makeHtml(fileInfo.excerpt || excerpt(fileInfo.content)).replace(/(<([^>]+)>)/ig,"");
             fileInfo.description = fileInfo.description || fileInfo.excerpt.slice(0, 297) + '...'
