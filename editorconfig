@@ -1,0 +1,6 @@
+# Matches multiple files with brace expansion notation
+[*.{js,html,sass,stylus,styl}]
+charset = utf-8
+indent_style = tab
+indent_size = 2
+trim_trailing_whitespace = true
