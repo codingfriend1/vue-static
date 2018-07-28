@@ -215,7 +215,7 @@ I've created a utility function in `get-files.js` that will take all the content
 
 #### Aliases
 
-I've setup a few handy aliases in webpack so that instead of having to write the relative path when requiring the `site.config.js` or a file in the `templates` folder you can type the alias.
+I've setup a couple handy aliases in webpack so that instead of having to write the relative path when requiring the `site.config.js` or the `theme` folder you can type the alias.
 
 1.  `config` - `site.config.js`
 2.  `theme` - The theme folder
