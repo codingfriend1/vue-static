@@ -84,8 +84,6 @@ In the `site.config.js` in the root of the repo you can add information to use a
 
 ```js
 {
-  // Which theme to use to render the templates
-  theme: "your-theme-folder-name",
 
   // Default store
   store: {
@@ -119,9 +117,9 @@ In the `site.config.js` in the root of the repo you can add information to use a
 }
 ```
 
-## Building your own themes
+## Building your own theme
 
-If you wish to customize your own theme, create a new folder within the `themes` folder. This new theme folder must contain 2 files:
+If you wish to customize your theme, modify the `theme` folder. It must contain 2 files:
 
 #### Required Files
 
@@ -158,7 +156,7 @@ See the demo theme for example.
 
 The root of the repo contains a static folder. All it's contents will be copied to the distribution folder when compiling as is.
 
-Each theme may have a `static` folder and anything in this folder will also be copied to the root of your `dist` folder when everything is compiled.
+The theme may have a `static` folder and anything in this folder will also be copied to the root of your `dist` folder when everything is compiled.
 
 Relative paths within these static folders are maintained.
 
