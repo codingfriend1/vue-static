@@ -75,7 +75,7 @@ routes: [
 
 You also declare which route a markdown file wants either by:
 
-1.  it's relative folder structure within the `markdown` folder
+1.  it's relative folder structure within the `markdown` folder. Ex: articles > second.md === '/articles/second'
 2.  or specifying a `url` param in the markdown meta.
 
 ```markdown
