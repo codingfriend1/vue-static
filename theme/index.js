@@ -127,10 +127,18 @@ if(!Vue.prototype.$isServer) {
     // Opt Out of Google Analytics
     window.gaOptout = function gaOptout() {
 
+      if(typeof window.allowCookies === 'undefined') {
+        window.allowCookies = true
+      }
+
       window.allowCookies = !window.allowCookies
 
       localStorage.setItem('no-cookie-consent', window.allowCookies)
 
+      if(cookieConsentEl) {
+        cookieConsentEl.style.display = 'none'
+      }
+      
       if(window.allowCookies) {
         Vue.prototype.$ga.enable()
         alert(`You have re-enabled google analytics data collection. This data will be collected.`);
