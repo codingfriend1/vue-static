@@ -58,13 +58,18 @@ body
 
 .post-avatar
   display: inline-block
-  background-image: url("/uploads/image.jpg")
   border-radius: 100%
   background-size: 40px
   width: 40px
   height: 40px
   vertical-align: middle
   margin-right: 15px
+  
+.webp .post-avatar
+  background-image: url("/uploads/image.webp")
+  
+.no-webp .post-avatar
+  background-image: url("/uploads/image.jpg")
 
 .post-header
   color: #444
@@ -513,6 +518,12 @@ address
   background-size: 100% auto
   background-position: center center
   position: relative
+  
+.webp .site-image
+  background-image: url("/uploads/image3.webp")
+  
+.no-webp .site-image
+  background-image: url("/uploads/image3.jpg")
 
 .site-meta
   position: absolute

@@ -4,7 +4,10 @@ div
     .site-image
       .site-meta
         //- .site-logo
-        //-   img(:src="logo", title="" alt="")
+        //-   picture
+        //-     source(:srcset="logo.replace('.png', '.webp')" type="image/webp")
+        //-     source(:srcset="logo" type="image/jpeg")
+        //-     img(:src="logo", title="" alt="")
         h2.site-title
           router-link(to="/", rel='home') {{site_title}}
         p.h3.site-description(role="doc-subtitle") {{description}}
