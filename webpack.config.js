@@ -8,16 +8,11 @@ const VueSSRServerPlugin = require("vue-server-renderer/server-plugin");
 const VueSSRClientPlugin = require("vue-server-renderer/client-plugin");
 const nodeExternals = require("webpack-node-externals");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
-const WebpackCleanupPlugin = require("webpack-cleanup-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const OptimizeCSSPlugin = require("optimize-css-assets-webpack-plugin");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-  .BundleAnalyzerPlugin;
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-// const ImageminPlugin = require('imagemin-webpack-plugin').default
-const imageminMozjpeg = require('imagemin-mozjpeg')
 const configs = [];
 const config = require("./site.config");
 
@@ -52,12 +47,6 @@ const base = {
   stats: "errors-only",
   module: {
     loaders: [
-      // {
-      //   test: /\.pug/,
-      //   loaders: ["string-loader", "pug-html-loader"],
-      //   exclude: node,
-      //   include: [folders.theme_folder]
-      // },
       {
         test: /\.js$/,
         loader: "babel-loader",
@@ -152,19 +141,6 @@ const base = {
         to: folders.output_folder
       }
     ]),
-    // new ImageminPlugin({
-    //   disable: process.env.NODE_ENV !== 'production',
-    //   test: /\.(jpe?g|png|gif|svg)$/i,
-    //   pngquant: {
-    //     quality: '80-90'
-    //   },
-    //   plugins: [
-    //     imageminMozjpeg({
-    //       quality: 80,
-    //       progressive: true
-    //     })
-    //   ]
-    // }),
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
@@ -234,16 +210,6 @@ configs[0] = merge({}, base, {
   },
   plugins: base.plugins
     .concat([
-      // new WebpackCleanupPlugin({
-      //   exclude: [
-      //     "index.html",
-      //     "file-size-report.html",
-      //     "vue-ssr-server-bundle.json",
-      //     "favicon.ico",
-      //     "images/**/*",
-      //     "fonts/**/*"
-      //   ],
-      // }),
       new VueSSRClientPlugin(),
       new HtmlWebpackPlugin({
         filename: folders.published_html_path,
@@ -256,9 +222,6 @@ configs[0] = merge({}, base, {
         template: folders.html_template,
         inject: true
       }),
-      // new BundleAnalyzerPlugin({
-      //   reportFilename: 'file-size-report.html'
-      // })
     ])
     .concat(
       !isProduction

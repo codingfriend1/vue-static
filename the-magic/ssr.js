@@ -1,5 +1,4 @@
 const isProd = process.env.NODE_ENV === "production";
-const isTest = process.env.NODE_ENV === "test";
 const path = require("path");
 const url = require("url");
 const fs = require("fs");
