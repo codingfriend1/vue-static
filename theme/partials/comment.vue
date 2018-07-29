@@ -2,13 +2,11 @@
   div
     div(v-if="commentsEnabled" role="article")
       section.like-and-share
-        header
-          h4.text-center Do you like this article? Let us know
+        h4.text-center Do you like this article? Let us know
         .text-center
           .fb-like(:data-href="social_url", data-layout='button_count', data-action='like', data-size='large', data-show-faces='true', data-share='true')
       section.comment
-        header
-          h3 Join the conversation
+        h3 Join the conversation
         .fb-comments(:data-href="social_url" data-numposts="5" data-width="100%")
     div(v-else).text-center
       .button(@click="loadComments") Load comments
