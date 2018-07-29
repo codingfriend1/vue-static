@@ -23,7 +23,7 @@ div
 
 
     aside.sidebar.no-print
-      article.post-list.no-print(role="navigation")
+      div.post-list.no-print(role="navigation")
         header
           p.h4 Articles
         ul(role="menu")
