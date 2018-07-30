@@ -230,6 +230,15 @@ I've setup a couple handy aliases in webpack so that instead of having to write 
 1.  `config` - `site.config.js`
 2.  `theme` - The theme folder
 
+### Image Compression
+I've added a script to reduce your image sizes. Drag the files you wish to reduce into the unoptimized-images folder. Run:
+
+```bash
+npm run webp
+```
+
+The compressed jpegs and webp images will be output to the `static/uploads/` folder with the same filenames. You can change this setting and compression levels in the `webp.js` file.
+
 ## License
 
 Copyright (c) Jon Paul Miles 2018
