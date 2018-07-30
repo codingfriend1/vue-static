@@ -20,13 +20,13 @@ Vue.config.productionTip = false;
  */
 const components = {
   // globalize vue components
-  comment: Vue.component('comment', require("theme/partials/comment.vue")),
-  foot: Vue.component('foot', require("theme/partials/foot.vue")),
-  navigation: Vue.component('navigation', require("theme/partials/navigation.vue")),
   home: Vue.component('home', require("theme/templates/home.vue")),
   missing: Vue.component('missing', require("theme/templates/missing.vue")),
   page: Vue.component('page', require("theme/templates/page.vue")),
   post: Vue.component('post', require("theme/templates/post.vue")),
+  comment: Vue.component('comment', require("theme/partials/comment.vue")),
+  foot: Vue.component('foot', require("theme/partials/foot.vue")),
+  navigation: Vue.component('navigation', require("theme/partials/navigation.vue")),
   // end globalize vue components
 };
 

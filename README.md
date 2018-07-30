@@ -213,7 +213,7 @@ See the provided example.
 
 #### Static Folder
 
-The contents of the `static` folder inside the `theme` folder will be copied directly as is to the `dist` folder during build and development.
+The contents of the `static` folder will be copied directly as is to the `dist` folder during build and development.
 
 ### Article excerpts
 

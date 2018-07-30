@@ -1,6 +1,6 @@
 const imagemin = require("imagemin"),    // The imagemin module.
   webp = require("imagemin-webp"),   // imagemin's WebP plugin.
-  outputFolder = "./theme/static/uploads",            // Output folder
+  outputFolder = "./static/uploads",            // Output folder
   PNGImages = "./unoptimized-images/*.png",         // PNG images
   JPEGImages = "./unoptimized-images/*.jpg";        // JPEG images
 
