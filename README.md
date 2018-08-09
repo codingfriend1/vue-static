@@ -234,10 +234,10 @@ I've setup a couple handy aliases in webpack so that instead of having to write 
 I've added a script to reduce your image sizes. Drag the files you wish to reduce into the unoptimized-images folder. Run:
 
 ```bash
-npm run webp
+npm run optimize
 ```
 
-The compressed jpegs and webp images will be output to the `static/uploads/` folder with the same filenames. You can change this setting and compression levels in the `webp.js` file.
+The compressed jpegs, pngs and webp images will be output to the `static/` folder with the same filenames and relative paths. You can change this setting and compression levels in the `optimize-images.js` file.
 
 ## License
 

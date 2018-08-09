@@ -2453,7 +2453,7 @@ file-type@^3.1.0:
   version "3.9.0"
   resolved "https://registry.yarnpkg.com/file-type/-/file-type-3.9.0.tgz#257a078384d1db8087bc449d107d52a52672b9e9"
 
-file-type@^4.3.0:
+file-type@^4.1.0, file-type@^4.3.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/file-type/-/file-type-4.4.0.tgz#1b600e5fca1fbdc6e80c0a70c71c8dba5f7906c5"
 
@@ -3248,6 +3248,17 @@ imagemin-jpeg-recompress@^5.1.0:
     exec-buffer "^3.0.0"
     is-jpg "^1.0.0"
     jpeg-recompress-bin "^3.0.1"
+
+imagemin-keep-folder@^5.3.2:
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/imagemin-keep-folder/-/imagemin-keep-folder-5.3.2.tgz#aca4c82a321c8eded771fd5610ddacef99bff64d"
+  dependencies:
+    file-type "^4.1.0"
+    globby "^6.1.0"
+    make-dir "^1.0.0"
+    p-pipe "^1.1.0"
+    pify "^2.3.0"
+    replace-ext "^1.0.0"
 
 imagemin-webp@^4.1.0:
   version "4.1.0"
@@ -4884,7 +4895,7 @@ pend@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/pend/-/pend-1.2.0.tgz#7a57eb550a6783f9115331fcf4663d5c8e007a50"
 
-pify@^2.0.0:
+pify@^2.0.0, pify@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
 
