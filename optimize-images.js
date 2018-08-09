@@ -1,6 +1,7 @@
 const imagemin = require("imagemin-keep-folder")
 const imageminJpegRecompress = require('imagemin-jpeg-recompress')
 const webp = require("imagemin-webp")
+const imageminOptipng = require('imagemin-optipng')
 
 const outputFolder = "./static/"
 const PNG = "./unoptimized-images/**/*.png"
@@ -10,6 +11,17 @@ imagemin([PNG], {
   use: [
     webp({
       lossless: true
+    })
+  ],
+  replaceOutputDir: output => {
+    return output.replace(/unoptimized-images\//, 'static/')
+  }
+});
+
+imagemin([PNG], {
+  use: [
+    imageminOptipng({
+      optimizationLevel: 3
     })
   ],
   replaceOutputDir: output => {
