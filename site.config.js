@@ -65,5 +65,22 @@ module.exports = {
     files: [],
     social_url: site_url,
     commentsEnabled: false
+  },
+
+  /**
+   * Based on `markdown-it-gallery`
+   */
+  markdown_gallery: {
+    galleryClass: 'gallery',
+    galleryTag: 'div',
+    imgClass: 'gallery-image',
+    wrapImagesInLinks: true,
+    linkClass: 'gallery-link',
+    linkTarget: '_blank',
+    imgTokenType: 'image',
+    linkTokenType: 'link',
+    imageFilterFn: token => /galleries\//.test(token.attrGet('src')),
+    // imageSrcFn: token => token.attrGet('src').replace(/(\.\w+$)/, '$1'),
+    // linkHrefFn: token => token.attrGet('src').replace(/(\.\w+$)/, '$1'),
   }
 };

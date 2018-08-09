@@ -2,8 +2,37 @@ const fs = require("fs");
 const klaw = require("klaw");
 const path = require("path");
 const matter = require("gray-matter");
-const showdown = require("showdown");
-const converter = new showdown.Converter();
+const config = require('../site.config.js')
+const Md = require('markdown-it');
+const attrs = require('markdown-it-attrs')
+const galleryPlugin = require('markdown-it-gallery');
+
+const md = Md({
+  html: true,
+  linkify: false,
+  typographer: false,
+  modifyToken: function (token, env) {
+    // see API https://markdown-it.github.io/markdown-it/#Token
+    // token will also have an attrObj property added for convenience
+    // which allows easy get and set of attribute values.
+    // It is prepopulated with the current attr values.
+    // Values returned in token.attrObj will override existing attr values.
+    // env will contain any properties passed to markdown-it's render
+    // Token can be modified in place, no return is necessary
+    switch (token.type) {
+    case 'image':
+        token.attrObj['data-src'] = token.attrObj['src'];
+        token.attrObj['src'] = "";
+      break;
+    }
+  }
+})
+  .use(require('markdown-it-modify-token'))
+  .use(galleryPlugin, config.markdown_gallery)
+  .use(attrs, {
+    leftDelimiter: '[',
+    rightDelimiter: ']'
+  })
 
 /**
  * Capture all text up until the first <!-- more--> comment and make that text both the meta description and the post excerpt, unless the post has an explicit description in the markdown meta.
@@ -74,13 +103,12 @@ module.exports = markdown_folder => {
               fileInfo.url = "/";
             }
 
-            fileInfo.html = converter.makeHtml(fileInfo.content);
+            fileInfo.html = md.render(fileInfo.content);
 
             fileInfo.wordCount = get_word_count(fileInfo.html);
             fileInfo.readingTime = get_reading_time(fileInfo.wordCount);
 
-            fileInfo.excerpt = converter
-              .makeHtml(fileInfo.excerpt || excerpt(fileInfo.content))
+            fileInfo.excerpt = md.render(fileInfo.excerpt || excerpt(fileInfo.content))
               .replace(/(<([^>]+)>)/gi, "");
             fileInfo.description =
               fileInfo.description || fileInfo.excerpt.slice(0, 297) + "...";
