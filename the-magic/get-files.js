@@ -75,7 +75,7 @@ function get_reading_time(word_count) {
   return reading_time_in_minutes;
 }
 
-module.exports = (file_path, files) => {
+module.exports = (file_path, files = []) => {
   return new Promise(resolve => {
     // Filter function to retrieve .md files //
     if (path.extname(file_path) === ".md") {
