@@ -5,7 +5,9 @@ const matter = require("gray-matter");
 const config = require('../site.config.js')
 const Md = require('markdown-it');
 const attrs = require('markdown-it-attrs')
-const galleryPlugin = require('markdown-it-gallery');
+const galleryPlugin = require('markdown-it-gallery')
+const markdown_folder = path.join(__dirname, '..', "markdown")
+const colors = require('colors')
 
 const md = Md({
   html: true,
@@ -73,73 +75,73 @@ function get_reading_time(word_count) {
   return reading_time_in_minutes;
 }
 
-module.exports = markdown_folder => {
+module.exports = (file_path, files) => {
   return new Promise(resolve => {
-    let files = [];
-    if (fs.existsSync(markdown_folder)) {
-      klaw(markdown_folder)
-        .on("data", item => {
-          // Filter function to retrieve .md files //
-          if (path.extname(item.path) === ".md") {
-            // If markdown file, read contents //
-            const data = fs.readFileSync(item.path, "utf8");
-            // Convert to frontmatter object and markdown content //
-            let fileInfo = matter(data);
-            fileInfo = Object.assign({}, fileInfo.data, fileInfo);
+    // Filter function to retrieve .md files //
+    if (path.extname(file_path) === ".md") {
+      // If markdown file, read contents //
+      const data = fs.readFileSync(file_path, "utf8");
+      // Convert to frontmatter object and markdown content //
+      let fileInfo = matter(data);
+      fileInfo = Object.assign({}, fileInfo.data, fileInfo);
 
-            fileInfo.updated = fileInfo.updated
-              ? new Date(fileInfo.updated).toISOString()
-              : item.stats.mtime;
-            fileInfo.created = fileInfo.created
-              ? new Date(fileInfo.created).toISOString()
-              : item.stats.birthtime;
-            fileInfo.url =
-              fileInfo.url ||
-              item.path
-                .replace(markdown_folder, "")
-                .replace(path.extname(item.path), "");
+      let stats = fs.statSync(file_path)
 
-            if (fileInfo.url === "/index") {
-              fileInfo.url = "/";
-            }
+      fileInfo.updated = fileInfo.updated
+        ? new Date(fileInfo.updated).toISOString()
+        : stats.mtime;
+      fileInfo.created = fileInfo.created
+        ? new Date(fileInfo.created).toISOString()
+        : stats.birthtime;
 
-            fileInfo.html = md.render(fileInfo.content);
+      fileInfo.url =
+        fileInfo.url ||
+        file_path
+          .replace(markdown_folder, "")
+          .replace(path.extname(file_path), "");
 
-            fileInfo.wordCount = get_word_count(fileInfo.html);
-            fileInfo.readingTime = get_reading_time(fileInfo.wordCount);
+      if (fileInfo.url === "/index") {
+        fileInfo.url = "/";
+      }
 
-            fileInfo.excerpt = md.render(fileInfo.excerpt || excerpt(fileInfo.content))
-              .replace(/(<([^>]+)>)/gi, "");
-            fileInfo.description =
-              fileInfo.description || fileInfo.excerpt.slice(0, 297) + "...";
-            delete fileInfo.orig;
-            delete fileInfo.data;
+      fileInfo.html = md.render(fileInfo.content);
 
-            /**
-             * If you don't want to even write files that are in draft mode uncomment this snippet and comment the one below
-             */
-            // if (!fileInfo.draft || process.env.NODE_ENV !== 'production') {
-            // files.push(fileInfo);
-            // }
+      fileInfo.wordCount = get_word_count(fileInfo.html);
+      fileInfo.readingTime = get_reading_time(fileInfo.wordCount);
 
-            /**
-             * Leave line unmodifed if you wish to allow certain users with a password to see draft files.
-             */
-            files.push(fileInfo);
-          }
-        })
-        .on("error", e => {
-          console.log(e);
-        })
-        .on("end", () => {
-          files = files.sort(function(a, b) {
-            return new Date(b.created) - new Date(a.created);
-          });
+      fileInfo.excerpt = md.render(fileInfo.excerpt || excerpt(fileInfo.content))
+        .replace(/(<([^>]+)>)/gi, "");
+      fileInfo.description =
+        fileInfo.description || fileInfo.excerpt.slice(0, 297) + "...";
+      fileInfo.path = file_path.replace(path.join(__dirname, '..'), '')
+      delete fileInfo.orig;
+      delete fileInfo.data;
 
-          resolve(files);
-        });
-    } else {
-      resolve(files);
+      let index = files.findIndex(file => file.url === fileInfo.url)
+
+      if(index > -1) {
+        files[index] = fileInfo
+        console.log(colors.blue(`"${path.basename(file_path)}" updated.`))
+      } else {
+        /**
+         * If you don't want to even write files that are in draft mode uncomment this snippet and comment the one below
+         */
+        // if (!fileInfo.draft || process.env.NODE_ENV !== 'production') {
+        // files.push(fileInfo);
+        // }
+
+        /**
+         * Leave line unmodifed if you wish to allow certain users with a password to see draft files.
+         */
+        files.push(fileInfo);
+        console.log(colors.blue(`"${path.basename(file_path)}" added.`))
+      }
+
+      files = files.sort(function(a, b) {
+        return new Date(b.created) - new Date(a.created);
+      });
     }
+
+    resolve(files);
   });
 };
