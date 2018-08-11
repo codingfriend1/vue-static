@@ -13,28 +13,25 @@ const md = Md({
   html: true,
   linkify: false,
   typographer: false,
-  modifyToken: function (token, env) {
-    // see API https://markdown-it.github.io/markdown-it/#Token
-    // token will also have an attrObj property added for convenience
-    // which allows easy get and set of attribute values.
-    // It is prepopulated with the current attr values.
-    // Values returned in token.attrObj will override existing attr values.
-    // env will contain any properties passed to markdown-it's render
-    // Token can be modified in place, no return is necessary
-    switch (token.type) {
-    case 'image':
-        token.attrObj['data-src'] = token.attrObj['src'];
-        token.attrObj['src'] = "";
-      break;
-    }
-  }
+  // modifyToken: function (token, env) {
+  //   // see API https://markdown-it.github.io/markdown-it/#Token
+  //   // token will also have an attrObj property added for convenience
+  //   // which allows easy get and set of attribute values.
+  //   // It is prepopulated with the current attr values.
+  //   // Values returned in token.attrObj will override existing attr values.
+  //   // env will contain any properties passed to markdown-it's render
+  //   // Token can be modified in place, no return is necessary
+  //   switch (token.type) {
+  //   case 'image':
+  //       token.attrObj['data-src'] = token.attrObj['src'];
+  //       token.attrObj['src'] = "";
+  //     break;
+  //   }
+  // }
 })
   .use(require('markdown-it-modify-token'))
   .use(galleryPlugin, config.markdown_gallery)
-  .use(attrs, {
-    leftDelimiter: '[',
-    rightDelimiter: ']'
-  })
+  .use(attrs)
 
 /**
  * Capture all text up until the first <!-- more--> comment and make that text both the meta description and the post excerpt, unless the post has an explicit description in the markdown meta.
@@ -114,6 +111,7 @@ module.exports = (file_path, files = []) => {
       fileInfo.description =
         fileInfo.description || fileInfo.excerpt.slice(0, 297) + "...";
       fileInfo.path = file_path.replace(path.join(__dirname, '..'), '')
+
       delete fileInfo.orig;
       delete fileInfo.data;
 

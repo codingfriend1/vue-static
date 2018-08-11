@@ -170,7 +170,10 @@ const generate_static_files = throttle((files) => {
   );
 
   createFile("feed.xml", feed_xml);
-}, 100)
+}, 150, {
+  trailing: true,
+  leading: false
+})
 
 async function watching(file_path) {
   files = await renderMarkdownFile(file_path, files)
@@ -197,6 +200,12 @@ function updateHTMLTemplate() {
   generate_static_files(files)
 }
 
+function wait(ms) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  })
+}
+
 const watch_server_bundle = chokidar
   .watch(serverBundlePath, {
     persistent: true,
@@ -205,7 +214,9 @@ const watch_server_bundle = chokidar
       pollInterval: 100
     }
   })
-  .on('add', (file) => {
+  .on('add', async (file) => {
+
+    await wait(500)
 
     console.log('\n\r', colors.green(`Watching markdown files and theme/index.template.html`), '\n\r')
 
@@ -221,6 +232,9 @@ const watch_server_bundle = chokidar
       })
       .on('add', updateHTMLTemplate)
       .on('change', updateHTMLTemplate)
+      .on('unlink', () => {
+        console.log('\n\r', colors.red(`You must have an index.template.html file in your theme for rendering to work.`), '\n\r')})
+      .on('error', function(error) {console.error(`Error watching ${folders.template_html_path}:`, error)})
 
     markdown_watcher = chokidar
       .watch(folders.markdown_folder, {ignored: /^\./, persistent: true})
@@ -242,10 +256,11 @@ const watch_server_bundle = chokidar
 
         generate_static_files(files)
       })
-      .on('error', function(error) {console.error('Error happened', error);})
+      .on('error', function(error) {console.error('Error watching markdown:', error)})
   })
   .on('unlink', () => {
     console.log('\n\r', colors.red(`vue-ssr-server-bundle.json was erased. Markdown files will no longer be watched. Please end this process and rerun 'yarn start' to fix this problem.`), '\n\r')
     markdown_watcher.unwatch(folders.markdown_folder)
     watch_index_template.unwatch(folders.template_html_path)
   })
+  .on('error', function(error) {console.error(`Error watching ${serverBundlePath}:`, error)})
