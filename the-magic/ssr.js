@@ -56,7 +56,7 @@ function createFile(url, html) {
       if (err) {
         return console.log(err);
       }
-      console.log(colors.grey(`${path.basename(url)} was created.`));
+      console.log(colors.grey(`${path.basename(url)}`));
     });
   });
 }
@@ -75,7 +75,7 @@ let markdown_watcher,
 
 
 const generate_static_files = (files, index) => {
-  console.log(colors.grey(`Generating static html files:`));
+  console.log(colors.grey(`\n\rGenerating static html files:`));
   console.log(colors.grey(`------------------------------`));
 
   let files_range = index > -1 ? [files[index]] : files
@@ -93,7 +93,8 @@ const generate_static_files = (files, index) => {
 
     renderer.renderToString(context, (err, html) => {
       if (err) {
-        console.warn(`Error with SSR`, err);
+        console.log(err);
+        return false
       }
 
       const {
@@ -185,6 +186,8 @@ async function addFile(file_path) {
   }, 200);
 }
 
+let double_render_timeout
+
 /**
  * Updating single files instead of all html files will be faster, but if other html files include information from this changed file they won't be updated. This is true for if the page title changes and navigation links are based off the title. This will only be a problem in development, not during a production build. And you won't notice the problem unless you refresh the page on one of the other pages. See solution below
  */
@@ -196,10 +199,12 @@ async function updateFile(file_path) {
 
   generate_static_files(files, index)
 
+  clearTimeout(double_render_timeout)
+
   // Adding this second generate static files will fix the rest.
-  setTimeout(() => {
+  double_render_timeout = setTimeout(() => {
     generate_static_files(files)
-  }, 1000);
+  }, 2000);
 }
 
 
@@ -276,7 +281,7 @@ function wait(ms) {
               fs.unlinkSync(delete_path)
               files.splice(index, 1)
             } catch(err) {
-              console.log(`Could not delete ${delete_path}. Perhaps this file did not exist in the dist/ folder to begin with.`); 
+              
             }
             
           }

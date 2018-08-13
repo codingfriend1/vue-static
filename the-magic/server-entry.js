@@ -1,6 +1,7 @@
 const Vue = require("vue");
 const config = require("../site.config.js");
 const path = require("path");
+const colors = require('colors')
 
 /**
  * For using fetch for async data server-side
@@ -18,8 +19,7 @@ export default context => {
       let matchedComponents = router.getMatchedComponents();
       // no matched routes
       if (!matchedComponents.length) {
-        return reject(
-          new Error(`There are no vue components for this url: ${context.url}`)
+        return reject(colors.red(`${context.file.url}`) + colors.grey(` from `) + colors.red(context.file.path.replace(__dirname, '')) + colors.grey(` is not routed to any vue templates. Match a vue template to this url in the ` + colors.green(`site.config.js`) + ` routes.\n\r`)
         );
       }
       // call `asyncData()` on all matched route components
