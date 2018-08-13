@@ -114,6 +114,7 @@ module.exports = (file_path, files = []) => {
 
       delete fileInfo.orig;
       delete fileInfo.data;
+      delete fileInfo.content;
 
       let index = files.findIndex(file => file.url === fileInfo.url)
 
