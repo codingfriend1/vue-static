@@ -272,8 +272,13 @@ function wait(ms) {
 
           if(index > -1 && files[index] && files[index].url) {
             let delete_path = path.join(folders.output_folder, files[index].url + '.html')
-            fs.unlinkSync(delete_path)
-            files.splice(index, 1)
+            try {
+              fs.unlinkSync(delete_path)
+              files.splice(index, 1)
+            } catch(err) {
+              console.log(`Could not delete ${delete_path}. Perhaps this file did not exist in the dist/ folder to begin with.`); 
+            }
+            
           }
           
 
