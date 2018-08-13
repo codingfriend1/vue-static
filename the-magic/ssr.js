@@ -74,50 +74,92 @@ let markdown_watcher,
 
 
 
-const generate_static_files = (files) => {
+const generate_static_files = (files, file_path) => {
   console.log(colors.grey(`Generating static html files: `));
   console.log(colors.grey(`-----------------------------`));
 
-  files.forEach(file => {
-    // if (!file || (file.draft && process.env.NODE_ENV === 'production')) {
-    //   return;
-    // }
-    if(!file) { return }
+  if(file_path) {
+    let url = file_path.replace(path.join(__dirname, '..'), '')
+    let index = files.findIndex(file => file.path === url)
 
-    const context = {
-      file,
-      files
-    };
+    if(index > -1 && files[index] && files[index].url) {
+      let file = files[index]
+      const context = {
+        file,
+        files
+      };
 
-    renderer.renderToString(context, (err, html) => {
-      if (err) {
-        console.warn(`Error with SSR`, err);
-      }
+      renderer.renderToString(context, (err, html) => {
+        if (err) {
+          console.warn(`Error with SSR`, err);
+        }
 
-      const {
-        title,
-        htmlAttrs,
-        bodyAttrs,
-        link,
-        style,
-        script,
-        noscript,
-        meta
-      } = context.meta.inject();
+        const {
+          title,
+          htmlAttrs,
+          bodyAttrs,
+          link,
+          style,
+          script,
+          noscript,
+          meta
+        } = context.meta.inject();
 
-      html = html.replace(
-        "<!-- meta tags will be auto injected here -->",
-        meta.text() +
-          title.text() +
-          link.text() +
-          style.text() +
-          script.text() +
-          noscript.text()
-      );
+        html = html.replace(
+          "<!-- meta tags will be auto injected here -->",
+          meta.text() +
+            title.text() +
+            link.text() +
+            style.text() +
+            script.text() +
+            noscript.text()
+        );
 
-      createFile(file.url === "/" ? "/index" : file.url, html);
+        createFile(file.url === "/" ? "/index" : file.url, html);
+      });
+    }
+  } else {
+    files.forEach(file => {
+      // if (!file || (file.draft && process.env.NODE_ENV === 'production')) {
+      //   return;
+      // }
+      if(!file) { return }
+
+      const context = {
+        file,
+        files
+      };
+
+      renderer.renderToString(context, (err, html) => {
+        if (err) {
+          console.warn(`Error with SSR`, err);
+        }
+
+        const {
+          title,
+          htmlAttrs,
+          bodyAttrs,
+          link,
+          style,
+          script,
+          noscript,
+          meta
+        } = context.meta.inject();
+
+        html = html.replace(
+          "<!-- meta tags will be auto injected here -->",
+          meta.text() +
+            title.text() +
+            link.text() +
+            style.text() +
+            script.text() +
+            noscript.text()
+        );
+
+        createFile(file.url === "/" ? "/index" : file.url, html);
+      });
     });
-  });
+  }
 
   let sitemap_string = files
     .filter(file => file.url.indexOf("404") === -1)
@@ -173,7 +215,7 @@ const generate_static_files = (files) => {
 
 let static_timeout
 
-async function watching(file_path) {
+async function addFile(file_path) {
   files = await renderMarkdownFile(file_path, files)
 
   clearTimeout(static_timeout)
@@ -181,6 +223,19 @@ async function watching(file_path) {
   static_timeout = setTimeout(() => {
     generate_static_files(files)
   }, 200);
+}
+
+/**
+ * Updating single files instead of all html files will be faster, but if other html files include information from this changed file they won't be updated. This is true for if the page title changes and navigation links are based off the title. This will only be a problem in development, not during a production build. And you won't notice the problem unless you refresh the page on one of the other pages. See solution below:
+ */
+async function updateFile(file_path) {
+  files = await renderMarkdownFile(file_path, files)
+  generate_static_files(files, file_path)
+
+  // Adding this second generate static files will fix the rest.
+  setTimeout(() => {
+    generate_static_files(files)
+  }, 1000);
 }
 
 
@@ -244,8 +299,8 @@ function wait(ms) {
 
       markdown_watcher = chokidar
         .watch(folders.markdown_folder, {ignored: /^\./, persistent: true})
-        .on('add', watching)
-        .on('change', watching)
+        .on('add', addFile)
+        .on('change', updateFile)
         .on('unlink', function(file_path) {
 
           let url = file_path.replace(path.join(__dirname, '..'), '')
