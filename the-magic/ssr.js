@@ -74,7 +74,7 @@ let markdown_watcher,
 
 
 
-const generate_static_files = throttle((files) => {
+const generate_static_files = (files) => {
   console.log(colors.grey(`Generating static html files: `));
   console.log(colors.grey(`-----------------------------`));
 
@@ -82,7 +82,6 @@ const generate_static_files = throttle((files) => {
     // if (!file || (file.draft && process.env.NODE_ENV === 'production')) {
     //   return;
     // }
-
     if(!file) { return }
 
     const context = {
@@ -170,14 +169,18 @@ const generate_static_files = throttle((files) => {
   );
 
   createFile("feed.xml", feed_xml);
-}, 150, {
-  trailing: true,
-  leading: false
-})
+}
+
+let static_timeout
 
 async function watching(file_path) {
   files = await renderMarkdownFile(file_path, files)
-  generate_static_files(files)
+
+  clearTimeout(static_timeout)
+
+  static_timeout = setTimeout(() => {
+    generate_static_files(files)
+  }, 200);
 }
 
 
@@ -196,7 +199,6 @@ function updateHTMLTemplate() {
       }
     )
   );
-
   generate_static_files(files)
 }
 
@@ -204,63 +206,71 @@ function wait(ms) {
   return new Promise(resolve => {
     setTimeout(resolve, ms);
   })
-}
+};
 
-const watch_server_bundle = chokidar
-  .watch(serverBundlePath, {
-    persistent: true,
-    awaitWriteFinish: {
-      stabilityThreshold: 2000,
-      pollInterval: 100
-    }
-  })
-  .on('add', async (file) => {
+(async function(){
 
-    await wait(500)
+  await wait(1000)
 
-    console.log('\n\r', colors.green(`Watching markdown files and theme/index.template.html`), '\n\r')
+  const watch_server_bundle = chokidar
+    .watch(serverBundlePath, {
+      persistent: true,
+      awaitWriteFinish: {
+        stabilityThreshold: 2000,
+        pollInterval: 100
+      }
+    })
+    .on('add', async (file) => {
 
-    updateHTMLTemplate()
+      await wait(500)
 
-    watch_index_template = chokidar
-      .watch(folders.template_html_path, {
-        persistent: true,
-        awaitWriteFinish: {
-          stabilityThreshold: 2000,
-          pollInterval: 100
-        },
-      })
-      .on('add', updateHTMLTemplate)
-      .on('change', updateHTMLTemplate)
-      .on('unlink', () => {
-        console.log('\n\r', colors.red(`You must have an index.template.html file in your theme for rendering to work.`), '\n\r')})
-      .on('error', function(error) {console.error(`Error watching ${folders.template_html_path}:`, error)})
+      console.log('\n\r', colors.green(`Watching markdown files and theme/index.template.html`), '\n\r')
 
-    markdown_watcher = chokidar
-      .watch(folders.markdown_folder, {ignored: /^\./, persistent: true})
-      .on('add', watching)
-      .on('change', watching)
-      .on('unlink', function(file_path) {
+      updateHTMLTemplate()
 
-        let url = file_path.replace(path.join(__dirname, '..'), '')
-        let index = files.findIndex(file => file.path === url)
+      watch_index_template = chokidar
+        .watch(folders.template_html_path, {
+          persistent: true,
+          awaitWriteFinish: {
+            stabilityThreshold: 2000,
+            pollInterval: 100
+          },
+        })
+        .on('add', updateHTMLTemplate)
+        .on('change', updateHTMLTemplate)
+        .on('unlink', () => {
+          console.log('\n\r', colors.red(`You must have an index.template.html file in your theme for rendering to work.`), '\n\r')})
+        .on('error', function(error) {console.error(`Error watching ${folders.template_html_path}:`, error)})
 
-        if(index > -1 && files[index] && files[index].url) {
-          let delete_path = path.join(folders.output_folder, files[index].url + '.html')
-          fs.unlinkSync(delete_path)
-          files.splice(index, 1)
-        }
-        
+      markdown_watcher = chokidar
+        .watch(folders.markdown_folder, {ignored: /^\./, persistent: true})
+        .on('add', watching)
+        .on('change', watching)
+        .on('unlink', function(file_path) {
 
-        console.log(colors.blue(`"${path.basename(url)}" removed.`))
+          let url = file_path.replace(path.join(__dirname, '..'), '')
+          let index = files.findIndex(file => file.path === url)
 
-        generate_static_files(files)
-      })
-      .on('error', function(error) {console.error('Error watching markdown:', error)})
-  })
-  .on('unlink', () => {
-    console.log('\n\r', colors.red(`vue-ssr-server-bundle.json was erased. Markdown files will no longer be watched. Please end this process and rerun 'yarn start' to fix this problem.`), '\n\r')
-    markdown_watcher.unwatch(folders.markdown_folder)
-    watch_index_template.unwatch(folders.template_html_path)
-  })
-  .on('error', function(error) {console.error(`Error watching ${serverBundlePath}:`, error)})
+          if(index > -1 && files[index] && files[index].url) {
+            let delete_path = path.join(folders.output_folder, files[index].url + '.html')
+            fs.unlinkSync(delete_path)
+            files.splice(index, 1)
+          }
+          
+
+          console.log(colors.blue(`"${path.basename(url)}" removed.`))
+          clearTimeout(static_timeout)
+
+          static_timeout = setTimeout(() => {
+            generate_static_files(files)
+          }, 200);
+        })
+        .on('error', function(error) {console.error('Error watching markdown:', error)})
+    })
+    .on('unlink', () => {
+      console.log('\n\r', colors.red(`vue-ssr-server-bundle.json was erased. Markdown files will no longer be watched. Please end this process and rerun 'yarn start' to fix this problem.`), '\n\r')
+      markdown_watcher.unwatch(folders.markdown_folder)
+      watch_index_template.unwatch(folders.template_html_path)
+    })
+    .on('error', function(error) {console.error(`Error watching ${serverBundlePath}:`, error)})
+})()
