@@ -226,7 +226,7 @@ async function addFile(file_path) {
 }
 
 /**
- * Updating single files instead of all html files will be faster, but if other html files include information from this changed file they won't be updated. This is true for if the page title changes and navigation links are based off the title. This will only be a problem in development, not during a production build. And you won't notice the problem unless you refresh the page on one of the other pages. See solution below:
+ * Updating single files instead of all html files will be faster, but if other html files include information from this changed file they won't be updated. This is true for if the page title changes and navigation links are based off the title. This will only be a problem in development, not during a production build. And you won't notice the problem unless you refresh the page on one of the other pages. See solution below
  */
 async function updateFile(file_path) {
   files = await renderMarkdownFile(file_path, files)
