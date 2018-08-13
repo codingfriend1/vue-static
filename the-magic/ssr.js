@@ -7,7 +7,7 @@ const { createBundleRenderer } = require("vue-server-renderer");
 const mkdirp = require("mkdirp");
 const getDirName = require("path").dirname;
 const config = require("../site.config");
-const renderMarkdownFile = require("./get-files.js");
+const renderMarkdownFile = require("./render-markdown.js");
 const chokidar = require('chokidar');
 const throttle = require('lodash.throttle')
 
