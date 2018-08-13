@@ -74,92 +74,52 @@ let markdown_watcher,
 
 
 
-const generate_static_files = (files, file_path) => {
-  console.log(colors.grey(`Generating static html files: `));
-  console.log(colors.grey(`-----------------------------`));
+const generate_static_files = (files, index) => {
+  console.log(colors.grey(`Generating static html files:`));
+  console.log(colors.grey(`------------------------------`));
 
-  if(file_path) {
-    let url = file_path.replace(path.join(__dirname, '..'), '')
-    let index = files.findIndex(file => file.path === url)
+  let files_range = index > -1 ? [files[index]] : files
 
-    if(index > -1 && files[index] && files[index].url) {
-      let file = files[index]
-      const context = {
-        file,
-        files
-      };
+  files_range.forEach(file => {
+    // if (!file || (file.draft && process.env.NODE_ENV === 'production')) {
+    //   return;
+    // }
+    if(!file) { return }
 
-      renderer.renderToString(context, (err, html) => {
-        if (err) {
-          console.warn(`Error with SSR`, err);
-        }
+    const context = {
+      file,
+      files
+    };
 
-        const {
-          title,
-          htmlAttrs,
-          bodyAttrs,
-          link,
-          style,
-          script,
-          noscript,
-          meta
-        } = context.meta.inject();
+    renderer.renderToString(context, (err, html) => {
+      if (err) {
+        console.warn(`Error with SSR`, err);
+      }
 
-        html = html.replace(
-          "<!-- meta tags will be auto injected here -->",
-          meta.text() +
-            title.text() +
-            link.text() +
-            style.text() +
-            script.text() +
-            noscript.text()
-        );
+      const {
+        title,
+        htmlAttrs,
+        bodyAttrs,
+        link,
+        style,
+        script,
+        noscript,
+        meta
+      } = context.meta.inject();
 
-        createFile(file.url === "/" ? "/index" : file.url, html);
-      });
-    }
-  } else {
-    files.forEach(file => {
-      // if (!file || (file.draft && process.env.NODE_ENV === 'production')) {
-      //   return;
-      // }
-      if(!file) { return }
+      html = html.replace(
+        "<!-- meta tags will be auto injected here -->",
+        meta.text() +
+          title.text() +
+          link.text() +
+          style.text() +
+          script.text() +
+          noscript.text()
+      );
 
-      const context = {
-        file,
-        files
-      };
-
-      renderer.renderToString(context, (err, html) => {
-        if (err) {
-          console.warn(`Error with SSR`, err);
-        }
-
-        const {
-          title,
-          htmlAttrs,
-          bodyAttrs,
-          link,
-          style,
-          script,
-          noscript,
-          meta
-        } = context.meta.inject();
-
-        html = html.replace(
-          "<!-- meta tags will be auto injected here -->",
-          meta.text() +
-            title.text() +
-            link.text() +
-            style.text() +
-            script.text() +
-            noscript.text()
-        );
-
-        createFile(file.url === "/" ? "/index" : file.url, html);
-      });
+      createFile(file.url === "/" ? "/index" : file.url, html);
     });
-  }
+  });
 
   let sitemap_string = files
     .filter(file => file.url.indexOf("404") === -1)
@@ -230,7 +190,11 @@ async function addFile(file_path) {
  */
 async function updateFile(file_path) {
   files = await renderMarkdownFile(file_path, files)
-  generate_static_files(files, file_path)
+
+  let url = file_path.replace(path.join(__dirname, '..'), '')
+  let index = files.findIndex(file => file.path === url)
+
+  generate_static_files(files, index)
 
   // Adding this second generate static files will fix the rest.
   setTimeout(() => {
