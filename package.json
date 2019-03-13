@@ -28,7 +28,7 @@
     "webpack": "webpack",
     "gulp": "gulp",
     "start": "npm-run-all --parallel watch generate serve",
-    "build": "gulp && NODE_ENV=production webpack -p && node the-magic/ssr.js",
+    "build": "gulp && NODE_ENV=production webpack -p && NODE_ENV=production node the-magic/ssr-build.js",
     "optimize": "node optimize-images.js"
   },
   "dependencies": {
@@ -80,6 +80,7 @@
     "pug": "^2.0.0-rc.4",
     "raw-loader": "^0.5.1",
     "run-sequence": "^1.2.2",
+    "showdown": "^1.9.0",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
