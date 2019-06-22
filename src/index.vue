@@ -1,0 +1,123 @@
+<template lang="pug">
+  #app
+    #cookieConsent(ref="cookieConsent")
+      span This website is using cookies. 
+      router-link(to="/privacy-policy").no-border More info
+      a.cookieConsentOK(@click="enableTracking()") Got it!
+    navigation
+    div
+      router-view
+    foot
+</template>
+
+<script>
+const config = require("config");
+const Vue = require('vue')
+
+Vue.filter('prettifyDate', function (value) {
+  var months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
+  var date = new Date(value);
+  return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+})
+
+module.exports = {
+  methods: {
+    enableTracking () {
+      if(typeof window !== 'undefined' && config.googleAnalyticsId) {
+        localStorage.setItem('no-cookie-consent', true)
+        this.$ga.enable()
+        this.$refs['cookieConsent'].style.display = 'none'
+        window.allowCookies = true
+
+        this.$ga.page({
+          page: this.$route.path,
+          title: window.store.file ? window.store.file.title : "home",
+          location: window.location.href
+        })
+        // from now on analytics is enabled
+      }
+      
+    },
+    disableTracking () {
+      if(typeof window !== 'undefined' && config.googleAnalyticsId) {
+        localStorage.setItem('no-cookie-consent', false)
+        this.$ga.disable()
+        this.$refs['cookieConsent'].style.display = 'none'
+        window.allowCookies = false
+        // from now on analytics is disabled
+      }
+      
+    },
+  },
+  mounted() {
+    if(!this.$isServer && typeof localStorage !== 'undefined' && config.googleAnalyticsId) {
+      let consent = localStorage.getItem('no-cookie-consent')
+      window.cookieConsentEl = this.$refs['cookieConsent']
+      if(!consent) {
+        this.$refs['cookieConsent'].style.display = 'block'
+      }
+
+      if(consent === 'true') {
+        window.allowCookies = true
+        this.$ga.enable()
+      } else if(consent === 'false') {
+        window.allowCookies = false
+        this.$ga.disable()
+      } else {
+        window.allowCookies = undefined
+      }
+    }
+    
+    
+  }
+};
+</script>
+
+<style lang="styl">
+  #cookieConsent {
+    background-color: rgba(20,20,20,0.8);
+    min-height: 26px;
+    color: white;
+    line-height: 26px;
+    padding: 12px 0 12px 30px;
+    font-size: 16px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    display: none;
+  }
+  #cookieConsent a {
+    color: #4B8EE7;
+    text-decoration: none;
+  }
+  #cookieConsent span {
+    padding: 5px 0;
+  }
+  #closeCookieConsent {
+    float: right;
+    display: inline-block;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    margin: -15px 0 0 0;
+    font-weight: bold;
+  }
+  #closeCookieConsent:hover {
+    color: #FFF;
+  }
+  #cookieConsent a.cookieConsentOK {
+    background-color: #fafafa;
+    color: #000;
+    display: inline-block;
+    border-radius: 5px;
+    padding: 5px 20px;
+    cursor: pointer;
+    float: right;
+    margin: 0 60px 0 10px;
+  }
+  #cookieConsent a.cookieConsentOK:hover {
+    background-color: #fafafa;
+  }
+</style>

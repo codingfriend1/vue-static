@@ -8,13 +8,9 @@ const config = require("./site.config.js");
 const del = require('del');
 
 const folders = {
-  theme: path.resolve(__dirname, "theme"),
-  globalize_components_file: path.resolve(
-    __dirname,
-    "theme",
-    config.relativePathInThemeToRoutes
-  ),
-  output_folder: path.join(__dirname, "dist")
+  components: path.resolve(__dirname, config.folderStructure.components),
+  globalize_components_file: path.resolve(__dirname, "the-magic", "boot", "router.js"),
+  output_folder: path.join(__dirname, config.folderStructure.output)
 };
 
 const globalize_components_folder = folders.globalize_components_file.replace(
@@ -26,112 +22,31 @@ gulp.task('delete-dist-folder', function(cb) {
   return del([folders.output_folder], cb);
 });
 
-function generateInject(
-  injectTo,
-  outputFolder,
-  arrayOfFilesToInject,
-  startTag,
-  importStatement,
-  extractFileName
-) {
+gulp.task("globalize-vue-components", function() {
   return gulp
-    .src(injectTo)
+    .src(folders.globalize_components_file)
     .pipe(
       inject(
-        gulp.src(arrayOfFilesToInject, {
+        gulp.src([
+          folders.components + "/**/*.vue",
+          "!" + folders.components + "/**/index.vue"
+        ], {
           read: false
         }),
         {
           relative: false,
-          starttag: "// " + startTag,
-          endtag: "// end " + startTag,
+          starttag: "// globalize vue components",
+          endtag: "// end globalize vue components",
           transform: function(filepath, file, i, length) {
-            if (extractFileName) {
-              var title = filepath.replace(/^.*[\\\/]/, "");
-
-              title = _.camelCase(title.substr(0, title.lastIndexOf(".")));
-
-              if (importStatement === "vueGlobal") {
-                var path;
-                if (filepath.indexOf("..") !== -1) {
-                  path = 'require("' + filepath + '")';
-                } else {
-                  path = 'require("./' + filepath + '")';
-                }
-                return `Vue.component('${title}', ${path})`;
-              } else if (importStatement === "const") {
-                return filepath.indexOf("..") !== -1
-                  ? `const ${title} = require("${filepath}")`
-                  : `const ${title} = require("./${filepath}")`;
-              } else if (importStatement !== "require") {
-                if (filepath.indexOf("..") !== -1) {
-                  return importStatement + '("' + filepath + '")';
-                } else {
-                  return importStatement + '("./' + filepath + '")';
-                }
-              } else {
-                let fp = filepath.replace("/", "");
-
-                return `${title}: Vue.component('${title}', require("${fp}")),`;
-              }
-            } else {
-              if (extractFileName) {
-                var title = filepath.replace(/^.*[\\\/]/, "");
-                title = title
-                  .substr(0, title.lastIndexOf("."))
-                  .replace("-", "_");
-                if (importStatement !== "require") {
-                  if (filepath.indexOf("..") !== -1) {
-                    return "var " + title + ' = require("' + filepath + '")';
-                  } else {
-                    return "var " + title + ' = require("./' + filepath + '")';
-                  }
-                } else {
-                  if (filepath.indexOf("..") !== -1) {
-                    return title + ': require("' + filepath + '"),';
-                  } else {
-                    return title + ': require("./' + filepath + '"),';
-                  }
-                }
-              } else {
-                if (filepath.indexOf("..") !== -1) {
-                  if (importStatement) {
-                    return importStatement + '("' + filepath + '")';
-                  }
-                  return 'require("' + filepath + '")';
-                } else {
-                  if (importStatement) {
-                    return importStatement + '("./' + filepath + '")';
-                  }
-                  return 'require("./' + filepath + '")';
-                }
-              }
-
-              if (filepath.indexOf("..") !== -1) {
-                return 'require("' + filepath + '")';
-              } else {
-                return 'require("./' + filepath + '")';
-              }
-            }
+            let title = filepath.replace(/^.*[\\\/]/, "");
+            title = _.camelCase(title.substr(0, title.lastIndexOf(".")));
+            let fp = filepath.replace("/", "");
+            return `${title}: Vue.component('${title}', require("../../${fp}")),`;
           }
         }
       )
     )
-    .pipe(gulp.dest(outputFolder));
-}
-
-gulp.task("globalize-vue-components", function() {
-  return generateInject(
-    folders.globalize_components_file,
-    globalize_components_folder,
-    [
-      folders.theme + "/**/*.vue",
-      "!" + folders.theme + "/**/root.vue"
-    ],
-    "globalize vue components",
-    "require",
-    true
-  );
+    .pipe(gulp.dest(globalize_components_folder));
 });
 
 gulp.task("default", function(done) {

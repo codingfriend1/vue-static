@@ -5,17 +5,18 @@ const fs = require("fs");
 const { createBundleRenderer } = require("vue-server-renderer");
 const mkdirp = require("mkdirp");
 const getDirName = require("path").dirname;
-const config = require("../site.config");
-const getMarkdownFiles = require("./get-files.js");
+const config = require("../../site.config");
+const { renderMarkdownFolder } = require("./render-markdown.js");
 
-const rootFolder = path.join(__dirname, "..")
+const rootFolder = path.join(__dirname, "..", "..")
 
 const folders = {
-  markdown_folder: path.join(rootFolder, "markdown"),
-  output_folder: path.join(rootFolder, "dist"),
+  markdown_folder: path.resolve(rootFolder, config.folderStructure.markdown),
+  output_folder: path.resolve(rootFolder, config.folderStructure.output),
   published_html_path: path.join(
     rootFolder,
-    "theme",
+    "the-magic",
+    "boot",
     "_index.html"
   )
 };
@@ -77,7 +78,7 @@ let renderer = createBundleRenderer(
   )
 );
 
-getMarkdownFiles(folders.markdown_folder).then(files => {
+renderMarkdownFolder().then(files => {
   files.forEach(file => {
     // if (!file || (file.draft && process.env.NODE_ENV === 'production')) {
     //   return;

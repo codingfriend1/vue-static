@@ -1,5 +1,8 @@
+/**
+ * Runs on server only
+ */
+
 const Vue = require("vue");
-const config = require("../site.config.js");
 const path = require("path");
 const colors = require('colors')
 
@@ -10,11 +13,15 @@ global.fetch = require("node-fetch")
 
 export default context => {
   return new Promise((resolve, reject) => {
-    var { store, app, router } = require(`../theme/index.js`);
+
+    let { store, app, router } = require(`./index.js`);
 
     const meta = app.$meta();
+
     Object.assign(store, context);
+
     router.push(context.file.url);
+    
     router.onReady(() => {
       let matchedComponents = router.getMatchedComponents();
       // no matched routes

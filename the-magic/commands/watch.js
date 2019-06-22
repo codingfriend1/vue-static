@@ -6,24 +6,21 @@ const fs = require("fs");
 const { createBundleRenderer } = require("vue-server-renderer");
 const mkdirp = require("mkdirp");
 const getDirName = require("path").dirname;
-const config = require("../site.config");
-const renderMarkdownFile = require("./render-markdown.js");
+const config = require("../../site.config");
+const { renderMarkdownFile } = require("./render-markdown.js");
 const chokidar = require('chokidar');
 const throttle = require('lodash.throttle')
 
-const rootFolder = path.join(__dirname, "..")
+const rootFolder = path.join(__dirname, "..", "..")
 
 const folders = {
-  markdown_folder: path.join(rootFolder, "markdown"),
-  output_folder: path.join(rootFolder, "dist"),
-  template_html_path: path.join(
-    rootFolder,
-    "theme",
-    "index.template.html"
-  ),
+  markdown_folder: path.resolve(rootFolder, config.folderStructure.markdown),
+  output_folder: path.resolve(rootFolder, config.folderStructure.output),
+  template_html_path: path.resolve(rootFolder, config.folderStructure.html),
   published_html_path: path.join(
     rootFolder,
-    "theme",
+    "the-magic",
+    "boot",
     "_index.html"
   )
 };
@@ -148,7 +145,6 @@ const generate_static_files = (files, index) => {
 
   createFile("sitemap.xml", sitemap_html);
 
-
   let feed_string = files
     .filter(file => file.url.indexOf("404") === -1)
     .map(file => {
@@ -248,7 +244,7 @@ function wait(ms) {
 
       await wait(500)
 
-      console.log('\n\r', colors.green(`Watching markdown files and theme/index.template.html`), '\n\r')
+      console.log('\n\r', colors.green(`Watching markdown files`), '\n\r')
 
       updateHTMLTemplate()
 
@@ -263,7 +259,7 @@ function wait(ms) {
         .on('add', updateHTMLTemplate)
         .on('change', updateHTMLTemplate)
         .on('unlink', () => {
-          console.log('\n\r', colors.red(`You must have an index.template.html file in your theme for rendering to work.`), '\n\r')})
+          console.log('\n\r', colors.red(`You must have an index.template.html file at the-magic/boot/ for rendering to work.`), '\n\r')})
         .on('error', function(error) {console.error(`Error watching ${folders.template_html_path}:`, error)})
 
       markdown_watcher = chokidar

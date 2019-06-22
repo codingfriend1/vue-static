@@ -1,7 +1,22 @@
+const path = require("path");
+const bootFolder = path.resolve(__dirname, "the-magic", "boot")
+const config = require("./site.config");
+
+const folders = {
+  node_modules: path.resolve(__dirname, "node_modules"),
+  the_magic: path.resolve(__dirname, 'the-magic'),
+  boot: bootFolder,
+  published_html_path: path.resolve(bootFolder, "_index.html"),
+  css_folder: path.resolve(__dirname, config.folderStructure.css),
+  components_folder: path.resolve(__dirname, config.folderStructure.components),
+  static_folder: path.resolve(__dirname, config.folderStructure.static),
+  html_template: path.resolve(__dirname, config.folderStructure.html),
+  output_folder: path.resolve(__dirname, config.folderStructure.output),
+};
+
 require("colors");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
-const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const AsyncAwaitPlugin = require("webpack-async-await");
 const VueSSRServerPlugin = require("vue-server-renderer/server-plugin");
@@ -14,34 +29,11 @@ const OptimizeCSSPlugin = require("optimize-css-assets-webpack-plugin");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const configs = [];
-const config = require("./site.config");
 
 const isProduction = process.env.NODE_ENV === "production";
 const isTest = process.env.NODE_ENV === "test";
 
 const node = /node_modules/;
-
-const folders = {
-  root: path.resolve(__dirname),
-  node_modules: path.resolve(__dirname, "node_modules"),
-  boot: path.resolve(__dirname, "theme"),
-
-  theme_folder: path.join(__dirname, "theme"),
-  static_folder: path.join(__dirname, "static"),
-  html_template: path.join(
-    __dirname,
-    "theme",
-    "index.template.html"
-  ),
-  published_html_path: path.join(
-    __dirname,
-    "theme",
-    "_index.html"
-  ),
-  output_folder: path.join(__dirname, "dist"),
-  the_magic: path.resolve(__dirname, 'the-magic')
-};
-
 
 const base = {
   stats: "errors-only",
@@ -56,7 +48,7 @@ const base = {
         test: /\.vue$/,
         loader: "vue-loader",
         exclude: node,
-        include: [folders.theme_folder],
+        include: [folders.components_folder],
         options: {
           loaders: {
             css: ExtractTextPlugin.extract({
@@ -84,7 +76,7 @@ const base = {
         loader: ExtractTextPlugin.extract({
           use: "css-loader!sass-loader"
         }),
-        include: [folders.theme_folder]
+        include: [folders.css_folder, folders.components_folder]
       },
       {
         test: /\.styl$/,
@@ -92,7 +84,7 @@ const base = {
           use: "css-loader!stylus-loader"
         }),
         exclude: node,
-        include: [folders.theme_folder]
+        include: [folders.css_folder, folders.components_folder]
       },
       {
         test: /\.svg$/,
@@ -120,13 +112,18 @@ const base = {
   // Dev plugins
 
   plugins: [
+    new webpack.DefinePlugin({
+      main_js: JSON.stringify(path.resolve(__dirname, config.folderStructure.js)),
+      main_css: JSON.stringify(path.resolve(__dirname, config.folderStructure.css)), 
+      main_vue: JSON.stringify(path.resolve(__dirname, config.folderStructure.vue))
+    }),
     new webpack.NoEmitOnErrorsPlugin(),
     new AsyncAwaitPlugin({
       awaitAnywhere: true,
       asyncExits: true
     }),
     new ExtractTextPlugin({
-      filename: "[name].css"
+      filename: "production.css"
     }),
     new ProgressBarPlugin({
       format: " [:bar] " + ":percent".bold + " (:msg)"
@@ -156,13 +153,13 @@ const base = {
               safe: true
             }
           }),
-          new webpack.optimize.UglifyJsPlugin({
-            sourceMap: false,
-            minimize: true,
-            compress: {
-              warnings: false
-            }
-          }),
+          // new webpack.optimize.UglifyJsPlugin({
+          //   sourceMap: false,
+          //   minimize: true,
+          //   compress: {
+          //     warnings: false
+          //   }
+          // }),
           new CompressionWebpackPlugin({
             asset: "[path].gz[query]",
             algorithm: "gzip",
@@ -179,7 +176,10 @@ const base = {
   resolve: {
     alias: {
       config: path.join(__dirname, "site.config.js"),
-      theme: folders.theme_folder
+      js: path.join(__dirname, "js"),
+      css: path.join(__dirname, "css"),
+      static: path.join(__dirname, "static"),
+      templates: path.join(__dirname, "templates"),
     }
   }
 };
@@ -189,7 +189,7 @@ configs[0] = merge({}, base, {
   output: {
     path: folders.output_folder,
     publicPath: "/",
-    filename: "[name].js",
+    filename: "production.js",
     chunkFilename: "[id].js",
     sourceMapFilename: "[file].map"
   },
@@ -205,7 +205,7 @@ configs[0] = merge({}, base, {
     alias: {
       vue: "vue/dist/vue.js",
       config: path.join(__dirname, "site.config.js"),
-      theme: folders.theme_folder
+      theme: folders.components_folder
     }
   },
   plugins: base.plugins
@@ -252,7 +252,7 @@ configs[0] = merge({}, base, {
 configs[1] = merge({}, base, {
   target: "node",
   entry: {
-    app: path.resolve(folders.the_magic, "server-entry.js")
+    app: path.resolve(folders.boot, "entry-server.js")
   },
   externals: nodeExternals({
     whitelist: /(\.css$|\.less$|\.sass$|\.scss$|\.styl$|\.stylus$|\.(png|jpe?g|gif|svg)(\?.*)?$|\.(woff2?|eot|ttf|otf)(\?.*)?$)/
