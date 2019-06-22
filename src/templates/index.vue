@@ -23,29 +23,20 @@ Vue.filter('prettifyDate', function (value) {
 module.exports = {
   methods: {
     enableTracking () {
-      if(typeof window !== 'undefined' && config.googleAnalyticsId) {
-        localStorage.setItem('no-cookie-consent', true)
-        this.$ga.enable()
-        this.$refs['cookieConsent'].style.display = 'none'
-        window.allowCookies = true
+      global.toggleTracking()
+      // if(typeof window !== 'undefined' && config.googleAnalyticsId) {
+      //   localStorage.setItem('no-cookie-consent', true)
+      //   this.$ga.enable()
+      //   this.$refs['cookieConsent'].style.display = 'none'
+      //   window.allowCookies = true
 
-        this.$ga.page({
-          page: this.$route.path,
-          title: window.store.file ? window.store.file.title : "home",
-          location: window.location.href
-        })
-        // from now on analytics is enabled
-      }
-      
-    },
-    disableTracking () {
-      if(typeof window !== 'undefined' && config.googleAnalyticsId) {
-        localStorage.setItem('no-cookie-consent', false)
-        this.$ga.disable()
-        this.$refs['cookieConsent'].style.display = 'none'
-        window.allowCookies = false
-        // from now on analytics is disabled
-      }
+      //   this.$ga.page({
+      //     page: this.$route.path,
+      //     title: window.store.file ? window.store.file.title : "home",
+      //     location: window.location.href
+      //   })
+      //   // from now on analytics is enabled
+      // }
       
     },
   },

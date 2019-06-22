@@ -15,7 +15,7 @@ module.exports = {
   twitterCreator: "@your_twitter_username",
 
   facebook_id: null,
-  googleAnalyticsId: "",
+  googleAnalyticsId: "UA-57944951-3",
   mailChimpUrl: "",
 
   /**

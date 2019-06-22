@@ -13,6 +13,9 @@ const components = {
   missing: Vue.component('missing', require("../../src/templates/missing.vue")),
   page: Vue.component('page', require("../../src/templates/page.vue")),
   post: Vue.component('post', require("../../src/templates/post.vue")),
+  comment: Vue.component('comment', require("../../src/partials/comment.vue")),
+  foot: Vue.component('foot', require("../../src/partials/foot.vue")),
+  navigation: Vue.component('navigation', require("../../src/partials/navigation.vue")),
   // end globalize vue components
 };
 

@@ -7,11 +7,13 @@
 
     <meta name="google-site-verification" content="" />
 
-    <!-- DO NOT REMOVE-->
+    <!-- DO NOT REMOVE -->
     <link rel="stylesheet" href="/production.css">
   </head>
   <body>
+    <!-- You main root vue file will be injected into the #app element -->
     <div id="app"></div>
+
     <script>
       /**
        * Only loads main.js if the visitor is not a bot since it impacts our load time
@@ -23,11 +25,8 @@
          * This script is the necessary file for production 
          * DO NOT REMOVE
          */
-        // Create a script tag
         const mainjs = document.createElement('script');
-        // Assign a URL to the script element
         mainjs.src = "/production.js"
-        
         document.body.insertAdjacentElement('beforeend', mainjs);
       }
     </script>

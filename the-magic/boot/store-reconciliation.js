@@ -16,13 +16,16 @@ try {
 } catch (err) {}
 
 router.beforeEach((to, from, next) => {
-  let path = to.path.replace('.html', '').replace('.htm', '')
+  let path = to.path.replace('.html', '').replace('.htm', '');
   const found = store.files.find(post => post.url === path);
+  if(typeof postBodyEl !== 'undefined') {
+    global.postBodyEl = null;
+  }
   if (!found) {
     router.replace("/404");
   } else {
     store.file = found;
-    store.social_url = config.site_url + store.file.url
+    store.social_url = config.site_url + store.file.url;
   }
   next();
 });

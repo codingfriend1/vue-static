@@ -9,6 +9,7 @@ const del = require('del');
 
 const folders = {
   components: path.resolve(__dirname, config.folderStructure.components),
+  partials: path.resolve(__dirname, config.folderStructure.partials),
   globalize_components_file: path.resolve(__dirname, "the-magic", "boot", "router.js"),
   output_folder: path.join(__dirname, config.folderStructure.output)
 };
@@ -29,6 +30,7 @@ gulp.task("globalize-vue-components", function() {
       inject(
         gulp.src([
           folders.components + "/**/*.vue",
+          folders.partials + "/**/*.vue",
           "!" + folders.components + "/**/index.vue"
         ], {
           read: false

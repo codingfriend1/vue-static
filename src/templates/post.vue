@@ -54,6 +54,13 @@ module.exports = {
       return this.files.filter(file => file.url.indexOf("articles/") > -1 && (!file.draft || process.env.NODE_ENV !== 'production'));
     }
   },
+  beforeRouteUpdate(to, from, next) {
+    next();
+    this.$nextTick(() => {
+      window.postBodyEl = this.$refs["postBody"]
+    });
+    return true;
+  },
   metaInfo() {
     let meta = this.file
       ? {
@@ -111,6 +118,10 @@ module.exports = {
           window.alert('Sorry but that password was not correct, please wait until the article is published.')
         }
       }
+
+      this.$nextTick(() => {
+        window.postBodyEl = this.$refs["postBody"]
+      });
     }
   }
 };
