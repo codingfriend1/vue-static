@@ -64,7 +64,7 @@ module.exports = {
 };
 </script>
 
-<style lang="styl">
+<style lang="stylus">
   #cookieConsent {
     background-color: rgba(20,20,20,0.8);
     min-height: 26px;

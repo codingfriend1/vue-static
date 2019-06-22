@@ -51,7 +51,7 @@ module.exports = {
      * Tell us what folder we should search in for your larger vue components so we can globalize them
      * @type {String}
      */
-    components: 'src/templates',
+    components: 'src',
 
     /**
      * Tells us what folder your smaller vue components are in

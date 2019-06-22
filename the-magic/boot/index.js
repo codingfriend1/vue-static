@@ -12,8 +12,19 @@ const meta_tags = require('./meta-tags.js')
 
 Vue.config.productionTip = false;
 
+/**
+ * This is our config.folderStructure.js entry file
+ */
 require(main_js);
+
+/**
+ * This is our config.folderStructure.css entry file
+ */
 require(main_css);
+
+/**
+ * This is our config.folderStructure.vue entry file
+ */
 let Root = require(main_vue);
 
 Root = Object.assign({}, {
