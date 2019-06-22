@@ -9,6 +9,7 @@ const folders = {
   published_html_path: path.resolve(bootFolder, "_index.html"),
   css_folder: path.resolve(__dirname, config.folderStructure.css),
   components_folder: path.resolve(__dirname, config.folderStructure.components),
+  partials_folder: path.resolve(__dirname, config.folderStructure.partials),
   static_folder: path.resolve(__dirname, config.folderStructure.static),
   html_template: path.resolve(__dirname, config.folderStructure.html),
   output_folder: path.resolve(__dirname, config.folderStructure.output),
@@ -48,7 +49,7 @@ const base = {
         test: /\.vue$/,
         loader: "vue-loader",
         exclude: node,
-        include: [folders.components_folder],
+        include: [folders.components_folder, folders.partials_folder],
         options: {
           loaders: {
             css: ExtractTextPlugin.extract({
@@ -76,7 +77,7 @@ const base = {
         loader: ExtractTextPlugin.extract({
           use: "css-loader!sass-loader"
         }),
-        include: [folders.css_folder, folders.components_folder]
+        include: [folders.css_folder, folders.components_folder, folders.partials_folder]
       },
       {
         test: /\.styl$/,
@@ -84,7 +85,7 @@ const base = {
           use: "css-loader!stylus-loader"
         }),
         exclude: node,
-        include: [folders.css_folder, folders.components_folder]
+        include: [folders.css_folder, folders.components_folder, folders.partials_folder]
       },
       {
         test: /\.svg$/,
@@ -176,10 +177,9 @@ const base = {
   resolve: {
     alias: {
       config: path.join(__dirname, "site.config.js"),
-      js: path.join(__dirname, "js"),
-      css: path.join(__dirname, "css"),
-      static: path.join(__dirname, "static"),
-      templates: path.join(__dirname, "templates"),
+      src: path.join(__dirname, "src"),
+      static: path.join(__dirname, "src", "static"),
+      templates: path.join(__dirname, "src", "templates"),
     }
   }
 };

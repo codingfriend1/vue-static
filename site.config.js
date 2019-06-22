@@ -20,33 +20,45 @@ module.exports = {
 
   /**
    * Tell us where your entry files are located relative to this repository root directory
+   * @type {String}
    */
   folderStructure: {
 
     /**
      * Show us where your lead js file is that imports all other scripts
+     * @type {String}
      */
-    js: 'src/index.js',
+    js: 'src/js/index.js',
 
     /**
      * Lead stylus file that imports all other stylesheets
+     * @type {String}
      */
-    css: 'src/index.styl',
+    css: 'src/css/index.styl',
 
     /**
      * Tell us where your root vue component is
+     * @type {String}
      */
-    vue: 'src/index.vue',
+    vue: 'src/templates/index.vue',
 
     /**
      * Tell us where your main html template is
+     * @type {String}
      */
     html: 'src/index.html',
 
     /**
-     * Tell us what folder we should search in for vue components so we can globalize them
+     * Tell us what folder we should search in for your larger vue components so we can globalize them
+     * @type {String}
      */
-    components: 'src',
+    components: 'src/templates',
+
+    /**
+     * Tells us what folder your smaller vue components are in
+     * @type {String}
+     */
+    partials: 'src/partials',
 
     /**
      * Show us what folder we should copy your static assets from
@@ -56,11 +68,13 @@ module.exports = {
 
     /**
      * Show us what folder you want us to save your generated files in
+     * @type {String}
      */
     output: 'dist',
 
     /**
      * Tells us where your markdown files are
+     * @type {String}
      */
     markdown: 'markdown'
   },
