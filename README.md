@@ -51,7 +51,7 @@ Each file look like this:
 }
 ```
 
-1.  `html` contains the markdown rendered to html
+1.  `html` contains the markdown rendered to an html string
 2.  `url` is the folder path inside the templates folder or the url meta information provided in the file.
 3.  `updated` is the date of the last time the file was modified
 4.  `created` is the birthdate of the file or date it was created
@@ -98,7 +98,7 @@ created: "2018-07-11T21:24:28.844Z"
 
 When you're finished run build and it will make a static site of plain html files for good SEO but also with vue router and client side code. This means initial load has good SEO and navigation is super quick.
 
-_NOTE: Markdown files with `draft: true` will be password protected. You can instead prevent them from being rendered at all in the `the-magic/get-files.js` file._
+_NOTE: Markdown files with `draft: true` will be password protected. You can instead prevent them from being rendered at all in the `the-magic/commands/render-markdown.js` file._
 
 ```js
 /**
@@ -147,6 +147,73 @@ const config = require("config");
 ```js
 {
 
+  /**
+   * Tell us where your entry files are located relative to this repository root directory
+   */
+  folderStructure: {
+
+    /**
+     * Show us where your lead js file is that imports all other scripts
+     * @type {String}
+     */
+    js: 'src/js/index.js',
+
+    /**
+     * Lead stylus file that imports all other stylesheets
+     * @type {String}
+     */
+    css: 'src/css/index.styl',
+
+    /**
+     * Tell us where your root vue component is
+     * @type {String}
+     */
+    vue: 'src/templates/index.vue',
+
+    /**
+     * Tell us where your main html template is
+     * @type {String}
+     */
+    html: 'src/index.html',
+
+    /**
+     * Tell us what folder we should search in for your larger vue components so we can globalize them
+     * @type {String}
+     */
+    components: 'src/templates',
+
+    /**
+     * Tells us what folder your smaller vue components are in
+     * @type {String}
+     */
+    partials: 'src/partials',
+
+    /**
+     * Show us what folder we should copy your static assets from
+     * This is also the folder that we will save optimized images to
+     * @type {String}
+     */
+    static: 'src/static',
+
+    /**
+     * Name of the folder where you will keep fullsized images to be optimized by `npm run optimize`
+     * @type {String}
+     */
+    images: 'unoptimized-images',
+
+    /**
+     * Show us what folder you want us to save your generated files in
+     * @type {String}
+     */
+    output: 'dist',
+
+    /**
+     * Tells us where your markdown files are
+     * @type {String}
+     */
+    markdown: 'markdown'
+  },
+
   // Default store
   store: {
     file: {},
@@ -176,48 +243,23 @@ const config = require("config");
 }
 ```
 
-## The theme folder
-
-The theme folder requires two files:
-
-#### Required Files
-
-1.  `index.js`
-2.  `index.template.html`
-
-#### index.template.html
-
-`index.template.html` must contain the comments where you want the rendered and minified scripts and meta tags to be injected.
-
-For scripts:
-
-```html
-<!-- Files will be auto injected -->
-```
-
-For meta tags:
-
-```html
-<!-- meta tags will be auto injected here -->
-```
-
-#### index.js
-
-The `index.js` file must export:
-
-```js
-module.exports = { app, router, store };
-```
-
-See the provided example.
+You can have any folder structure you want as long as you specify where your entry files are in `site.config.js` > `folderStructure`.
 
 #### Static Folder
 
-The contents of the `static` folder will be copied directly as is to the `dist` folder during build and development.
+The contents of the `static` folder will be copied directly as is to the output folder during build and development.
+
+When you run
+
+```
+npm run optimize
+```
+
+images in the designated images folder will be optimized by `the-magic/commands/optimize-images.js` and saved to the designated static folder.
 
 ### Article excerpts
 
-I've created a utility function in `get-files.js` that will take all the content before the first `<!-- more -->` comment and make everything before it the article excerpt:
+A utility function in `render-markdown.js` exists that will take all the content before the first `<!-- more -->` comment and make everything before it the article excerpt:
 
 ```html
 <!-- more -->
@@ -229,15 +271,17 @@ I've setup a couple handy aliases in webpack so that instead of having to write 
 
 1.  `config` - `site.config.js`
 2.  `theme` - The theme folder
+3.  `src` - An alias to the root src folder
+4.  `static` - An alias to `src/static`
 
 ### Image Compression
-I've added a script to reduce your image sizes. Drag the files you wish to reduce into the unoptimized-images folder. Run:
+optimize-images.js will reduce your image sizes. Drag the files you wish to reduce into the designated images folder. Run:
 
 ```bash
 npm run optimize
 ```
 
-The compressed jpegs, pngs and webp images will be output to the `static/` folder with the same filenames and relative paths. You can change this setting and compression levels in the `optimize-images.js` file.
+The compressed jpegs, pngs and webp images will be output to the designated static folder with the same filenames and relative paths. You can change this setting and compression levels in the `optimize-images.js` file.
 
 ## License
 

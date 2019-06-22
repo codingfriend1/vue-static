@@ -20,7 +20,6 @@ module.exports = {
 
   /**
    * Tell us where your entry files are located relative to this repository root directory
-   * @type {String}
    */
   folderStructure: {
 
@@ -62,9 +61,16 @@ module.exports = {
 
     /**
      * Show us what folder we should copy your static assets from
+     * This is also the folder that we will save optimized images to
      * @type {String}
      */
     static: 'src/static',
+
+    /**
+     * Name of the folder where you will keep fullsized images to be optimized by `npm run optimize`
+     * @type {String}
+     */
+    images: 'unoptimized-images',
 
     /**
      * Show us what folder you want us to save your generated files in

@@ -1,11 +1,16 @@
+const path = require('path')
 const imagemin = require("imagemin-keep-folder")
 const imageminJpegRecompress = require('imagemin-jpeg-recompress')
 const webp = require("imagemin-webp")
 const imageminOptipng = require('imagemin-optipng')
+const config = require('../../site.config.js')
 
-const outputFolder = "./static/"
-const PNG = "./unoptimized-images/**/*.png"
-const JPEG = "./unoptimized-images/**/*.jpg"
+const inputFolder = path.resolve(__dirname, "..", "..", config.folderStructure.images)
+const outputFolder = path.resolve(__dirname, "..", "..", config.folderStructure.static)
+
+const PNG = path.join(inputFolder, `**`, `/*.png`)
+const JPG = path.join(inputFolder, `**`, `*.jpg`)
+const JPEG = path.join(inputFolder, `**`, `*.jpeg`)
 
 imagemin([PNG], {
   use: [
@@ -14,7 +19,7 @@ imagemin([PNG], {
     })
   ],
   replaceOutputDir: output => {
-    return output.replace(/unoptimized-images\//, 'static/')
+    return path.join(outputFolder, path.basename(output))
   }
 });
 
@@ -25,22 +30,22 @@ imagemin([PNG], {
     })
   ],
   replaceOutputDir: output => {
-    return output.replace(/unoptimized-images\//, 'static/')
+    return path.join(outputFolder, path.basename(output))
   }
 });
 
-imagemin([JPEG], {
+imagemin([JPG, JPEG], {
   use: [
     webp({
       quality: 80 // Quality setting from 0 to 100
     })
   ],
   replaceOutputDir: output => {
-    return output.replace(/unoptimized-images\//, 'static/')
+    return path.join(outputFolder, path.basename(output))
   }
 });
 
-imagemin([JPEG], {
+imagemin([JPG, JPEG], {
   use: [
     imageminJpegRecompress({
       accurate: true,
@@ -54,6 +59,6 @@ imagemin([JPEG], {
     })
   ],
   replaceOutputDir: output => {
-    return output.replace(/unoptimized-images\//, 'static/')
+    return path.join(outputFolder, path.basename(output))
   }
 });

@@ -29,7 +29,7 @@
     "gulp": "gulp",
     "start": "npm-run-all --parallel watch generate serve",
     "build": "gulp && NODE_ENV=production webpack -p && NODE_ENV=production node the-magic/ssr-build.js",
-    "optimize": "node optimize-images.js"
+    "optimize": "node the-magic/commands/optimize-images.js"
   },
   "dependencies": {
     "colors": "^1.3.3",
