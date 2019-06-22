@@ -3,3 +3,11 @@
  * To know exactly at what point this file is inserted, view `the-magic/boot/index.js` and look for `main_js`
  * `store`, `router`, `config`, `app` are global variables for use in this file, however this script is inserted before the root component is set so `app`` won't be available until the app loads
  */
+
+const Vue = require('vue')
+
+ Vue.filter('prettifyDate', function (value) {
+   var months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
+   var date = new Date(value);
+   return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+ })

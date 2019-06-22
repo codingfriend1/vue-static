@@ -77,7 +77,10 @@ if (!Vue.prototype.$isServer && config.googleAnalyticsId) {
     already_read = false
     global.furthest_scroll = 1
     window.removeEventListener("scroll", trackScrolling)
-    window.addEventListener("scroll", trackScrolling);
+    if(window.allowCookies) {
+      window.addEventListener("scroll", trackScrolling);
+    }
+    
   }
 
   router.afterEach(after_navigating);

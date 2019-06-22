@@ -14,30 +14,10 @@
 const config = require("config");
 const Vue = require('vue')
 
-Vue.filter('prettifyDate', function (value) {
-  var months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
-  var date = new Date(value);
-  return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
-})
-
 module.exports = {
   methods: {
     enableTracking () {
       global.toggleTracking()
-      // if(typeof window !== 'undefined' && config.googleAnalyticsId) {
-      //   localStorage.setItem('no-cookie-consent', true)
-      //   this.$ga.enable()
-      //   this.$refs['cookieConsent'].style.display = 'none'
-      //   window.allowCookies = true
-
-      //   this.$ga.page({
-      //     page: this.$route.path,
-      //     title: window.store.file ? window.store.file.title : "home",
-      //     location: window.location.href
-      //   })
-      //   // from now on analytics is enabled
-      // }
-      
     },
   },
   mounted() {
