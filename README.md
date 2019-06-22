@@ -51,7 +51,7 @@ Each file look like this:
 }
 ```
 
-1.  `html` contains the markdown rendered to an html string
+1.  `html` contains the markdown rendered to a html string
 2.  `url` is the folder path inside the templates folder or the url meta information provided in the file.
 3.  `updated` is the date of the last time the file was modified
 4.  `created` is the birthdate of the file or date it was created
