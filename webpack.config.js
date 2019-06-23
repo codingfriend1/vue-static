@@ -154,13 +154,6 @@ const base = {
               safe: true
             }
           }),
-          // new webpack.optimize.UglifyJsPlugin({
-          //   sourceMap: false,
-          //   minimize: true,
-          //   compress: {
-          //     warnings: false
-          //   }
-          // }),
           new CompressionWebpackPlugin({
             asset: "[path].gz[query]",
             algorithm: "gzip",
