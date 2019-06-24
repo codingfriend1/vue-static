@@ -13,11 +13,6 @@ const meta_tags = require('./meta-tags.js')
 Vue.config.productionTip = false;
 
 /**
- * This is our config.folderStructure.js entry file
- */
-require(main_js);
-
-/**
  * This is our config.folderStructure.css entry file
  */
 require(main_css);
@@ -42,6 +37,11 @@ global.app = new Vue(
     Root
   )
 );
+
+/**
+ * This is our config.folderStructure.js entry file
+ */
+require(main_js);
 
 // Check if user is logged in then launch the app unless we are rendering from the server
 if (Vue.prototype.$isServer) {
