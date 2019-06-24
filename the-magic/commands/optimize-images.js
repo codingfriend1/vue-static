@@ -1,3 +1,7 @@
+/**
+ * Gathers fullsized images in the designated images folder and reduces their filesize for use on the web and saves them ot the designated static folder using the same structure they had in the images folder
+ */
+
 const path = require('path')
 const imagemin = require("imagemin-keep-folder")
 const imageminJpegRecompress = require('imagemin-jpeg-recompress')
