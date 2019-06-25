@@ -1,7 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-// const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 const CompressionWebpackPlugin = require("compression-webpack-plugin")
@@ -145,13 +144,13 @@ module.exports = {
     ]),
     new VueLoaderPlugin(),
     ... isProd ? [
-      // new CompressionWebpackPlugin({
-      //   asset: "[path].gz[query]",
-      //   algorithm: "gzip",
-      //   test: /\.(js|css)$/,
-      //   threshold: 10240,
-      //   minRatio: 0.8
-      // })
+      new CompressionWebpackPlugin({
+        filename: "[path].gz[query]",
+        algorithm: "gzip",
+        test: /\.(js|css)$/,
+        threshold: 10240,
+        minRatio: 0.8
+      })
     ] : [ new FriendlyErrorsPlugin() ]
   ]
 }

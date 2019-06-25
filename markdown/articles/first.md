@@ -3,7 +3,6 @@ title: 'Sample Post #1'
 thumbnail: /uploads/image.jpg
 draft: false
 ---
-# This is sample post #1.
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis quos perferendis omnis dolores molestiae. Error perferendis mollitia porro sint, ex facilis nostrum maxime saepe quos architecto, consectetur quo molestiae officia.
 
