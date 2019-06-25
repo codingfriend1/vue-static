@@ -8,7 +8,7 @@ const microcache = require('route-cache')
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
 const { renderMarkdownFile, renderMarkdownFolder } = require("./the-magic/build/render-markdown.js");
-const folders = require('./build/folders.js')
+const folders = require('./the-magic/build/folders.js')
 const config = require("./site.config")
 
 const isProd = process.env.NODE_ENV === 'production'
@@ -59,7 +59,7 @@ if (isProd) {
 } else {
   // In development: setup the dev server with watch and hot-reload,
   // and create a new renderer on bundle / index template update.
-  readyPromise = require('./build/setup-dev-server')(
+  readyPromise = require('./the-magic/build/setup-dev-server')(
     app,
     templatePath,
     (bundle, options) => {
