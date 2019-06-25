@@ -7,7 +7,7 @@ const compression = require('compression')
 const microcache = require('route-cache')
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
-const { renderMarkdownFile, renderMarkdownFolder } = require("./the-magic/commands/render-markdown.js");
+const { renderMarkdownFile, renderMarkdownFolder } = require("./the-magic/build/render-markdown.js");
 const folders = require('./build/folders.js')
 const config = require("./site.config")
 
