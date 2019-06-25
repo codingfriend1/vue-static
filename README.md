@@ -19,6 +19,7 @@ Run
 
 ```bash
 yarn build
+yarn serve
 ```
 
 Contents are in `dist` folder.
@@ -90,7 +91,7 @@ You also declare which route a markdown file wants either by:
 
 ```markdown
 ---
-url: '/my/path/file'
+url: '/website/url'
 draft: false
 created: "2018-07-11T21:24:28.844Z"
 ---
@@ -98,7 +99,7 @@ created: "2018-07-11T21:24:28.844Z"
 
 When you're finished run build and it will make a static site of plain html files for good SEO but also with vue router and client side code. This means initial load has good SEO and navigation is super quick.
 
-_NOTE: Markdown files with `draft: true` will be password protected. You can instead prevent them from being rendered at all in the `the-magic/commands/render-markdown.js` file._
+_NOTE: Markdown files with `draft: true` will be password protected. You can instead prevent them from being rendered at all in the `the-magic/build/render-markdown.js` file._
 
 ```js
 /**
@@ -141,7 +142,7 @@ If you are looking for a good markdown editor for mac, I recommend [Typora](http
 In the `site.config.js` in the root of the repo you can add information to use across the site anywhere where you import `config`:
 
 ```js
-const config = require("config");
+import config from "config";
 ```
 
 ```js
@@ -270,7 +271,7 @@ A utility function in `render-markdown.js` exists that will take all the content
 I've setup a couple handy aliases in webpack so that instead of having to write the relative path when requiring the `site.config.js` or the `theme` folder you can type the alias.
 
 1.  `config` - `site.config.js`
-2.  `theme` - The theme folder
+2.  `templates` - An alias to `src/templates`
 3.  `src` - An alias to the root src folder
 4.  `static` - An alias to `src/static`
 
