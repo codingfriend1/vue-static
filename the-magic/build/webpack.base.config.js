@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require("copy-webpack-plugin")
+const ProgressBarPlugin = require("progress-bar-webpack-plugin")
 const CompressionWebpackPlugin = require("compression-webpack-plugin")
 const { VueLoaderPlugin } = require('vue-loader')
 const config = require('../../site.config')
@@ -141,6 +142,9 @@ module.exports = {
     new VueLoaderPlugin(),
     new FriendlyErrorsPlugin({
       clearConsole: true
+    }),
+    new ProgressBarPlugin({
+      format: " [:bar] " + ":percent".bold + " (:msg)"
     }),
     ...isProd ? [
       new CompressionWebpackPlugin({
