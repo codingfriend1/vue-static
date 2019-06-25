@@ -113,7 +113,7 @@ if (!Vue.prototype.$isServer && config.googleAnalyticsId) {
   });
   
   // Opt-out function
-  global.toggleTracking = function toggleTracking() {
+  global.toggleTracking = function toggleTracking(bool) {
 
     if(!config.googleAnalyticsId) { return false; }
 
@@ -121,7 +121,7 @@ if (!Vue.prototype.$isServer && config.googleAnalyticsId) {
       window.allowCookies = true
     }
 
-    window.allowCookies = !window.allowCookies
+    window.allowCookies = typeof bool === 'boolean' ? bool : !window.allowCookies
 
     localStorage.setItem('no-cookie-consent', window.allowCookies)
 
@@ -131,7 +131,9 @@ if (!Vue.prototype.$isServer && config.googleAnalyticsId) {
     
     if(window.allowCookies) {
       Vue.prototype.$ga.enable()
-      alert(`You have re-enabled Google Analytics data collection. This data will be collected.`);
+      if(typeof bool !== 'boolean') {
+        alert(`You have re-enabled Google Analytics data collection. This data will be collected.`);
+      }
     } else {
       Vue.prototype.$ga.disable()
       alert(

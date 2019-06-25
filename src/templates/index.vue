@@ -18,7 +18,7 @@ export default {
   name: 'index',
   methods: {
     enableTracking () {
-      global.toggleTracking()
+      global.toggleTracking(true)
     },
   },
   mounted() {
