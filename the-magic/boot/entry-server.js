@@ -23,7 +23,7 @@ export default context => {
     router.push(context.file.url);
     
     router.onReady(() => {
-      let matchedComponents = router.getMatchedComponents().map(comp => comp.default);
+      let matchedComponents = router.getMatchedComponents();
 
       // no matched routes
       if (!matchedComponents.length) {
@@ -33,7 +33,7 @@ export default context => {
       // call `asyncData()` on all matched route components
       Promise.all(
         matchedComponents.map(Component => {
-          if (Component && Component.options && Component.options.asyncData) {
+          if (Component.options.asyncData) {
             return Component.options.asyncData({
               store,
               route: router.currentRoute

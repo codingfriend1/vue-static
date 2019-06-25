@@ -8,6 +8,7 @@ const microcache = require('route-cache')
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
 const { renderMarkdownFile, renderMarkdownFolder } = require("./the-magic/commands/render-markdown.js");
+const folders = require('./build/folders.js')
 const config = require("./site.config")
 
 const isProd = process.env.NODE_ENV === 'production'
@@ -15,22 +16,6 @@ const useMicroCache = process.env.MICRO_CACHE !== 'false'
 const serverInfo =
   `express/${require('express/package.json').version} ` +
   `vue-server-renderer/${require('vue-server-renderer/package.json').version}`
-
-const rootFolder = path.join(__dirname)
-
-const folders = {
-  static_folder: path.resolve(__dirname, config.folderStructure.static),
-  markdown_folder: path.resolve(rootFolder, config.folderStructure.markdown),
-  output_folder: path.resolve(rootFolder, config.folderStructure.output),
-  template_html_path: path.resolve(rootFolder, config.folderStructure.html),
-  static_folder: path.resolve(__dirname, config.folderStructure.static),
-  published_html_path: path.join(
-    rootFolder,
-    "the-magic",
-    "boot",
-    "_index.html"
-  )
-};
 
 const app = express()
 
@@ -102,8 +87,18 @@ app.use('/service-worker.js', serve('./dist/service-worker.js'))
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
 app.use(microcache.cacheSeconds(1, req => useMicroCache && req.originalUrl))
 
-function getMarkdownPath(internalPath) {
-  return path.join(folders.markdown_folder, internalPath)
+function getMarkdownPath(url) {
+  let matching_markdown_file = files.find(file => file.url === url)
+
+  if(!matching_markdown_file) {
+    matching_markdown_file = files.find(file => file.url === `/404`)
+
+    if(!matching_markdown_file) {
+      throw new Error(`You must have a markdown file and vue component template for a 404 route.`)
+    }
+  }
+
+  return matching_markdown_file && matching_markdown_file.path || null
 }
 
 async function render (req, res) {
@@ -125,14 +120,20 @@ async function render (req, res) {
     }
   }
 
-  let file_path = req.url === '/' ? getMarkdownPath('index.md'): getMarkdownPath(req.url + '.md') 
   let file = {}
+  let file_path = getMarkdownPath(req.url, files)
+
+  if(file_path === null) {
+    return res.send(isProd ? `This page does not exist` : `
+      <h1>Whoops!</h1>
+      <p>There is no markdown file to handle "${req.url}". Please create or alter a markdown file to accommodate this route or include a 404 markdown file and then restart the server.
+      </p>`
+    )
+  }
 
   ;([files, file] = await renderMarkdownFile(file_path, files))
 
   const context = {
-    title: 'vue-static', // default title
-    url: req.url,
     file,
     files
   }
@@ -148,9 +149,7 @@ async function render (req, res) {
 }
 
 app.get('*', isProd ? render : (req, res) => {
-  Promise.all([readyPromise, renderMarkdownFolder]).then(() => render(req, res)).catch(err => {
-    console.log(`err`, err)
-  })
+  Promise.all([readyPromise, renderMarkdownFolder]).then(() => render(req, res))
 })
 
 const port = process.env.PORT || 8080
