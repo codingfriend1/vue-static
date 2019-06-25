@@ -1,11 +1,8 @@
 const gulp = require("gulp");
 const path = require("path");
-const fs = require("fs");
 const inject = require("gulp-inject");
-const runSequence = require("run-sequence");
-const _ = require("lodash");
+const camelCase = require("lodash.camelcase");
 const config = require("../../site.config.js");
-const del = require('del');
 const folders = require('./folders.js')
 
 const globalize_components_file = path.resolve(folders.boot, "router.js")
@@ -32,7 +29,7 @@ gulp.task("default", function(done) {
           endtag: "// end globalize vue components",
           transform: function(filepath, file, i, length) {
             let title = filepath.replace(/^.*[\\\/]/, "");
-            title = _.camelCase(title.substr(0, title.lastIndexOf(".")));
+            title = camelCase(title.substr(0, title.lastIndexOf(".")));
             let fp = filepath.replace("/", "");
             return `${title}: Vue.component('${title}', require("${fp}").default),`;
           }
