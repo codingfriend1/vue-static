@@ -12,6 +12,7 @@ const NODE_ENV = process.env.NODE_ENV || 'development'
 const isProd = NODE_ENV === 'production'
 
 module.exports = {
+  stats: "errors-only",
   mode: NODE_ENV,
   devtool: isProd
     ? '#source-map'
@@ -138,14 +139,17 @@ module.exports = {
       }
     ]),
     new VueLoaderPlugin(),
-    ... isProd ? [
+    new FriendlyErrorsPlugin({
+      clearConsole: true
+    }),
+    ...isProd ? [
       new CompressionWebpackPlugin({
         filename: "[path].gz[query]",
         algorithm: "gzip",
         test: /\.(js|css)$/,
         threshold: 10240,
         minRatio: 0.8
-      })
-    ] : [ new FriendlyErrorsPlugin() ]
+      }),
+    ] : []
   ]
 }
