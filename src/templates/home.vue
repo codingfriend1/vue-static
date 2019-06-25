@@ -20,10 +20,11 @@
 </template>
 
 <script>
-const Vue = require('vue')
-const config = require('config')
+import Vue from 'vue'
+import config from 'config'
 
-module.exports = {
+export default {
+  name: 'home',
   store: ['file', 'files'],
   computed: {
     posts() {

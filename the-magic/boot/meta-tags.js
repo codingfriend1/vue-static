@@ -1,6 +1,6 @@
-const config = require('config');
+import config from 'config';
 
-module.exports = {
+export default {
   title: config.site_title,
   link: [
     { rel: 'alternate', type: 'application/rss+xml', title: `${config.site_url} > Feed`, href: `${config.site_url + '/feed.xml'}` }

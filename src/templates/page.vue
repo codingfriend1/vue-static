@@ -6,9 +6,10 @@
 </template>
 
 <script>
-const config = require('config')
-const Vue = require('vue')
-module.exports = {
+import config from 'config'
+import Vue from 'vue'
+export default {
+  name: 'page',
   store: ["file", "users"],
 
   /**

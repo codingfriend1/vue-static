@@ -1,21 +1,21 @@
-const Vue = require("vue");
-const Meta = require("vue-meta");
-const VueRouter = require("vue-router");
-const config = require("config");
-const camelCase = require("lodash.camelcase");
+import Vue from"vue";
+import Meta from "vue-meta";
+import VueRouter from 'vue-router'
+import config from "config";
+import camelCase from "lodash.camelcase";
 
 /**
  * Make our individual templates and partials available globally
  */
 const components = {
   // globalize vue components
-  comment: Vue.component('comment', require("../../src/partials/comment.vue")),
-  foot: Vue.component('foot', require("../../src/partials/foot.vue")),
-  navigation: Vue.component('navigation', require("../../src/partials/navigation.vue")),
-  home: Vue.component('home', require("../../src/templates/home.vue")),
-  missing: Vue.component('missing', require("../../src/templates/missing.vue")),
-  page: Vue.component('page', require("../../src/templates/page.vue")),
-  post: Vue.component('post', require("../../src/templates/post.vue")),
+  comment: Vue.component('comment', require("../../src/partials/comment.vue").default),
+  foot: Vue.component('foot', require("../../src/partials/foot.vue").default),
+  navigation: Vue.component('navigation', require("../../src/partials/navigation.vue").default),
+  home: Vue.component('home', require("../../src/templates/home.vue").default),
+  missing: Vue.component('missing', require("../../src/templates/missing.vue").default),
+  page: Vue.component('page', require("../../src/templates/page.vue").default),
+  post: Vue.component('post', require("../../src/templates/post.vue").default),
   // end globalize vue components
 };
 
@@ -51,4 +51,4 @@ const router = new VueRouter({
   }
 });
 
-module.exports = router;
+export default router;

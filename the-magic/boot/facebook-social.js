@@ -1,5 +1,5 @@
-const Vue = require("vue");
-const config = require("config");
+import Vue from "vue";
+import config from "config";
 
 if (!Vue.prototype.$isServer && !window.fbAsyncInit) {
     window.enableComments = function() {

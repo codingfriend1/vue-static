@@ -1,5 +1,5 @@
 <template lang="pug">
-  #app
+  div#app
     #cookieConsent(ref="cookieConsent")
       span This website is using cookies. 
       router-link(to="/privacy-policy").no-border More info
@@ -11,10 +11,11 @@
 </template>
 
 <script>
-const config = require("config");
-const Vue = require('vue')
+import config from "config"
+import Vue from 'vue'
 
-module.exports = {
+export default {
+  name: 'index',
   methods: {
     enableTracking () {
       global.toggleTracking()

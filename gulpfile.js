@@ -43,7 +43,7 @@ gulp.task("globalize-vue-components", function() {
             let title = filepath.replace(/^.*[\\\/]/, "");
             title = _.camelCase(title.substr(0, title.lastIndexOf(".")));
             let fp = filepath.replace("/", "");
-            return `${title}: Vue.component('${title}', require("../../${fp}")),`;
+            return `${title}: Vue.component('${title}', require("../../${fp}").default),`;
           }
         }
       )

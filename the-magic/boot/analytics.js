@@ -1,7 +1,7 @@
-const Vue = require("vue");
-const config = require("config");
-const router = require("./router");
-const throttle = require('lodash.throttle');
+import Vue from "vue";
+import config from "config";
+import router from "./router";
+import throttle from 'lodash.throttle';
 
 if (!Vue.prototype.$isServer && config.googleAnalyticsId) {
 

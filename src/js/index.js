@@ -4,7 +4,7 @@
  * `store`, `router`, `config`, `app` are global variables for use in this file, keep in mind this script is run just before the root component is mounted
  */
 
-const Vue = require('vue')
+import Vue from 'vue'
 
  Vue.filter('prettifyDate', function (value) {
    var months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];

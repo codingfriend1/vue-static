@@ -3,14 +3,19 @@
  * Here we make the router, store, the site config, and the app global variables
  */
 
-const Vue = require("vue");
-const path = require('path');
-global.store = require("./store-reconciliation");
-global.router = require("./router");
-global.config = require("../../site.config.js");
-const meta_tags = require('./meta-tags.js')
+import Vue from "vue";
+import path from 'path';
+import store from "./store-reconciliation";
+import router from "./router";
+import config from "../../site.config.js";
+
+import meta_tags from './meta-tags.js';
 
 Vue.config.productionTip = false;
+
+global.store = store
+global.router = router
+global.config = config
 
 /**
  * This is our config.folderStructure.css entry file
@@ -20,7 +25,7 @@ require(main_css);
 /**
  * This is our config.folderStructure.vue entry file
  */
-let Root = require(main_vue);
+let Root = require(main_vue).default;
 
 Root = Object.assign({}, {
   metaInfo() {
@@ -60,4 +65,4 @@ if (Vue.prototype.$isServer) {
   app.$mount("#app");
 }
 
-module.exports = { app, router, store };
+export default { app, router, store };

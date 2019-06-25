@@ -210,6 +210,6 @@ exports.renderMarkdownFile = function renderMarkdownFile(file_path, files = []) 
       return new Date(b.created) - new Date(a.created);
     });
 
-    resolve(files);
+    resolve([ files, fileInfo]);
   });
 }

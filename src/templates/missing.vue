@@ -4,7 +4,7 @@
 </template>
 
 <script>
-module.exports = {
+export default {
   store: ['file'],
   metaInfo() {
     return {

@@ -39,9 +39,10 @@ div
 </template>
 
 <script>
-const config = require("config");
+import config from"config"
 
-module.exports = {
+export default {
+  name: 'post',
   store: ["file", "files"],
   data() {
     return {

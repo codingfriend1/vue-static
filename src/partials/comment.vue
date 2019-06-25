@@ -13,8 +13,8 @@
 </template>
 
 <script>
-const config = require('config')
-module.exports = {
+import config from 'config'
+export default {
   name: "comment",
   store: ['file', 'social_url', 'commentsEnabled'],
   methods: {

@@ -22,8 +22,8 @@ div
 </template>
 
 <script>
-const config = require('config')
-module.exports = {
+import config from 'config'
+export default {
   store: ["files"],
   data() {
     return {

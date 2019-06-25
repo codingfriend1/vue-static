@@ -1,10 +1,10 @@
 // The server may have made changes to the store before rendering the initial html. It writes those changes to window.__INITIAL_STATE__. We need to set out local store to be the same as the server so vue does not throw an hydration error (server and client html out of sync)
-const Vue = require("vue");
-const VueStash = require("vue-stash").default;
+import Vue from "vue";
+import VueStash from "vue-stash";
+import router from "./router";
+import config from "config";
+import './facebook-social';
 Vue.use(VueStash);
-const router = require("./router");
-const config = require("config");
-require('./facebook-social')
 const defaultStore = config.store;
 
 let store = defaultStore;
@@ -30,4 +30,4 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-module.exports = store;
+export default store;
