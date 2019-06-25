@@ -6,20 +6,9 @@ const { createBundleRenderer } = require("vue-server-renderer");
 const mkdirp = require("mkdirp");
 const getDirName = require("path").dirname;
 const config = require("../../site.config");
+const webpack = require('webpack');
 const { renderMarkdownFolder } = require("./render-markdown.js");
-
-const rootFolder = path.join(__dirname, "..", "..")
-
-const folders = {
-  markdown_folder: path.resolve(rootFolder, config.folderStructure.markdown),
-  output_folder: path.resolve(rootFolder, config.folderStructure.output),
-  published_html_path: path.join(
-    rootFolder,
-    "the-magic",
-    "boot",
-    "_index.html"
-  )
-};
+const folders = require('./folders.js');
 
 const sitemap_template = `<?xml version="1.0" encoding="utf-8" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
@@ -59,24 +48,26 @@ const serverBundlePath = path.join(
   "vue-ssr-server-bundle.json"
 );
 
+let ssrClientBundlePath = path.resolve(
+  folders.output_folder, 'vue-ssr-client-manifest.json'
+)
+
 if (!fs.existsSync(serverBundlePath)) {
+  throw new Error(`vue-ssr-server-bundle.json should be in the designated output folder`)
   return false
 }
 
-const template = fs
-  .readFileSync(folders.published_html_path, "utf-8")
-  .replace('<div id="app"></div>', "<!--vue-ssr-outlet-->");
+const template = fs.readFileSync(folders.html_template, 'utf-8')
+const bundle = require(serverBundlePath)
 
-let renderer = createBundleRenderer(
-  serverBundlePath,
-  Object.assign(
-    {},
-    {
-      runInNewContext: true,
-      template
-    }
-  )
-);
+// The client manifests are optional, but it allows the renderer
+// to automatically infer preload/prefetch links and directly add <script>
+// tags for any async chunks used during render, avoiding waterfall requests.
+const clientManifest = require(ssrClientBundlePath)
+let renderer = createBundleRenderer(bundle, {
+  template,
+  clientManifest
+})
 
 renderMarkdownFolder().then(files => {
   files.forEach(file => {

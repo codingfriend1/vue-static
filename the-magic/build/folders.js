@@ -1,9 +1,10 @@
 const path = require("path")
-const config = require('../site.config')
+const config = require('../../site.config')
 
-const root = path.resolve(__dirname, "..")
+const root = path.resolve(__dirname, "..", "..")
 
 const folders = {
+  root,
   node_modules: path.resolve(root, "node_modules"),
   the_magic: path.resolve(root, 'the-magic'),
   boot: path.resolve(root, "the-magic", "boot"),

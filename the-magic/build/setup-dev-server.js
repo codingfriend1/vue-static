@@ -80,7 +80,7 @@ module.exports = function setupDevServer (app, templatePath, cb) {
     bundle = JSON.parse(readFile(mfs, 'vue-ssr-server-bundle.json'))
     setTimeout(() => {
       update()
-    }, 2000);
+    }, 1000);
     
   })
 

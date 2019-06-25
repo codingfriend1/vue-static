@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 const CompressionWebpackPlugin = require("compression-webpack-plugin")
 const { VueLoaderPlugin } = require('vue-loader')
-const config = require('../site.config')
+const config = require('../../site.config')
 const folders = require('./folders.js')
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
@@ -26,10 +26,10 @@ module.exports = {
   resolve: {
     alias: {
       vue: "vue/dist/vue.esm.js",
-      config: path.join(__dirname, "..", "site.config.js"),
-      src: path.join(__dirname, "..", "src"),
-      static: path.join(__dirname, "..", "src", "static"),
-      templates: path.join(__dirname, "..", "src", "templates"),
+      config: path.join(folders.root, "site.config.js"),
+      src: path.join(folders.root, "src"),
+      static: path.join(folders.root, "src", "static"),
+      templates: path.join(folders.root, "src", "templates"),
     }
   },
   module: {
@@ -53,21 +53,6 @@ module.exports = {
           loaders: {
             html: "pug-loader",
           }
-          // loaders: {
-          //   css: ExtractTextPlugin.extract({
-          //     fallback: "vue-style-loader",
-          //     use: "css-loader"
-          //   }),
-          //   styl: ExtractTextPlugin.extract({
-          //     fallback: "vue-style-loader",
-          //     use: "css-loader!stylus-loader"
-          //   }),
-          //   stylus: ExtractTextPlugin.extract({
-          //     fallback: "vue-style-loader",
-          //     use: "css-loader!stylus-loader"
-          //   }),
-          //   html: "pug-loader"
-          // }
         }
       },
       {
@@ -113,9 +98,6 @@ module.exports = {
           'css-loader',
           'stylus-loader'
         ],
-        // loader: ExtractTextPlugin.extract({
-        //   use: "css-loader!stylus-loader"
-        // }),
         exclude: folders.node_modules,
         include: [folders.css_folder, folders.components_folder, folders.partials_folder]
       },
@@ -147,13 +129,10 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      main_js: JSON.stringify(path.resolve(__dirname, "..", config.folderStructure.js)),
-      main_css: JSON.stringify(path.resolve(__dirname, "..", config.folderStructure.css)), 
-      main_vue: JSON.stringify(path.resolve(__dirname, "..", config.folderStructure.vue))
+      main_js: JSON.stringify(path.resolve(folders.root, config.folderStructure.js)),
+      main_css: JSON.stringify(path.resolve(folders.root, config.folderStructure.css)), 
+      main_vue: JSON.stringify(path.resolve(folders.root, config.folderStructure.vue))
     }),
-    // new ExtractTextPlugin({
-    //   filename: "production.css"
-    // }),
     new MiniCssExtractPlugin({
       filename: "production.css"
     }),

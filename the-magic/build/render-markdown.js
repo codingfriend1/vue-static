@@ -6,28 +6,13 @@ const MarkDownIt = require('markdown-it');
 const galleryPlugin = require('markdown-it-gallery');
 const config = require('../../site.config.js');
 const attrs = require('markdown-it-attrs');
-const markdown_folder = path.join(__dirname, '..', '..', "markdown");
+const folders = require('./folders.js')
 const colors = require('colors');
  
 const md = MarkDownIt({
   html: true,
   linkify: false,
   typographer: false,
-  // modifyToken: function (token, env) {
-  //   // see API https://markdown-it.github.io/markdown-it/#Token
-  //   // token will also have an attrObj property added for convenience
-  //   // which allows easy get and set of attribute values.
-  //   // It is prepopulated with the current attr values.
-  //   // Values returned in token.attrObj will override existing attr values.
-  //   // env will contain any properties passed to markdown-it's render
-  //   // Token can be modified in place, no return is necessary
-  //   switch (token.type) {
-  //   case 'image':
-  //       token.attrObj['data-src'] = token.attrObj['src'];
-  //       token.attrObj['src'] = "";
-  //     break;
-  //   }
-  // }
 })
   .use(attrs)
   .use(require('markdown-it-modify-token'))
@@ -109,7 +94,7 @@ function render_file(file_path) {
   fileInfo.url =
     fileInfo.url ||
     file_path
-      .replace(markdown_folder, "")
+      .replace(folders.markdown_folder, "")
       .replace(path.extname(file_path), "");
 
   if (fileInfo.url === "/index") {
@@ -174,8 +159,8 @@ function add_file_to_array(fileInfo, file_path, files) {
 exports.renderMarkdownFolder = function renderMarkdownFolder() {
   return new Promise(resolve => {
     let files = [];
-    if (fs.existsSync(markdown_folder)) {
-      klaw(markdown_folder)
+    if (fs.existsSync(folders.markdown_folder)) {
+      klaw(folders.markdown_folder)
         .on("data", item => {
           const fileInfo = render_file(item.path);
           files = add_file_to_array(fileInfo, item.path, files);
