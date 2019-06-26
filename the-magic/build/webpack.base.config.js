@@ -142,9 +142,6 @@ module.exports = {
     new FriendlyErrorsPlugin({
       clearConsole: true
     }),
-    new ProgressBarPlugin({
-      format: " [:bar] " + ":percent".bold + " (:msg)"
-    }),
     ...isProd ? [
       new CompressionWebpackPlugin({
         filename: "[path].gz[query]",
@@ -153,6 +150,10 @@ module.exports = {
         threshold: 10240,
         minRatio: 0.8
       }),
-    ] : []
+    ] : [
+      new ProgressBarPlugin({
+        format: " [:bar] " + ":percent".bold + " (:msg)"
+      }),
+    ]
   ]
 }

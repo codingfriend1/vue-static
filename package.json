@@ -27,8 +27,8 @@
     "optimize": "node the-magic/build/optimize-images.js",
     "time": "node the-magic/build/get-time.js",
     "start": "npm run gulp && node the-magic/build/server",
-    "build:client": "cross-env NODE_ENV=production webpack --config the-magic/build/webpack.client.config.js --progress --hide-modules",
-    "build:server": "cross-env NODE_ENV=production webpack --config the-magic/build/webpack.server.config.js --progress --hide-modules",
+    "build:client": "cross-env NODE_ENV=production webpack --config the-magic/build/webpack.client.config.js --no-info --hide-modules",
+    "build:server": "cross-env NODE_ENV=production webpack --config the-magic/build/webpack.server.config.js --no-info --hide-modules",
     "build": "rimraf dist && npm run gulp && npm run build:client && npm run build:server && cross-env NODE_ENV=production node the-magic/build/build.js"
   },
   "dependencies": {
