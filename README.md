@@ -248,10 +248,12 @@ You can have any folder structure you want as long as you specify where your ent
 
 ### sitemap.xml and feed.xml
 
-A sitemap.xml and feed.xml is created when running `yarn build` and includes all files that do NOT have 
+A `sitemap.xml` and `feed.xml` are created when running `yarn build` and includes all files that do NOT have 
 
 ```md
+---
 silent: true
+---
 ```
 
 #### Static Folder
