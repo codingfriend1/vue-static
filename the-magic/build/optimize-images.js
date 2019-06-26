@@ -7,14 +7,11 @@ const imagemin = require("imagemin-keep-folder")
 const imageminJpegRecompress = require('imagemin-jpeg-recompress')
 const webp = require("imagemin-webp")
 const imageminOptipng = require('imagemin-optipng')
-const config = require('../../site.config.js')
+const folders = require('./folder.js')
 
-const inputFolder = path.resolve(__dirname, "..", "..", config.folderStructure.images)
-const outputFolder = path.resolve(__dirname, "..", "..", config.folderStructure.static)
-
-const PNG = path.join(inputFolder, `**`, `/*.png`)
-const JPG = path.join(inputFolder, `**`, `*.jpg`)
-const JPEG = path.join(inputFolder, `**`, `*.jpeg`)
+const PNG = path.join(folders.images_folder, `**`, `*.png`)
+const JPG = path.join(folders.images_folder, `**`, `*.jpg`)
+const JPEG = path.join(folders.images_folder, `**`, `*.jpeg`)
 
 imagemin([PNG], {
   use: [
@@ -23,7 +20,7 @@ imagemin([PNG], {
     })
   ],
   replaceOutputDir: output => {
-    return path.join(outputFolder, path.basename(output))
+    return path.join(folders.static_folder, path.basename(output))
   }
 });
 
@@ -34,7 +31,7 @@ imagemin([PNG], {
     })
   ],
   replaceOutputDir: output => {
-    return path.join(outputFolder, path.basename(output))
+    return path.join(folders.static_folder, path.basename(output))
   }
 });
 
@@ -45,7 +42,7 @@ imagemin([JPG, JPEG], {
     })
   ],
   replaceOutputDir: output => {
-    return path.join(outputFolder, path.basename(output))
+    return path.join(folders.static_folder, path.basename(output))
   }
 });
 
@@ -63,6 +60,6 @@ imagemin([JPG, JPEG], {
     })
   ],
   replaceOutputDir: output => {
-    return path.join(outputFolder, path.basename(output))
+    return path.join(folders.static_folder, path.basename(output))
   }
 });

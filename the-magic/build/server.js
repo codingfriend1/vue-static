@@ -1,3 +1,10 @@
+/**
+ * Based off of
+ * https://github.com/vuejs/vue-hackernews-2.0/blob/master/server.js
+ * By Evan You
+ * Contains modifications
+ */
+
 const fs = require('fs')
 const path = require('path')
 const LRU = require('lru-cache')
@@ -9,8 +16,6 @@ const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
 const { renderMarkdownFile, renderMarkdownFolder } = require("./render-markdown.js");
 const folders = require('./folders.js')
-const config = require("../../site.config")
-
 const isProd = process.env.NODE_ENV === 'production'
 const useMicroCache = process.env.MICRO_CACHE !== 'false'
 const serverInfo =

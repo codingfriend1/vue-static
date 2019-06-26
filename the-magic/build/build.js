@@ -1,10 +1,14 @@
+/**
+ * Renders all markdown files into html files and injects webpack assets
+ * Also renders sitemap.xml and feed.xml to the designated output folder
+ */
+
 const isProd = process.env.NODE_ENV === "production";
 const path = require("path");
 const url = require("url");
 const fs = require("fs");
 const { createBundleRenderer } = require("vue-server-renderer");
 const mkdirp = require("mkdirp");
-const getDirName = require("path").dirname;
 const config = require("../../site.config");
 const webpack = require('webpack');
 const { renderMarkdownFolder } = require("./render-markdown.js");
@@ -32,7 +36,7 @@ function createFile(url, html) {
 
   url = path.join(folders.output_folder, url);
 
-  mkdirp(getDirName(url), function(err) {
+  mkdirp(path.dirname(url), function(err) {
     if (err) return cb(err);
     fs.writeFile(url, html, err => {
       if (err) {

@@ -7,9 +7,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin")
 const ProgressBarPlugin = require("progress-bar-webpack-plugin")
 const CompressionWebpackPlugin = require("compression-webpack-plugin")
 const { VueLoaderPlugin } = require('vue-loader')
-const config = require('../../site.config')
 const folders = require('./folders.js')
-
 const NODE_ENV = process.env.NODE_ENV || 'development'
 const isProd = NODE_ENV === 'production'
 
@@ -28,10 +26,10 @@ module.exports = {
   resolve: {
     alias: {
       vue: "vue/dist/vue.esm.js",
-      config: path.join(folders.root, "site.config.js"),
-      src: path.join(folders.root, "src"),
-      static: path.join(folders.root, "src", "static"),
-      templates: path.join(folders.root, "src", "templates"),
+      config: folders.config_path,
+      src: folders.src,
+      static: folders.static_folder,
+      templates: folders.components_folder,
     }
   },
   module: {
@@ -46,9 +44,6 @@ module.exports = {
           optimizeSSR: false,
           compilerOptions: {
             preserveWhitespace: false
-          },
-          loaders: {
-            html: "pug-loader",
           }
         }
       },
@@ -86,7 +81,7 @@ module.exports = {
           'css-loader',
           'sass-loader'
         ],
-        include: [folders.css_folder, folders.components_folder, folders.partials_folder]
+        include: [folders.css_path, folders.components_folder, folders.partials_folder]
       },
       {
         test: /\.styl(us)?$/,
@@ -96,7 +91,7 @@ module.exports = {
           'stylus-loader'
         ],
         exclude: folders.node_modules,
-        include: [folders.css_folder, folders.components_folder, folders.partials_folder]
+        include: [folders.css_path, folders.components_folder, folders.partials_folder]
       },
       {
         test: /\.svg$/,
@@ -126,9 +121,12 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      main_js: JSON.stringify(path.resolve(folders.root, config.folderStructure.js)),
-      main_css: JSON.stringify(path.resolve(folders.root, config.folderStructure.css)), 
-      main_vue: JSON.stringify(path.resolve(folders.root, config.folderStructure.vue))
+      main_js: JSON.stringify(folders.js_path),
+      main_css: JSON.stringify(folders.css_path), 
+      main_vue: JSON.stringify(folders.vue_path),
+
+      // strip dev-only code in Vue source
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     }),
     new MiniCssExtractPlugin({
       filename: "production.css"
