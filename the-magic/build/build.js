@@ -116,10 +116,13 @@ renderMarkdownFolder().then(files => {
     });
   });
 
-  let sitemap_string = files
+  let filtered_files = files
     .filter(file => file.url.indexOf("404") === -1)
     .filter(file => file.draft !== true)
     .filter(file => file.url !== "/analytics")
+    .filter(file => !file.silent)
+
+  let sitemap_string = filtered_files
     .map(file => {
       file.url.replace("/(.html$)/", "");
       file.absolute_url = url.resolve(config.site_url, file.url);
@@ -144,9 +147,7 @@ renderMarkdownFolder().then(files => {
   createFile("sitemap.xml", sitemap_html);
 
 
-  let feed_string = files
-    .filter(file => file.url.indexOf("404") === -1)
-    .filter(file => !file.draft)
+  let feed_string = filtered_files
     .map(file => {
       file.absolute_url = url.resolve(config.site_url, file.url).replace("/(.html$)/", "");
       return file;

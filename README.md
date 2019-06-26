@@ -246,6 +246,14 @@ import config from "config";
 
 You can have any folder structure you want as long as you specify where your entry files are in `site.config.js` > `folderStructure`.
 
+### sitemap.xml and feed.xml
+
+A sitemap.xml and feed.xml is created when running `yarn build` and includes all files that do NOT have 
+
+```md
+silent: true
+```
+
 #### Static Folder
 
 The contents of the `static` folder will be copied directly as is to the output folder during build and development.
