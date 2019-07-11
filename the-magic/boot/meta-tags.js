@@ -1,3 +1,8 @@
+/**
+ * To save a lot of typing in the developer's templates, we set the default meta tag configuration for the root object
+ * These properties can be overridden in subroutes
+ */
+
 import config from 'config';
 
 export default {

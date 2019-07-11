@@ -5,7 +5,11 @@ import config from "config";
 import camelCase from "lodash.camelcase";
 
 /**
- * Make our individual templates and partials available globally
+ * `the-magic/build/gulpfile.js` will automatically inject `.vue` files located in the specified `components` and `partials` folder paths (See `/site.config.js`) into this `components` constant between the comments:
+ * // globalize vue components
+ * and
+ * // end globalize vue components
+ * This makes our components available globally under the camelCase version of the file-name (without the extension)
  */
 const components = {
   // globalize vue components
@@ -20,7 +24,7 @@ const components = {
 };
 
 /**
- * Take routes in /site.config.js and attach the named components to them
+ * Takes the routes and their matching `string` component names in `/site.config.js`` and replaces with string with the component using the same name
  */
 const routes = config.routes
   .map(route => {
@@ -45,6 +49,7 @@ const router = new VueRouter({
 
       /**
        * Here is where you determine scroll position for the page you navigate to
+       * We are returning the scroll position to the top of the page between scrolls
        */
       resolve({x: 0, y: 0})
     })    

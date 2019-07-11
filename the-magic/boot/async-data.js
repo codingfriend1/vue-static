@@ -1,3 +1,8 @@
+/**
+ * Runs client side only
+ * Before the component mounts or updates it's route, we want to finish running any requied AJAX requests that the component may depend on to load
+ */
+
 import Vue from "vue";
 
 Vue.mixin({

@@ -1,7 +1,14 @@
 import Vue from "vue";
 import config from "config";
 
+/**
+ * We only want to enable facebook comments if we are client-side and we haven't already initialized this script
+ */
 if (!Vue.prototype.$isServer && !window.fbAsyncInit) {
+
+    /**
+     * If you run `enableComments()` in your code it will download the remote facebook script to enable facebook comments and likes on your pages
+     */
     window.enableComments = function() {
         (function(d, s, id) {
             var js,
@@ -27,6 +34,9 @@ if (!Vue.prototype.$isServer && !window.fbAsyncInit) {
                     xfbml: true //Look for social plugins on the page
                 });
 
+                /**
+                 * If Google Analytics is loaded, we want to track if the user is logged in, if they liked/unliked, commented on, or shared a post
+                 */
                 if(typeof ga !== 'undefined') {
                     // //Logged In Users
                     FB.getLoginStatus(function(response) {

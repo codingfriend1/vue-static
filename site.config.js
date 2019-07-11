@@ -14,7 +14,16 @@ module.exports = {
   twitterCard: "summary_large_image",
   twitterCreator: "@your_twitter_username",
 
+  /**
+   * If you set a `facebook_id` then we will initialize facebook comments and likes
+   * The `facebook_id` is the App ID you would normally use in the meta tag
+   * ```html
+   * <meta property="fb:app_id" content="[[facebook_id]]"/>
+   * ````
+   */
   facebook_id: null,
+
+  
   googleAnalyticsId: "",
   mailChimpUrl: "",
 
