@@ -23,6 +23,7 @@ const folders = {
   images_folder: path.resolve(root, config.folderStructure.images),
   html_template: path.resolve(root, config.folderStructure.html),
   output_folder: path.resolve(root, config.folderStructure.output),
+  markdown_json_folder: path.join(root, 'dist', 'json'),
 };
 
 module.exports = folders

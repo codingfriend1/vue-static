@@ -36,6 +36,7 @@
     "express": "^4.17.1",
     "gray-matter": "^4.0.2",
     "lodash.camelcase": "^4.3.0",
+    "lodash.omit": "^4.5.0",
     "lodash.throttle": "^4.1.1",
     "node-fetch": "^2.6.0",
     "route-cache": "^0.4.4",

@@ -5,6 +5,7 @@ import router from "./router";
 import config from "config";
 import './facebook-social';
 Vue.use(VueStash);
+const isProd = process.env.NODE_ENV === "production";
 const defaultStore = config.store;
 
 let store = defaultStore;
@@ -23,9 +24,16 @@ try {
 /**
  * Before loading the URL, finding the markdown file matching that URL and set the markdown's rendered HTML and metadata object as the `file` property of the store. If a markdown file cannot be found, then load a 404 page
  */
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   let path = to.path.replace('.html', '').replace('.htm', '');
-  const found = store.files.find(post => post.url === path);
+
+  let found
+  if(isProd) {
+    found = store.file.url === path ? store.file : await fetch(`/json/${path}.json`)
+      .then(res => res.json());
+  } else {
+    found = store.files.find(post => post.url === path);
+  }
 
   /**
    * Setting `postBodyEl` will enable scroll tracking with Google Analytics on a page.

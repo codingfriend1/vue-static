@@ -7,6 +7,7 @@ const isProd = process.env.NODE_ENV === "production";
 const path = require("path");
 const url = require("url");
 const fs = require("fs");
+const omit = require('lodash.omit')
 const { createBundleRenderer } = require("vue-server-renderer");
 const mkdirp = require("mkdirp");
 const config = require("../../site.config");
@@ -47,6 +48,27 @@ function createFile(url, html) {
   });
 }
 
+function createMarkdownJSON(url, html) {
+  return new Promise((resolve, reject) => {
+    url += !path.extname(url) ? ".json" : "";
+
+    url = path.join(folders.markdown_json_folder, url);
+
+    mkdirp(path.dirname(url), function(err) {
+      if (err) return cb(err);
+      fs.writeFile(url, JSON.stringify(html, null, 2), err => {
+        if (err) {
+          reject(err)
+          return console.log(err);
+        }
+        console.log(`${url.replace(__dirname, "")} was created.`);
+        resolve()
+      });
+    });
+  })
+  
+}
+
 const serverBundlePath = path.join(
   folders.output_folder,
   "vue-ssr-server-bundle.json"
@@ -83,37 +105,40 @@ renderMarkdownFolder().then(files => {
 
     const context = {
       file,
-      files
+      files: files.map(f => omit(f, ['html', 'path', 'isEmpty']))
     };
 
-    renderer.renderToString(context, (err, html) => {
-      if (err) {
-        console.warn(`Error with SSR`, err);
-      }
+    createMarkdownJSON(file.url, file)
+      .then(() => {
+        renderer.renderToString(context, (err, html) => {
+          if (err) {
+            console.warn(`Error with SSR`, err);
+          }
 
-      const {
-        title,
-        htmlAttrs,
-        bodyAttrs,
-        link,
-        style,
-        script,
-        noscript,
-        meta
-      } = context.meta.inject();
+          const {
+            title,
+            htmlAttrs,
+            bodyAttrs,
+            link,
+            style,
+            script,
+            noscript,
+            meta
+          } = context.meta.inject();
 
-      html = html.replace(
-        "<!-- meta tags will be auto injected here -->",
-        meta.text() +
-          title.text() +
-          link.text() +
-          style.text() +
-          script.text() +
-          noscript.text()
-      );
+          html = html.replace(
+            "<!-- meta tags will be auto injected here -->",
+            meta.text() +
+              title.text() +
+              link.text() +
+              style.text() +
+              script.text() +
+              noscript.text()
+          );
 
-      createFile(file.url === "/" ? "/index" : file.url, html);
-    });
+          createFile(file.url === "/" ? "/index" : file.url, html);
+        });
+      })
   });
 
   let filtered_files = files

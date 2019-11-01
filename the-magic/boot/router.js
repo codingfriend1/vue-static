@@ -6,9 +6,6 @@ import camelCase from "lodash.camelcase";
 
 /**
  * `the-magic/build/gulpfile.js` will automatically inject `.vue` files located in the specified `components` and `partials` folder paths (See `/site.config.js`) into this `components` constant between the comments:
- * // globalize vue components
- * and
- * // end globalize vue components
  * This makes our components available globally under the camelCase version of the file-name (without the extension)
  */
 const components = {
