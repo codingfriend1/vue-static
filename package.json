@@ -65,7 +65,7 @@
     "imagemin-webp": "^5.1.0",
     "json-loader": "^0.5.7",
     "klaw": "^3.0.0",
-    "markdown-it": "^8.4.2",
+    "markdown-it": "^12.3.2",
     "markdown-it-attrs": "^2.4.1",
     "markdown-it-gallery": "^0.1.6",
     "markdown-it-modify-token": "^1.0.2",
